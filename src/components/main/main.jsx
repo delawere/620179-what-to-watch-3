@@ -1,7 +1,7 @@
 import React from 'react';
-import {exact, string, number, arrayOf} from 'prop-types';
+import {exact, string, number, arrayOf, func} from 'prop-types';
 
-const Main = ({promoData: {name, genre, releaseDate}, moviesList}) => {
+const Main = ({promoData: {name, genre, releaseDate}, moviesList, onTitleClick}) => {
   return (
   <>
     <section className="movie-card">
@@ -102,7 +102,7 @@ const Main = ({promoData: {name, genre, releaseDate}, moviesList}) => {
               <div className="small-movie-card__image">
                 <img src={movieImg} alt={movieName} width="280" height="175" />
               </div>
-              <h3 className="small-movie-card__title">
+              <h3 className="small-movie-card__title" onClick={onTitleClick}>
                 <a className="small-movie-card__link" href="movie-page.html">{movieName}</a>
               </h3>
             </article>
@@ -140,7 +140,8 @@ Main.propTypes = {
   moviesList: arrayOf(exact({
     name: string,
     img: string
-  }))
+  })),
+  onTitleClick: func
 };
 
 export default Main;

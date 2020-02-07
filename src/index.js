@@ -23,7 +23,9 @@ const moviesList = [
   }
 ];
 
+const handleTitleClick = () => {};
+
 ReactDOM.render(
-    <App promoData={promoData} moviesList={moviesList}/>,
+    <App promoData={promoData} moviesList={moviesList} onTitleClick={handleTitleClick}/>,
     document.querySelector(`#root`)
 );
