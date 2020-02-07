@@ -8,7 +8,22 @@ const promoData = {
   releaseDate: 2004,
 };
 
+const moviesList = [
+  {
+    name: `Fantastic Beasts: The Crimes of Grindelwald`,
+    img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  },
+  {
+    name: `Bohemian Rhapsody`,
+    img: `img/bohemian-rhapsody.jpg`,
+  },
+  {
+    name: `Macbeth`,
+    img: `img/macbeth.jpg`,
+  }
+];
+
 ReactDOM.render(
-    <App promoData={promoData}/>,
+    <App promoData={promoData} moviesList={moviesList}/>,
     document.querySelector(`#root`)
 );
