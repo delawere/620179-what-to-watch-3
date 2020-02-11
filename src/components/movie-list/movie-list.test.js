@@ -1,12 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Main from './main';
-
-const promoData = {
-  name: `promoName`,
-  genre: `promoGenre`,
-  releaseDate: 0,
-};
+import MovieList from './movie-list';
 
 const films = [
   {
@@ -23,9 +17,9 @@ const films = [
   },
 ];
 
-it(`Main renders correctly`, () => {
+it(`MovieList renders correctly`, () => {
   const tree = renderer
-    .create(<Main promoData={promoData} films={films}/>)
+    .create(<MovieList films={films} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

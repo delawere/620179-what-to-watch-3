@@ -1,7 +1,8 @@
 import React from 'react';
 import {exact, string, number, arrayOf, func} from 'prop-types';
+import MovieList from '../movie-list/movie-list.jsx';
 
-const Main = ({promoData: {name, genre, releaseDate}, moviesList, onTitleClick}) => {
+const Main = ({promoData: {name, genre, releaseDate}, films, onTitleClick, onCardMouseOver}) => {
   return (
   <>
     <section className="movie-card">
@@ -96,18 +97,7 @@ const Main = ({promoData: {name, genre, releaseDate}, moviesList, onTitleClick})
           </li>
         </ul>
 
-        <div className="catalog__movies-list">
-          {moviesList.map(({name: movieName, img: movieImg}) => (
-            <article className="small-movie-card catalog__movies-card" key={movieName}>
-              <div className="small-movie-card__image">
-                <img src={movieImg} alt={movieName} width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title" onClick={onTitleClick}>
-                <a className="small-movie-card__link" href="movie-page.html">{movieName}</a>
-              </h3>
-            </article>
-          ))}
-        </div>
+        <MovieList films={films} onClick={onTitleClick} onMouseOver={onCardMouseOver}/>
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -137,11 +127,12 @@ Main.propTypes = {
     genre: string,
     releaseDate: number
   }),
-  moviesList: arrayOf(exact({
+  films: arrayOf(exact({
     name: string,
     img: string
   })),
-  onTitleClick: func
+  onTitleClick: func,
+  onCardMouseOver: func
 };
 
 export default Main;

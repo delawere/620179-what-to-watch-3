@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
+import films from './mocks/films';
 
 const promoData = {
   name: `The Grand Budapest Hotel`,
@@ -8,24 +9,9 @@ const promoData = {
   releaseDate: 2004,
 };
 
-const moviesList = [
-  {
-    name: `Fantastic Beasts: The Crimes of Grindelwald`,
-    img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-  },
-  {
-    name: `Bohemian Rhapsody`,
-    img: `img/bohemian-rhapsody.jpg`,
-  },
-  {
-    name: `Macbeth`,
-    img: `img/macbeth.jpg`,
-  }
-];
-
 const handleTitleClick = () => {};
 
 ReactDOM.render(
-    <App promoData={promoData} moviesList={moviesList} onTitleClick={handleTitleClick}/>,
+    <App promoData={promoData} films={films} onTitleClick={handleTitleClick}/>,
     document.querySelector(`#root`)
 );

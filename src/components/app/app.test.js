@@ -8,7 +8,7 @@ const promoData = {
   releaseDate: 0,
 };
 
-const moviesList = [
+const films = [
   {
     name: `name1`,
     img: `img/name1.jpg`,
@@ -25,7 +25,7 @@ const moviesList = [
 
 it(`App renders correctly`, () => {
   const tree = renderer
-    .create(<App promoData={promoData} moviesList={moviesList}/>)
+    .create(<App promoData={promoData} films={films}/>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

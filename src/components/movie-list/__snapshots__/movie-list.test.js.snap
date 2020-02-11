@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieList renders correctly 1`] = `
+<div
+  className="catalog__movies-list"
+>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseOver={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <img
+        alt="name1"
+        height="175"
+        src="img/name1.jpg"
+        width="280"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+      >
+        name1
+      </a>
+    </h3>
+  </article>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseOver={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <img
+        alt="name2"
+        height="175"
+        src="img/name2.jpg"
+        width="280"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+      >
+        name2
+      </a>
+    </h3>
+  </article>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onMouseOver={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <img
+        alt="name3"
+        height="175"
+        src="img/name3.jpg"
+        width="280"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <a
+        className="small-movie-card__link"
+        href="movie-page.html"
+      >
+        name3
+      </a>
+    </h3>
+  </article>
+</div>
+`;
