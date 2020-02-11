@@ -40,5 +40,5 @@ it(`Should title be clicked`, () => {
 
   titles.forEach((title) => title.props().onClick());
 
-  expect(onTitleClick.mock.calls.length).toBe(titlesLength);
+  expect(onTitleClick).toHaveBeenCalledTimes(titlesLength);
 });
