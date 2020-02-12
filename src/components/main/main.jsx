@@ -1,8 +1,15 @@
 import React from 'react';
-import {exact, string, number, arrayOf, func} from 'prop-types';
+import {exact, string, number, arrayOf, func, object} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
+import MovieDetails from '../movie-details/movie-details.jsx';
 
-const Main = ({promoData: {name, genre, releaseDate}, films, onTitleClick, onCardMouseOver}) => {
+const Main = ({promoData: {name, genre, releaseDate}, films, onTitleClick, onCardMouseOver, openedCardData, onOpenCard}) => {
+  if (openedCardData) {
+    return (
+      <MovieDetails cardData={openedCardData}/>
+    );
+  }
+
   return (
   <>
     <section className="movie-card">
@@ -97,7 +104,7 @@ const Main = ({promoData: {name, genre, releaseDate}, films, onTitleClick, onCar
           </li>
         </ul>
 
-        <MovieList films={films} onClick={onTitleClick} onMouseOver={onCardMouseOver}/>
+        <MovieList films={films} onClick={onTitleClick} onMouseOver={onCardMouseOver} onOpenCard={onOpenCard}/>
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -132,7 +139,9 @@ Main.propTypes = {
     img: string
   })),
   onTitleClick: func,
-  onCardMouseOver: func
+  onCardMouseOver: func,
+  openedCardData: object,
+  onOpenCard: func,
 };
 
 export default Main;
