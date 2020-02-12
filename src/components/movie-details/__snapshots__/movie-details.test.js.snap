@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main renders correctly 1`] = `
+exports[`MovieDetails renders correctly 1`] = `
 Array [
   <section
     className="movie-card movie-card--full"
@@ -11,7 +11,10 @@ Array [
       <div
         className="movie-card__bg"
       >
-        <img />
+        <img
+          alt="test"
+          src="img/test.jpg"
+        />
       </div>
       <h1
         className="visually-hidden"
@@ -68,7 +71,9 @@ Array [
         >
           <h2
             className="movie-card__title"
-          />
+          >
+            test
+          </h2>
           <p
             className="movie-card__meta"
           >

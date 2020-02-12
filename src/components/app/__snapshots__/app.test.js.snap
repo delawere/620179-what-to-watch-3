@@ -259,6 +259,7 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -284,6 +285,7 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -309,6 +311,7 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
           onMouseOver={[Function]}
         >
           <div
@@ -379,5 +382,6 @@ Array [
       </div>
     </footer>
   </div>,
+  ";",
 ]
 `;

@@ -1,16 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MovieCard from './movie-card';
+import MovieDetails from './movie-details';
 
-const movieData = {
+const cardData = {
   name: `test`,
   img: `img/test.jpg`
 };
 
-it(`MovieCard renders correctly`, () => {
-  const {name, img} = movieData;
+it(`MovieDetails renders correctly`, () => {
   const tree = renderer
-    .create(<MovieCard name={name} img={img}/>)
+    .create(<MovieDetails cardData={cardData}/>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

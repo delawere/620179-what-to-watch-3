@@ -23,4 +23,15 @@ describe(`MovieCard`, () => {
     movieCard.props().onMouseOver();
     expect(onMouseOver.mock.calls[0][0]).toBe(`test`);
   });
+
+  it(`Should card be clicked`, () => {
+    const onClick = jest.fn();
+    const e = {preventDefault: jest.fn()};
+    const movieCard = shallow(
+        <MovieCard onOpenCard={onClick}/>
+    );
+
+    movieCard.props().onClick(e);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
 });
