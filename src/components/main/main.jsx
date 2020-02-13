@@ -2,8 +2,7 @@ import React from 'react';
 import {exact, string, number, arrayOf, func} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
 
-const Main = ({promoData: {name, genre, releaseDate}, films, onTitleClick, onCardMouseOver}) => {
-  return (
+const Main = ({promoData: {name, genre, releaseDate}, films, onOpenCard}) => (
   <>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -97,7 +96,7 @@ const Main = ({promoData: {name, genre, releaseDate}, films, onTitleClick, onCar
           </li>
         </ul>
 
-        <MovieList films={films} onClick={onTitleClick} onMouseOver={onCardMouseOver}/>
+        <MovieList films={films} onOpenCard={onOpenCard}/>
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -118,8 +117,9 @@ const Main = ({promoData: {name, genre, releaseDate}, films, onTitleClick, onCar
         </div>
       </footer>
     </div>
-  </>);
-};
+  </>
+);
+
 
 Main.propTypes = {
   promoData: exact({
@@ -131,8 +131,8 @@ Main.propTypes = {
     name: string,
     img: string
   })),
-  onTitleClick: func,
-  onCardMouseOver: func
+  onCardMouseOver: func,
+  onOpenCard: func,
 };
 
 export default Main;

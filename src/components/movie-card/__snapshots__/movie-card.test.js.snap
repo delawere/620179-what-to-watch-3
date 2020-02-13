@@ -3,6 +3,7 @@
 exports[`MovieCard renders correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
+  onClick={[Function]}
   onMouseOver={[Function]}
 >
   <div
@@ -11,7 +12,7 @@ exports[`MovieCard renders correctly 1`] = `
     <img
       alt="test"
       height="175"
-      src="img/test.jsp"
+      src="img/test.jpg"
       width="280"
     />
   </div>

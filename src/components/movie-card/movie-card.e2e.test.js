@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import MovieCard from './movie-card';
+import {MovieCard} from './movie-card';
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -22,5 +22,16 @@ describe(`MovieCard`, () => {
 
     movieCard.props().onMouseOver();
     expect(onMouseOver.mock.calls[0][0]).toBe(`test`);
+  });
+
+  it(`Should card be clicked`, () => {
+    const onClick = jest.fn();
+    const e = {preventDefault: jest.fn()};
+    const movieCard = shallow(
+        <MovieCard onOpenCard={onClick}/>
+    );
+
+    movieCard.props().onClick(e);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
