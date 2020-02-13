@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import Main from '../main/main.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import MovieDetails from '../movie-details/movie-details.jsx';
 
 class App extends PureComponent {
   constructor(props) {
@@ -14,13 +15,13 @@ class App extends PureComponent {
   }
 
 
-  handleOpenCard({name, img}) {
+  handleOpenCard({name, img}, cb) {
     this.setState({
       openedCardData: {
         name,
         img
       }
-    });
+    }, cb);
   }
 
   render() {
@@ -30,7 +31,10 @@ class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main {...this.props} openedCardData={openedCardData} onOpenCard={this.handleOpenCard}/>;
+            <Main {...this.props} onOpenCard={this.handleOpenCard}/>;
+          </Route>
+          <Route exact path="/dev-component">
+            <MovieDetails cardData={openedCardData} />
           </Route>
         </Switch>
       </BrowserRouter>);

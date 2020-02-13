@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MovieList from './movie-list';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 const films = [
   {
@@ -19,7 +20,11 @@ const films = [
 
 it(`MovieList renders correctly`, () => {
   const tree = renderer
-    .create(<MovieList films={films} />)
+    .create(
+        <Router>
+          <MovieList films={films} />
+        </Router>
+    )
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

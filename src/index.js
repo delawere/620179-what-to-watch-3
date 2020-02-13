@@ -9,9 +9,7 @@ const promoData = {
   releaseDate: 2004,
 };
 
-const handleTitleClick = () => {};
-
 ReactDOM.render(
-    <App promoData={promoData} films={films} onTitleClick={handleTitleClick}/>,
+    <App promoData={promoData} films={films}/>,
     document.querySelector(`#root`)
 );

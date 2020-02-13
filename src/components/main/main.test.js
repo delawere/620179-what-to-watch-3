@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 const promoData = {
   name: `promoName`,
@@ -25,7 +26,11 @@ const films = [
 
 it(`Main renders correctly`, () => {
   const tree = renderer
-    .create(<Main promoData={promoData} films={films}/>)
+    .create(
+        <Router>
+          <Main promoData={promoData} films={films}/>
+        </Router>
+    )
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
