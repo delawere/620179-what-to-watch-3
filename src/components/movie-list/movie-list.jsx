@@ -7,25 +7,56 @@ class MovieList extends PureComponent {
     super(props);
 
     this.state = {
-      activeCard: null
+      activeCard: null,
+      mouseOverTimer: null
+
     };
 
-    this.handleCardMouseOver = this.handleCardMouseOver.bind(this);
+    this._handleCardMouseOver = this._handleCardMouseOver.bind(this);
+    this._handleCardMouseOut = this._handleCardMouseOut.bind(this);
   }
 
-  handleCardMouseOver(cardName) {
+  _handleCardMouseOver(cardName) {
+    const mouseOverTimer = setTimeout(() => {
+      this.setState({
+        activeCard: cardName
+      });
+    }, 1000);
+
     this.setState({
-      activeCard: cardName
+      mouseOverTimer
     });
+
   }
+
+  _handleCardMouseOut() {
+    const {mouseOverTimer} = this.state;
+
+    clearTimeout(mouseOverTimer);
+
+    this.setState({
+      activeCard: null
+    });
+
+  }
+
 
   render() {
     const {films, onOpenCard} = this.props;
+    const {activeCard} = this.state;
 
     return (
       <div className="catalog__movies-list">
-        {films.map(({name, img}) => (
-          <MovieCard key={name} name={name} img={img} onMouseOver={this.handleCardMouseOver} onOpenCard={onOpenCard}/>
+        {films.map(({name, img, preview}) => (
+          <MovieCard
+            key={name}
+            name={name}
+            img={img}
+            preview={preview}
+            onMouseOver={this._handleCardMouseOver}
+            onMouseOut={this._handleCardMouseOut}
+            onOpenCard={onOpenCard}
+            active={name === activeCard}/>
         ))}
       </div>
     );

@@ -20,7 +20,7 @@ describe(`MovieCard`, () => {
         <MovieCard name={name} img={img} onMouseOver={onMouseOver}/>
     );
 
-    movieCard.props().onMouseOver();
+    movieCard.props().onMouseEnter();
     expect(onMouseOver.mock.calls[0][0]).toBe(`test`);
   });
 
