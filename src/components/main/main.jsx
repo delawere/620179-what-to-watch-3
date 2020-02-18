@@ -129,7 +129,8 @@ Main.propTypes = {
   }),
   films: arrayOf(exact({
     name: string,
-    img: string
+    img: string,
+    preview: string
   })),
   onCardMouseOver: func,
   onOpenCard: func,
