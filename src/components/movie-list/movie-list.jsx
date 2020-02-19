@@ -48,12 +48,13 @@ class MovieList extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {films.map(({name, img, preview}) => (
+        {films.map(({name, img, preview, genre}) => (
           <MovieCard
             key={name}
             name={name}
             img={img}
             preview={preview}
+            genre={genre}
             onMouseEnter={this._handleCardMouseEnter}
             onMouseLeave={this._handleCardMouseLeave}
             onOpenCard={onOpenCard}
@@ -69,7 +70,8 @@ MovieList.propTypes = {
   films: arrayOf(exact({
     name: string,
     img: string,
-    preview: string
+    preview: string,
+    genre: string,
   })),
   onOpenCard: func,
   onMouseOver: func
