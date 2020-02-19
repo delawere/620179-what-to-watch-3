@@ -10,15 +10,18 @@ class Player extends PureComponent {
     };
   }
 
-  static getDerivedStateFromProps(props) {
-    return ({
-      active: props.active
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.active !== this.props.active) {
+      this.setState({
+        active: this.props.active
+      });
+    }
   }
 
   render() {
     const {active} = this.state;
     const {src, img} = this.props;
+
     if (!active) {
       return null;
     }

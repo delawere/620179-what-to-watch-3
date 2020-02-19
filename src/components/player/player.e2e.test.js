@@ -8,19 +8,14 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
-it(`No active player shouldn't be rendered`, () => {
-  const main = shallow(
-      <Player/>
-  );
+it(`State should updated from props`, () => {
+  const activePlayer = shallow(<Player active/>);
+  const activePlayerInstance = activePlayer.instance();
+  activePlayerInstance.componentDidUpdate({active: false});
+  expect(activePlayer.state(`active`)).toBe(true);
 
-  expect(main.get(0)).toBeFalsy();
+  const nonActivePlayer = shallow(<Player active={false}/>);
+  const nonActivePlayerInstance = nonActivePlayer.instance();
+  nonActivePlayerInstance.componentDidUpdate({active: true});
+  expect(nonActivePlayer.state(`active`)).toBe(false);
 });
-
-it(`Active player should be rendered`, () => {
-  const main = shallow(
-      <Player active/>
-  );
-
-  expect(main.get(0)).not.toBeFalsy();
-});
-
