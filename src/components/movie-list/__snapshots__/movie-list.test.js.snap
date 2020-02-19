@@ -7,7 +7,13 @@ exports[`MovieList renders correctly 1`] = `
   <article
     className="small-movie-card catalog__movies-card"
     onClick={[Function]}
-    onMouseOver={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
     <div
       className="small-movie-card__image"
@@ -33,7 +39,13 @@ exports[`MovieList renders correctly 1`] = `
   <article
     className="small-movie-card catalog__movies-card"
     onClick={[Function]}
-    onMouseOver={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
     <div
       className="small-movie-card__image"
@@ -59,7 +71,13 @@ exports[`MovieList renders correctly 1`] = `
   <article
     className="small-movie-card catalog__movies-card"
     onClick={[Function]}
-    onMouseOver={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
     <div
       className="small-movie-card__image"

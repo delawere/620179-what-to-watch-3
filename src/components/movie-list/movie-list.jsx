@@ -7,25 +7,57 @@ class MovieList extends PureComponent {
     super(props);
 
     this.state = {
-      activeCard: null
+      activeCard: null,
+      mouseOverTimer: null
+
     };
 
-    this.handleCardMouseOver = this.handleCardMouseOver.bind(this);
+    this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
+    this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
   }
 
-  handleCardMouseOver(cardName) {
+  _handleCardMouseEnter(cardName) {
+    const showPreviewDelay = 1000;
+    const mouseOverTimer = setTimeout(() => {
+      this.setState({
+        activeCard: cardName
+      });
+    }, showPreviewDelay);
+
     this.setState({
-      activeCard: cardName
+      mouseOverTimer
     });
+
   }
+
+  _handleCardMouseLeave() {
+    const {mouseOverTimer} = this.state;
+
+    clearTimeout(mouseOverTimer);
+
+    this.setState({
+      activeCard: null
+    });
+
+  }
+
 
   render() {
     const {films, onOpenCard} = this.props;
+    const {activeCard} = this.state;
 
     return (
       <div className="catalog__movies-list">
-        {films.map(({name, img}) => (
-          <MovieCard key={name} name={name} img={img} onMouseOver={this.handleCardMouseOver} onOpenCard={onOpenCard}/>
+        {films.map(({name, img, preview}) => (
+          <MovieCard
+            key={name}
+            name={name}
+            img={img}
+            preview={preview}
+            onMouseEnter={this._handleCardMouseEnter}
+            onMouseLeave={this._handleCardMouseLeave}
+            onOpenCard={onOpenCard}
+            active={name === activeCard}/>
         ))}
       </div>
     );
@@ -36,7 +68,8 @@ class MovieList extends PureComponent {
 MovieList.propTypes = {
   films: arrayOf(exact({
     name: string,
-    img: string
+    img: string,
+    preview: string
   })),
   onOpenCard: func,
   onMouseOver: func

@@ -13,15 +13,15 @@ const movieData = {
 };
 
 describe(`MovieCard`, () => {
-  it(`Should mouse over on card`, () => {
-    const onMouseOver = jest.fn();
+  it(`Should mouse enter on card`, () => {
+    const onMouseEnter = jest.fn();
     const {name, img} = movieData;
     const movieCard = shallow(
-        <MovieCard name={name} img={img} onMouseOver={onMouseOver}/>
+        <MovieCard name={name} img={img} onMouseEnter={onMouseEnter}/>
     );
 
-    movieCard.props().onMouseOver();
-    expect(onMouseOver.mock.calls[0][0]).toBe(`test`);
+    movieCard.props().onMouseEnter();
+    expect(onMouseEnter.mock.calls[0][0]).toBe(`test`);
   });
 
   it(`Should card be clicked`, () => {
