@@ -2,7 +2,7 @@ import React from 'react';
 import {string, func, shape} from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-const MovieCard = ({history, name, img, onMouseOver, onOpenCard}) => {
+const MovieCard = ({history, name, img, genre, onMouseOver, onOpenCard}) => {
   const onMouseOverWrapper = () => {
     onMouseOver(name);
   };
@@ -12,7 +12,8 @@ const MovieCard = ({history, name, img, onMouseOver, onOpenCard}) => {
 
     onOpenCard({
       name,
-      img
+      img,
+      genre
     }, () => history.push(`/dev-component`));
   };
 
@@ -34,6 +35,7 @@ MovieCard.propTypes = {
   }),
   name: string,
   img: string,
+  genre: string,
   onMouseOver: func,
   onOpenCard: func
 };

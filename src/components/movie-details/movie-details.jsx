@@ -1,7 +1,8 @@
 import React from "react";
-import {exact, string} from "prop-types";
+import {exact, string, array, func} from "prop-types";
+import MovieList from '../movie-list/movie-list.jsx';
 
-const MovieDetails = ({cardData: {name, img} = {}}) => {
+const MovieDetails = ({cardData: {name, img, genre} = {}, films, onOpenCard}) => {
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -143,72 +144,7 @@ const MovieDetails = ({cardData: {name, img} = {}}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img
-                  src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                  alt="Fantastic Beasts: The Crimes of Grindelwald"
-                  width="280"
-                  height="175"
-                />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">
-                  Fantastic Beasts: The Crimes of Grindelwald
-                </a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img
-                  src="img/bohemian-rhapsody.jpg"
-                  alt="Bohemian Rhapsody"
-                  width="280"
-                  height="175"
-                />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">
-                  Bohemian Rhapsody
-                </a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img
-                  src="img/macbeth.jpg"
-                  alt="Macbeth"
-                  width="280"
-                  height="175"
-                />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">
-                  Macbeth
-                </a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img
-                  src="img/aviator.jpg"
-                  alt="Aviator"
-                  width="280"
-                  height="175"
-                />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">
-                  Aviator
-                </a>
-              </h3>
-            </article>
-          </div>
+          <MovieList films={films.filter((film) => film.genre === genre)} onOpenCard={onOpenCard}/>
         </section>
       </div>
     </>
@@ -219,7 +155,10 @@ MovieDetails.propTypes = {
   cardData: exact({
     name: string,
     img: string,
+    genre: string,
   }),
+  films: array,
+  onOpenCard: func,
 };
 
 export default MovieDetails;
