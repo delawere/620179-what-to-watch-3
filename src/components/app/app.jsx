@@ -12,11 +12,11 @@ class App extends PureComponent {
       openedCardData: null
     };
 
-    this.handleOpenCard = this.handleOpenCard.bind(this);
+    this._handleOpenCard = this._handleOpenCard.bind(this);
   }
 
 
-  handleOpenCard({name, img, genre}) {
+  _handleOpenCard({name, img, genre}) {
     this.setState({
       openedCardData: {
         name,
@@ -34,10 +34,10 @@ class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main {...this.props} onOpenCard={this.handleOpenCard}/>;
+            <Main {...this.props} onOpenCard={this._handleOpenCard}/>;
           </Route>
           <Route path="/dev-component">
-            <MovieDetails cardData={openedCardData} films={films} onOpenCard={this.handleOpenCard}/>
+            <MovieDetails cardData={openedCardData} films={films} onOpenCard={this._handleOpenCard}/>
           </Route>
         </Switch>
       </BrowserRouter>);
