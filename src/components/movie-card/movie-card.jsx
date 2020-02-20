@@ -1,9 +1,9 @@
 import React from 'react';
 import {string, func, shape, bool} from 'prop-types';
-import {withRouter} from 'react-router-dom';
+import {Link} from "react-router-dom";
 import Player from '../player/player.jsx';
 
-const MovieCard = ({history, name, img, preview, onMouseEnter, onMouseLeave, onOpenCard, active}) => {
+const MovieCard = ({name, img, preview, genre, onMouseEnter, onMouseLeave, onOpenCard, active}) => {
   const onMouseEnterWrapper = () => {
     onMouseEnter(name);
   };
@@ -13,8 +13,9 @@ const MovieCard = ({history, name, img, preview, onMouseEnter, onMouseLeave, onO
 
     onOpenCard({
       name,
-      img
-    }, () => history.push(`/dev-component`));
+      img,
+      genre
+    });
   };
 
   return (
@@ -30,8 +31,16 @@ const MovieCard = ({history, name, img, preview, onMouseEnter, onMouseLeave, onO
       <div className="small-movie-card__image" >
         <img src={img} alt={name} width="280" height="175" />
       </div>
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{name}</a>
+      <h3 className="small-movie-card__title" style={{
+        width: `100%`,
+        height: `100%`
+      }}>
+        <Link to="/dev-component" className="small-movie-card__link" style={{
+          width: `100%`,
+          height: `100%`,
+          display: `flex`,
+          alignItems: `flex-end`
+        }}>{name}</Link>
       </h3>
       <Player active={active} src={preview} name={name} img={img}/>
     </article>
@@ -45,12 +54,12 @@ MovieCard.propTypes = {
   name: string,
   img: string,
   preview: string,
+  genre: string,
   onMouseEnter: func,
   onMouseLeave: func,
   onOpenCard: func,
   active: bool,
 };
 
-export {MovieCard};
-export default withRouter(MovieCard);
+export default MovieCard;
 

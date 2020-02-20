@@ -27,10 +27,25 @@ exports[`MovieList renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/dev-component"
+        onClick={[Function]}
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "height": "100%",
+            "width": "100%",
+          }
+        }
       >
         name1
       </a>
@@ -59,10 +74,25 @@ exports[`MovieList renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/dev-component"
+        onClick={[Function]}
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "height": "100%",
+            "width": "100%",
+          }
+        }
       >
         name2
       </a>
@@ -91,10 +121,25 @@ exports[`MovieList renders correctly 1`] = `
     </div>
     <h3
       className="small-movie-card__title"
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/dev-component"
+        onClick={[Function]}
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "height": "100%",
+            "width": "100%",
+          }
+        }
       >
         name3
       </a>
