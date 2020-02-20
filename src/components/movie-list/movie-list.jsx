@@ -41,7 +41,6 @@ class MovieList extends PureComponent {
 
   }
 
-
   render() {
     const {films, onOpenCard} = this.props;
     const {activeCard} = this.state;

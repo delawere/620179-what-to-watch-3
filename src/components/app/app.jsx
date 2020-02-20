@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
-import {array} from 'prop-types';
+import {array, func, string} from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
 import Main from '../main/main.jsx';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import MovieDetails from '../movie-details/movie-details.jsx';
@@ -12,11 +14,10 @@ class App extends PureComponent {
       openedCardData: null
     };
 
-    this.handleOpenCard = this.handleOpenCard.bind(this);
+    this._handleOpenCard = this._handleOpenCard.bind(this);
   }
 
-
-  handleOpenCard({name, img, genre}) {
+  _handleOpenCard({name, img, genre}) {
     this.setState({
       openedCardData: {
         name,
@@ -28,16 +29,16 @@ class App extends PureComponent {
 
   render() {
     const {openedCardData} = this.state;
-    const {films} = this.props;
+    const {filmsByGenre, films} = this.props;
 
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main {...this.props} onOpenCard={this.handleOpenCard}/>;
+            <Main {...this.props} films={filmsByGenre} onOpenCard={this._handleOpenCard}/>;
           </Route>
           <Route path="/dev-component">
-            <MovieDetails cardData={openedCardData} films={films} onOpenCard={this.handleOpenCard}/>
+            <MovieDetails cardData={openedCardData} films={films} onOpenCard={this._handleOpenCard}/>
           </Route>
         </Switch>
       </BrowserRouter>);
@@ -45,7 +46,28 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  films: array
+  films: array,
+  genres: array,
+  genreFilter: string,
+  filmsByGenre: array,
+  onSelectGenre: func
 };
+
+const mapStateToProps = ({genreFilter, filmsByGenre}) => ({
+  genreFilter,
+  filmsByGenre
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSelectGenre: (genre) => {
+    dispatch(ActionCreator.selectGenreFilter(genre));
+    dispatch(ActionCreator.selectFilmsByGenre(genre));
+  },
+});
+
+App = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
 
 export default App;

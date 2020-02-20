@@ -6,6 +6,7 @@ import Tabs from '../tabs/tabs.jsx';
 
 const MovieDetails = ({match, cardData: {name, img, genre} = {}, films, onOpenCard}) => {
   const {path, url} = match;
+
   return (
     <>
       <section className="movie-card movie-card--full">
