@@ -1,31 +1,48 @@
-import films from './mocks/films';
-import {extend} from "./utils.js";
-
-const ALL_GENRES_FILTER = `ALL GENRES`;
+import {extend} from "./utils/extend";
 
 const initialState = {
+  genres: [],
+  films: [],
   genreFilter: `All genres`,
-  filmsByGenre: films,
+  filmsByGenre: [],
 };
 
 export const ActionType = {
+  SET_GENRES: `SET_GENRES`,
+  SET_FIMLS: `SET_FILMS`,
   SELECT_GENRE_FILTER: `SELECT_GENRE_FILTER`,
   SELECT_FILMS_BY_GENRE: `SELECT_FILMS_BY_GENRE`,
 };
 
 export const ActionCreator = {
+  setGenres: (list) => ({
+    type: ActionType.SET_GENRES,
+    payload: list
+  }),
+  setFilms: (list) => ({
+    type: ActionType.SET_FIMLS,
+    payload: list
+  }),
   selectGenreFilter: (genre) => ({
     type: ActionType.SELECT_GENRE_FILTER,
     payload: genre
   }),
-  selectFilmsByGenre: (genre) => ({
+  selectFilmsByGenre: (list) => ({
     type: ActionType.SELECT_FILMS_BY_GENRE,
-    payload: filterFilmsByGenre(genre, films)
+    payload: list
   }),
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.SET_GENRES:
+      return extend(state, {
+        genres: action.payload
+      });
+    case ActionType.SET_FIMLS:
+      return extend(state, {
+        films: action.payload
+      });
     case ActionType.SELECT_GENRE_FILTER:
       return extend(state, {
         genreFilter: action.payload
@@ -37,14 +54,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
-
-export const filterFilmsByGenre = (genre, filmsList) => {
-  const selectedGenre = genre.toUpperCase();
-
-  return selectedGenre === ALL_GENRES_FILTER
-    ? filmsList
-    : filmsList.filter((film) => film.genre.toUpperCase() === selectedGenre);
 };
 
 export default reducer;

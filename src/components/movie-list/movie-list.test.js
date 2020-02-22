@@ -1,7 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MovieList from './movie-list';
+import {Provider} from "react-redux";
+import {MovieList} from './movie-list';
 import {BrowserRouter as Router} from 'react-router-dom';
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const films = [
   {
@@ -19,10 +23,18 @@ const films = [
 ];
 
 it(`MovieList renders correctly`, () => {
+  const store = mockStore({
+    filmsByGenre: films,
+  });
+
+  const {filmsByGenre} = store.getState();
+
   const tree = renderer
     .create(
         <Router>
-          <MovieList films={films} />
+          <Provider store={store}>
+            <MovieList filmsByGenre={filmsByGenre}/>
+          </Provider>
         </Router>
     )
     .toJSON();

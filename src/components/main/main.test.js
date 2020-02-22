@@ -1,7 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Main from './main';
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import {BrowserRouter as Router} from 'react-router-dom';
+
+const mockStore = configureStore([]);
 
 const promoData = {
   name: `promoName`,
@@ -25,10 +29,19 @@ const films = [
 ];
 
 it(`Main renders correctly`, () => {
+  const store = mockStore({
+    genres: [`genre1`, `genre2`],
+    genreFilter: `All genres`,
+    filmsByGenre: films,
+    films
+  });
+
   const tree = renderer
     .create(
         <Router>
-          <Main promoData={promoData} films={films}/>
+          <Provider store={store}>
+            <Main promoData={promoData}/>
+          </Provider>
         </Router>
     )
     .toJSON();

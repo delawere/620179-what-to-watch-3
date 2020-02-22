@@ -5,14 +5,14 @@ exports[`Genres renders correctly 1`] = `
   className="catalog__genres-list"
 >
   <li
-    className="catalog__genres-item catalog__genres-item--active"
+    className="catalog__genres-item "
   >
     <a
       className="catalog__genres-link"
       href="#"
       onClick={[Function]}
     >
-      test1
+      genre1
     </a>
   </li>
   <li
@@ -23,7 +23,18 @@ exports[`Genres renders correctly 1`] = `
       href="#"
       onClick={[Function]}
     >
-      test2
+      genre2
+    </a>
+  </li>
+  <li
+    className="catalog__genres-item "
+  >
+    <a
+      className="catalog__genres-link"
+      href="#"
+      onClick={[Function]}
+    >
+      genre3
     </a>
   </li>
 </ul>

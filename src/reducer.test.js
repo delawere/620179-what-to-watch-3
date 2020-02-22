@@ -1,5 +1,5 @@
 
-import reducer, {ActionType, filterFilmsByGenre} from "./reducer.js";
+import reducer, {ActionType} from "./reducer.js";
 
 const films = [
   {
@@ -20,6 +20,12 @@ const films = [
     genre: `test3`,
     preview: `test4`,
   },
+];
+
+const genres = [
+  `genre1`,
+  `genre2`,
+  `genre3`
 ];
 
 it(`Reducer without additional parameters should return initial state`, () => {
@@ -47,31 +53,60 @@ it(`Reducer should set current genre by a given value`, () => {
 
 it(`Reducer should set current films by a given value`, () => {
   expect(reducer({
-    genreFilter: `test filter`,
-    filmsByGenre: []
+    filmsByGenre: films
   }, {
     type: ActionType.SELECT_FILMS_BY_GENRE,
-    payload: filterFilmsByGenre(`test filter`, films),
+    payload: films
   })).toEqual({
-    genreFilter: `test filter`,
-    filmsByGenre: filterFilmsByGenre(`test filter`, films)
+    filmsByGenre: films
   });
 
   expect(reducer({
-    genreFilter: `test1`,
     filmsByGenre: films
   }, {
     type: ActionType.SELECT_FILMS_BY_GENRE,
     payload: [`test1`, `test1`],
   })).toEqual({
-    genreFilter: `test1`,
     filmsByGenre: [`test1`, `test1`]
   });
 });
 
-it(`Filter should return a correct list`, () => {
-  expect(filterFilmsByGenre(`unknown`, films)).toEqual([]);
-  expect(filterFilmsByGenre(`test1`, films)[0]).toEqual(films[0]);
-  expect(filterFilmsByGenre(`test2`, films)[0]).toEqual(films[1]);
-  expect(filterFilmsByGenre(`test3`, films)[0]).toEqual(films[2]);
+it(`Reducer should set genres by a given value`, () => {
+  expect(reducer({
+    genres
+  }, {
+    type: ActionType.SET_GENRES,
+    payload: genres,
+  })).toEqual({
+    genres
+  });
+
+  expect(reducer({
+    genres
+  }, {
+    type: ActionType.SET_GENRES,
+    payload: [`test1`, `test1`],
+  })).toEqual({
+    genres: [`test1`, `test1`]
+  });
+});
+
+it(`Reducer should set films by a given value`, () => {
+  expect(reducer({
+    films
+  }, {
+    type: ActionType.SET_FIMLS,
+    payload: films,
+  })).toEqual({
+    films
+  });
+
+  expect(reducer({
+    films
+  }, {
+    type: ActionType.SET_FIMLS,
+    payload: [`test1`, `test1`],
+  })).toEqual({
+    films: [`test1`, `test1`]
+  });
 });

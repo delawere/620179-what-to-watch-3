@@ -1,6 +1,7 @@
-import React, {PureComponent} from 'react';
-import {arrayOf, exact, string, func} from 'prop-types';
-import MovieCard from '../movie-card/movie-card.jsx';
+import React, {PureComponent} from "react";
+import {arrayOf, exact, string, func} from "prop-types";
+import {connect} from "react-redux";
+import MovieCard from "../movie-card/movie-card.jsx";
 
 class MovieList extends PureComponent {
   constructor(props) {
@@ -9,7 +10,6 @@ class MovieList extends PureComponent {
     this.state = {
       activeCard: null,
       mouseOverTimer: null
-
     };
 
     this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
@@ -27,7 +27,6 @@ class MovieList extends PureComponent {
     this.setState({
       mouseOverTimer
     });
-
   }
 
   _handleCardMouseLeave() {
@@ -38,16 +37,15 @@ class MovieList extends PureComponent {
     this.setState({
       activeCard: null
     });
-
   }
 
   render() {
-    const {films, onOpenCard} = this.props;
+    const {filmsByGenre, onOpenCard} = this.props;
     const {activeCard} = this.state;
 
     return (
       <div className="catalog__movies-list">
-        {films.map(({name, img, preview, genre}) => (
+        {filmsByGenre.map(({name, img, preview, genre}) => (
           <MovieCard
             key={name}
             name={name}
@@ -57,23 +55,30 @@ class MovieList extends PureComponent {
             onMouseEnter={this._handleCardMouseEnter}
             onMouseLeave={this._handleCardMouseLeave}
             onOpenCard={onOpenCard}
-            active={name === activeCard}/>
+            active={name === activeCard}
+          />
         ))}
       </div>
     );
   }
 }
 
-
 MovieList.propTypes = {
-  films: arrayOf(exact({
-    name: string,
-    img: string,
-    preview: string,
-    genre: string,
-  })),
-  onOpenCard: func,
-  onMouseOver: func
+  filmsByGenre: arrayOf(
+      exact({
+        name: string,
+        img: string,
+        preview: string,
+        genre: string
+      })
+  ),
+  filter: string,
+  onOpenCard: func
 };
 
-export default MovieList;
+const mapStateToProps = ({filmsByGenre}) => ({
+  filmsByGenre
+});
+
+export {MovieList};
+export default connect(mapStateToProps)(MovieList);

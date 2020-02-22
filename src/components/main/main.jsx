@@ -1,9 +1,9 @@
 import React from 'react';
-import {exact, string, number, arrayOf, func, array} from 'prop-types';
+import {exact, string, number, func} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
 import Genres from '../genres/genres.jsx';
 
-const Main = ({promoData: {name, genre, releaseDate}, genreFilter, genres, films, onSelectGenre, onOpenCard}) => (
+const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
   <>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -64,9 +64,9 @@ const Main = ({promoData: {name, genre, releaseDate}, genreFilter, genres, films
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <Genres selectedGenre={genreFilter} genresList={genres} onSelectGenre={onSelectGenre}/>
+        <Genres />
 
-        <MovieList films={films} onOpenCard={onOpenCard}/>
+        <MovieList onOpenCard={onOpenCard}/>
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -97,16 +97,6 @@ Main.propTypes = {
     genre: string,
     releaseDate: number
   }),
-  films: arrayOf(exact({
-    name: string,
-    img: string,
-    preview: string,
-    genre: string,
-  })),
-  genreFilter: string,
-  genres: array,
-  onCardMouseOver: func,
-  onSelectGenre: func,
   onOpenCard: func,
 };
 
