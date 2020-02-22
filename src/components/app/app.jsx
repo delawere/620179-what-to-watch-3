@@ -1,8 +1,11 @@
 import React, {PureComponent} from 'react';
-import {array} from 'prop-types';
-import Main from '../main/main.jsx';
+import {func, array} from 'prop-types';
+import {connect} from 'react-redux';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {ActionCreator} from '../../reducer';
+import Main from '../main/main.jsx';
 import MovieDetails from '../movie-details/movie-details.jsx';
+import {filterFilmsByGenre} from '../../utils/filterFilmsByGenre';
 
 class App extends PureComponent {
   constructor(props) {
@@ -12,11 +15,13 @@ class App extends PureComponent {
       openedCardData: null
     };
 
-    this.handleOpenCard = this.handleOpenCard.bind(this);
+    this._handleOpenCard = this._handleOpenCard.bind(this);
   }
 
+  _handleOpenCard({name, img, genre}) {
+    const {onSelectGenre, films} = this.props;
 
-  handleOpenCard({name, img, genre}) {
+    onSelectGenre(genre, films);
     this.setState({
       openedCardData: {
         name,
@@ -28,16 +33,15 @@ class App extends PureComponent {
 
   render() {
     const {openedCardData} = this.state;
-    const {films} = this.props;
 
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main {...this.props} onOpenCard={this.handleOpenCard}/>;
+            <Main {...this.props} onOpenCard={this._handleOpenCard}/>;
           </Route>
           <Route path="/dev-component">
-            <MovieDetails cardData={openedCardData} films={films} onOpenCard={this.handleOpenCard}/>
+            <MovieDetails cardData={openedCardData} onOpenCard={this._handleOpenCard}/>
           </Route>
         </Switch>
       </BrowserRouter>);
@@ -45,7 +49,27 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  films: array
+  films: array,
+  onSelectGenre: func
 };
+
+const mapStateToProps = ({films}) => ({
+  films
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSelectGenre: (genre, films) => {
+    dispatch(ActionCreator.selectGenreFilter(genre));
+    dispatch(
+        ActionCreator.selectFilmsByGenre(filterFilmsByGenre(genre, films))
+    );
+  }
+});
+
+App = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
+
 
 export default App;

@@ -1,11 +1,16 @@
 import React from "react";
 import {exact, string, array, func, object} from "prop-types";
-import {Route, Switch, Link, withRouter} from 'react-router-dom';
-import MovieList from '../movie-list/movie-list.jsx';
-import Tabs from '../tabs/tabs.jsx';
+import {Route, Switch, Link, withRouter} from "react-router-dom";
+import MovieList from "../movie-list/movie-list.jsx";
+import Tabs from "../tabs/tabs.jsx";
 
-const MovieDetails = ({match, cardData: {name, img, genre} = {}, films, onOpenCard}) => {
+const MovieDetails = ({
+  match,
+  cardData: {name, img} = {},
+  onOpenCard
+}) => {
   const {path, url} = match;
+
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -87,13 +92,19 @@ const MovieDetails = ({match, cardData: {name, img, genre} = {}, films, onOpenCa
               <nav className="movie-nav movie-card__nav">
                 <ul className="movie-nav__list">
                   <li className="movie-nav__item">
-                    <Link to={`${url}`} className="movie-nav__link">Overview</Link>
+                    <Link to={`${url}`} className="movie-nav__link">
+                      Overview
+                    </Link>
                   </li>
                   <li className="movie-nav__item">
-                    <Link to={`${url}/details`} className="movie-nav__link">Details</Link>
+                    <Link to={`${url}/details`} className="movie-nav__link">
+                      Details
+                    </Link>
                   </li>
                   <li className="movie-nav__item">
-                    <Link to={`${url}/reviews`} className="movie-nav__link">Reviews</Link>
+                    <Link to={`${url}/reviews`} className="movie-nav__link">
+                      Reviews
+                    </Link>
                   </li>
                 </ul>
               </nav>
@@ -116,7 +127,9 @@ const MovieDetails = ({match, cardData: {name, img, genre} = {}, films, onOpenCa
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList films={films.filter((film) => film.genre === genre)} onOpenCard={onOpenCard}/>
+          <MovieList
+            onOpenCard={onOpenCard}
+          />
         </section>
       </div>
     </>
@@ -128,10 +141,10 @@ MovieDetails.propTypes = {
   cardData: exact({
     name: string,
     img: string,
-    genre: string,
+    genre: string
   }),
   films: array,
-  onOpenCard: func,
+  onOpenCard: func
 };
 
 export {MovieDetails};
