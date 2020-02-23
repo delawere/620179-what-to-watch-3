@@ -1,14 +1,11 @@
 import React from "react";
-import {exact, string, array, func, object} from "prop-types";
+import {exact, string, func, object} from "prop-types";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
+import {FilmsType} from "../../types";
 
-const MovieDetails = ({
-  match,
-  cardData: {name, img} = {},
-  onOpenCard
-}) => {
+const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
   const {path, url} = match;
 
   return (
@@ -127,9 +124,7 @@ const MovieDetails = ({
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList
-            onOpenCard={onOpenCard}
-          />
+          <MovieList onOpenCard={onOpenCard} />
         </section>
       </div>
     </>
@@ -141,9 +136,10 @@ MovieDetails.propTypes = {
   cardData: exact({
     name: string,
     img: string,
+    preview: string,
     genre: string
   }),
-  films: array,
+  films: FilmsType,
   onOpenCard: func
 };
 

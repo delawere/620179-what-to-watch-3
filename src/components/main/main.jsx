@@ -2,6 +2,7 @@ import React from 'react';
 import {exact, string, number, func} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
 import Genres from '../genres/genres.jsx';
+import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 
 const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
   <>
@@ -69,7 +70,7 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
         <MovieList onOpenCard={onOpenCard}/>
 
         <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
+          <ShowMoreButton />
         </div>
       </section>
 

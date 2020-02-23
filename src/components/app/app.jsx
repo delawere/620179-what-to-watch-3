@@ -1,10 +1,11 @@
 import React, {PureComponent} from 'react';
-import {func, array} from 'prop-types';
+import {func} from 'prop-types';
 import {connect} from 'react-redux';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {ActionCreator} from '../../reducer';
 import Main from '../main/main.jsx';
 import MovieDetails from '../movie-details/movie-details.jsx';
+import {FilmsType} from '../../types';
 import {filterFilmsByGenre} from '../../utils/filterFilmsByGenre';
 
 class App extends PureComponent {
@@ -49,7 +50,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  films: array,
+  films: FilmsType,
   onSelectGenre: func
 };
 
