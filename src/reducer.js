@@ -1,10 +1,13 @@
 import {extend} from "./utils/extend";
 
+const SHOWN_CARDS_STEP = 8;
+
 const initialState = {
   genres: [],
   films: [],
   genreFilter: `All genres`,
   filmsByGenre: [],
+  shownCardsNumber: SHOWN_CARDS_STEP
 };
 
 export const ActionType = {
@@ -12,6 +15,7 @@ export const ActionType = {
   SET_FIMLS: `SET_FILMS`,
   SELECT_GENRE_FILTER: `SELECT_GENRE_FILTER`,
   SELECT_FILMS_BY_GENRE: `SELECT_FILMS_BY_GENRE`,
+  SHOW_MORE_CARDS: `SHOW_MORE_CARDS`
 };
 
 export const ActionCreator = {
@@ -31,6 +35,10 @@ export const ActionCreator = {
     type: ActionType.SELECT_FILMS_BY_GENRE,
     payload: list
   }),
+  showMoreCards: () => ({
+    type: ActionType.SHOW_MORE_CARDS
+  }),
+
 };
 
 const reducer = (state = initialState, action) => {
@@ -50,6 +58,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SELECT_FILMS_BY_GENRE:
       return extend(state, {
         filmsByGenre: action.payload
+      });
+    case ActionType.SHOW_MORE_CARDS:
+      return extend(state, {
+        shownCardsNumber: state.shownCardsNumber + SHOWN_CARDS_STEP
       });
     default:
       return state;

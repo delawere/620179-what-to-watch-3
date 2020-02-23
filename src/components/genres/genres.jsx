@@ -3,6 +3,7 @@ import {array, func, string} from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
 import {filterFilmsByGenre} from '../../utils/filterFilmsByGenre';
+import {FilmsType} from '../../types';
 
 
 const SELECTED_GENRE_CLASS = `catalog__genres-item--active`;
@@ -46,7 +47,7 @@ Genres.defaultProps = {
 Genres.propTypes = {
   genres: array,
   genreFilter: string,
-  films: array,
+  films: FilmsType,
   onSelectGenre: func
 };
 

@@ -1,7 +1,8 @@
 import React, {PureComponent} from "react";
-import {arrayOf, exact, string, func} from "prop-types";
+import {string, func, number} from "prop-types";
 import {connect} from "react-redux";
 import MovieCard from "../movie-card/movie-card.jsx";
+import {FilmsType} from '../../types';
 
 class MovieList extends PureComponent {
   constructor(props) {
@@ -12,6 +13,7 @@ class MovieList extends PureComponent {
       mouseOverTimer: null
     };
 
+    this._clearTimer = this._clearTimer.bind(this);
     this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
     this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
   }
@@ -29,7 +31,7 @@ class MovieList extends PureComponent {
     });
   }
 
-  _handleCardMouseLeave() {
+  _clearTimer() {
     const {mouseOverTimer} = this.state;
 
     clearTimeout(mouseOverTimer);
@@ -39,13 +41,22 @@ class MovieList extends PureComponent {
     });
   }
 
+  _handleCardMouseLeave() {
+    this._clearTimer();
+  }
+
+  componentWillUnmount() {
+    this._clearTimer();
+  }
+
   render() {
-    const {filmsByGenre, onOpenCard} = this.props;
+    const {filmsByGenre, onOpenCard, shownCardsNumber} = this.props;
     const {activeCard} = this.state;
+    const shownFilms = filmsByGenre.slice(0, shownCardsNumber);
 
     return (
       <div className="catalog__movies-list">
-        {filmsByGenre.map(({name, img, preview, genre}) => (
+        {shownFilms.map(({name, img, preview, genre}) => (
           <MovieCard
             key={name}
             name={name}
@@ -64,20 +75,15 @@ class MovieList extends PureComponent {
 }
 
 MovieList.propTypes = {
-  filmsByGenre: arrayOf(
-      exact({
-        name: string,
-        img: string,
-        preview: string,
-        genre: string
-      })
-  ),
+  filmsByGenre: FilmsType,
   filter: string,
-  onOpenCard: func
+  onOpenCard: func,
+  shownCardsNumber: number,
 };
 
-const mapStateToProps = ({filmsByGenre}) => ({
-  filmsByGenre
+const mapStateToProps = ({filmsByGenre, shownCardsNumber}) => ({
+  filmsByGenre,
+  shownCardsNumber,
 });
 
 export {MovieList};
