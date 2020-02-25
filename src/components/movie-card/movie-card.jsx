@@ -2,6 +2,9 @@ import React from "react";
 import {string, func, shape, bool} from "prop-types";
 import {Link} from "react-router-dom";
 import Player from "../player/player.jsx";
+import withActivePlayer from '../../hocs/with-active-player/with-active-player.jsx';
+
+const PlayerWithActive = withActivePlayer(Player);
 
 const MovieCard = ({
   name,
@@ -61,7 +64,7 @@ const MovieCard = ({
           {name}
         </Link>
       </h3>
-      <Player active={active} src={preview} name={name} img={img} />
+      <PlayerWithActive active={active} src={preview} name={name} img={img} />
     </article>
   );
 };

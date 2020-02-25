@@ -5,6 +5,7 @@ import {Provider} from "react-redux";
 import reducer, {ActionType} from "./reducer";
 import App from "./components/app/app.jsx";
 import films from './mocks/films';
+import withActiveItem from './hocs/with-active-item/with-active-item.jsx';
 
 const promoData = {
   name: `The Grand Budapest Hotel`,
@@ -34,9 +35,11 @@ store.dispatch({
   payload: filmGenres
 });
 
+const AppWithOpenCard = withActiveItem(App);
+
 ReactDOM.render(
     <Provider store={store}>
-      <App promoData={promoData}/>
+      <AppWithOpenCard promoData={promoData}/>
     </Provider>,
     document.querySelector(`#root`)
 );
