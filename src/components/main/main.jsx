@@ -3,6 +3,9 @@ import {exact, string, number, func} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
 import Genres from '../genres/genres.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import withPlayer from '../../hocs/with-player/with-player.jsx';
+
+const MovieListWithPlayer = withPlayer(MovieList);
 
 const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
   <>
@@ -67,7 +70,7 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
 
         <Genres />
 
-        <MovieList onOpenCard={onOpenCard}/>
+        <MovieListWithPlayer onOpenCard={onOpenCard}/>
 
         <div className="catalog__more">
           <ShowMoreButton />
