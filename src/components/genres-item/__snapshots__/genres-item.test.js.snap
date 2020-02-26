@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GenresItem renders correctly 1`] = `
+<li
+  className="catalog__genres-item activeItem"
+>
+  <a
+    className="catalog__genres-link"
+    href="#"
+  >
+    test
+  </a>
+</li>
+`;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {withRouter} from "react-router-dom";
 
 const Tabs = ({match}) => {
@@ -191,5 +191,5 @@ const Tabs = ({match}) => {
 };
 
 export {Tabs};
-export default withRouter(Tabs);
+export default withRouter(memo(Tabs));
 

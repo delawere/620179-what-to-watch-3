@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer';
 import {func, bool} from 'prop-types';
@@ -30,4 +30,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowMoreButton);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(ShowMoreButton));

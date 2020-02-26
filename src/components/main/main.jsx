@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {exact, string, number, func} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
 import Genres from '../genres/genres.jsx';
@@ -104,4 +104,4 @@ Main.propTypes = {
   onOpenCard: func,
 };
 
-export default Main;
+export default memo(Main);

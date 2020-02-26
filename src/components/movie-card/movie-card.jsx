@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {string, func, shape, bool} from "prop-types";
 import {Link} from "react-router-dom";
 import Player from "../player/player.jsx";
@@ -83,4 +83,4 @@ MovieCard.propTypes = {
   active: bool
 };
 
-export default MovieCard;
+export default memo(MovieCard);

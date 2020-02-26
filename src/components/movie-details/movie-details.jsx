@@ -1,10 +1,9 @@
-import React from "react";
-import {exact, string, func, object} from "prop-types";
+import React, {memo} from "react";
+import {func, object} from "prop-types";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
-import {FilmsType} from "../../types";
-import MovieDetailsNav from '../movie-details-nav/movie-details-nav.jsx';
+import {FilmsType, FilmType} from "../../types";
 
 const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
   const {path, url} = match;
@@ -86,7 +85,38 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
               />
             </div>
 
-            <MovieDetailsNav url={url} path={path}/>
+            <div className="movie-card__desc">
+              <nav className="movie-nav movie-card__nav">
+                <ul className="movie-nav__list">
+                  <li className="movie-nav__item">
+                    <Link to={`${url}`} className="movie-nav__link">
+                      Overview
+                    </Link>
+                  </li>
+                  <li className="movie-nav__item">
+                    <Link to={`${url}/details`} className="movie-nav__link">
+                      Details
+                    </Link>
+                  </li>
+                  <li className="movie-nav__item">
+                    <Link to={`${url}/reviews`} className="movie-nav__link">
+                      Reviews
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+
+              <div>
+                <Switch>
+                  <Route exact path={`${path}`}>
+                    <Tabs />
+                  </Route>
+                  <Route path={`${path}/:tab`}>
+                    <Tabs />
+                  </Route>
+                </Switch>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -103,15 +133,10 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
 
 MovieDetails.propTypes = {
   match: object,
-  cardData: exact({
-    name: string,
-    img: string,
-    preview: string,
-    genre: string
-  }),
+  cardData: FilmType,
   films: FilmsType,
   onOpenCard: func
 };
 
 export {MovieDetails};
-export default withRouter(MovieDetails);
+export default withRouter(memo(MovieDetails));
