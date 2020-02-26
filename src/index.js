@@ -26,11 +26,6 @@ store.dispatch({
 });
 
 store.dispatch({
-  type: ActionType.SELECT_FILMS_BY_GENRE,
-  payload: films
-});
-
-store.dispatch({
   type: ActionType.SET_GENRES,
   payload: filmGenres
 });

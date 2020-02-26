@@ -2,7 +2,6 @@ import React, {memo} from "react";
 import {array, func, string} from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer";
-import {filterFilmsByGenre} from '../../utils/filterFilmsByGenre';
 import {FilmsType} from '../../types';
 import GenresItem from '../genres-item/genres-item.jsx';
 
@@ -57,11 +56,8 @@ const mapStateToProps = ({genres, genreFilter, films}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelectGenre: (genre, films) => {
+  onSelectGenre: (genre) => {
     dispatch(ActionCreator.selectGenreFilter(genre));
-    dispatch(
-        ActionCreator.selectFilmsByGenre(filterFilmsByGenre(genre, films))
-    );
   }
 });
 

@@ -5,8 +5,8 @@ import MovieCard from "../movie-card/movie-card.jsx";
 import {FilmsType} from '../../types';
 
 
-const MovieList = ({filmsByGenre, onOpenCard, shownCardsNumber, activeCard, setActiveCard, removeActiveCard}) => {
-  const shownFilms = filmsByGenre.slice(0, shownCardsNumber);
+const MovieList = ({onOpenCard, shownCardsNumber, activeCard, setActiveCard, removeActiveCard, filteredFilms}) => {
+  const shownFilms = filteredFilms.slice(0, shownCardsNumber);
 
   const handleCardMouseEnter = (cardName) => {
     setActiveCard(cardName);
@@ -37,7 +37,7 @@ const MovieList = ({filmsByGenre, onOpenCard, shownCardsNumber, activeCard, setA
 
 MovieList.propTypes = {
   activeCard: string,
-  filmsByGenre: FilmsType,
+  filteredFilms: FilmsType,
   filter: string,
   onOpenCard: func,
   shownCardsNumber: number,
@@ -45,8 +45,7 @@ MovieList.propTypes = {
   removeActiveCard: func,
 };
 
-const mapStateToProps = ({filmsByGenre, shownCardsNumber}) => ({
-  filmsByGenre,
+const mapStateToProps = ({shownCardsNumber}) => ({
   shownCardsNumber,
 });
 

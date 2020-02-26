@@ -6,7 +6,6 @@ const initialState = {
   genres: [],
   films: [],
   genreFilter: `All genres`,
-  filmsByGenre: [],
   shownCardsNumber: SHOWN_CARDS_STEP
 };
 
@@ -14,7 +13,6 @@ export const ActionType = {
   SET_GENRES: `SET_GENRES`,
   SET_FIMLS: `SET_FILMS`,
   SELECT_GENRE_FILTER: `SELECT_GENRE_FILTER`,
-  SELECT_FILMS_BY_GENRE: `SELECT_FILMS_BY_GENRE`,
   SHOW_MORE_CARDS: `SHOW_MORE_CARDS`
 };
 
@@ -30,10 +28,6 @@ export const ActionCreator = {
   selectGenreFilter: (genre) => ({
     type: ActionType.SELECT_GENRE_FILTER,
     payload: genre
-  }),
-  selectFilmsByGenre: (list) => ({
-    type: ActionType.SELECT_FILMS_BY_GENRE,
-    payload: list
   }),
   showMoreCards: () => ({
     type: ActionType.SHOW_MORE_CARDS
@@ -54,10 +48,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.SELECT_GENRE_FILTER:
       return extend(state, {
         genreFilter: action.payload
-      });
-    case ActionType.SELECT_FILMS_BY_GENRE:
-      return extend(state, {
-        filmsByGenre: action.payload
       });
     case ActionType.SHOW_MORE_CARDS:
       return extend(state, {

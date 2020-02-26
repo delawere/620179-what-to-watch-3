@@ -4,8 +4,11 @@ import {Route, Switch, Link, withRouter} from "react-router-dom";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import {FilmsType, FilmType} from "../../types";
+import withPlayer from '../../hocs/with-player/with-player.jsx';
 
-const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
+const MovieListWithPlayer = withPlayer(MovieList);
+
+const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms}) => {
   const {path, url} = match;
 
   return (
@@ -124,7 +127,7 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList onOpenCard={onOpenCard} />
+          <MovieListWithPlayer onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
         </section>
       </div>
     </>
@@ -135,7 +138,8 @@ MovieDetails.propTypes = {
   match: object,
   cardData: FilmType,
   films: FilmsType,
-  onOpenCard: func
+  onOpenCard: func,
+  filteredFilms: FilmsType
 };
 
 export {MovieDetails};

@@ -32,15 +32,15 @@ it(`Main renders correctly`, () => {
   const store = mockStore({
     genres: [`genre1`, `genre2`],
     genreFilter: `All genres`,
-    filmsByGenre: films,
-    films
+    films,
+    filteredFilms: films,
   });
 
   const tree = renderer
     .create(
         <Router>
           <Provider store={store}>
-            <Main promoData={promoData}/>
+            <Main promoData={promoData} filteredFilms={films}/>
           </Provider>
         </Router>
     )

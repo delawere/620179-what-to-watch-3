@@ -4,10 +4,11 @@ import MovieList from '../movie-list/movie-list.jsx';
 import Genres from '../genres/genres.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 import withPlayer from '../../hocs/with-player/with-player.jsx';
+import {FilmsType} from '../../types';
 
 const MovieListWithPlayer = withPlayer(MovieList);
 
-const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
+const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms}) => (
   <>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -70,10 +71,10 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
 
         <Genres />
 
-        <MovieListWithPlayer onOpenCard={onOpenCard}/>
+        <MovieListWithPlayer onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
 
         <div className="catalog__more">
-          <ShowMoreButton />
+          <ShowMoreButton filteredFilms={filteredFilms}/>
         </div>
       </section>
 
@@ -102,6 +103,7 @@ Main.propTypes = {
     releaseDate: number
   }),
   onOpenCard: func,
+  filteredFilms: FilmsType
 };
 
 export default memo(Main);

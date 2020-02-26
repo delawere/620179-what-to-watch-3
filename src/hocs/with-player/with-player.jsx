@@ -44,12 +44,11 @@ const withPlayer = (Component) => (
 
     render() {
       const {activeCard} = this.state;
-      const setActiveCard = this._setActiveCardAfterDelay;
 
       return <Component
         {...this.props}
         activeCard={activeCard}
-        setActiveCard={setActiveCard}
+        setActiveCard={this._setActiveCardAfterDelay}
         removeActiveCard={this._clearTimer}/>;
     }
   }
