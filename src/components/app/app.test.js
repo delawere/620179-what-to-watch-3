@@ -37,7 +37,7 @@ it(`App renders correctly`, () => {
   const store = mockStore({
     genres: [`genre1`, `genre2`],
     genreFilter: `All genres`,
-    filmsByGenre: films,
+    films,
   });
 
   const tree = renderer

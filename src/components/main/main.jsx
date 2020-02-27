@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {exact, string, number, func} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
 import Genres from '../genres/genres.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import {FilmsType} from '../../types';
 
-const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
+const MovieListWithActiveItem = withActiveItem(MovieList);
+
+const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms}) => (
   <>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -67,10 +71,10 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard}) => (
 
         <Genres />
 
-        <MovieList onOpenCard={onOpenCard}/>
+        <MovieListWithActiveItem onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
 
         <div className="catalog__more">
-          <ShowMoreButton />
+          <ShowMoreButton filteredFilms={filteredFilms}/>
         </div>
       </section>
 
@@ -99,6 +103,7 @@ Main.propTypes = {
     releaseDate: number
   }),
   onOpenCard: func,
+  filteredFilms: FilmsType
 };
 
-export default Main;
+export default memo(Main);

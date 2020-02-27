@@ -22,18 +22,23 @@ const films = [
   },
 ];
 
+const activeItem = {
+  name: `test`
+};
+
 it(`MovieList renders correctly`, () => {
   const store = mockStore({
-    filmsByGenre: films,
+    films,
+    filteredFilms: films
   });
 
-  const {filmsByGenre} = store.getState();
+  const {filteredFilms} = store.getState();
 
   const tree = renderer
     .create(
         <Router>
           <Provider store={store}>
-            <MovieList filmsByGenre={filmsByGenre}/>
+            <MovieList filteredFilms={filteredFilms} activeItem={activeItem}/>
           </Provider>
         </Router>
     )

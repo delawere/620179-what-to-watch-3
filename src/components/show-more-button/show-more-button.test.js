@@ -6,7 +6,7 @@ import configureStore from "redux-mock-store";
 
 const mockStore = configureStore([]);
 
-const filmsByGenre = [
+const films = [
   {
     name: `name1`,
     img: `img/name1.jpg`,
@@ -31,14 +31,17 @@ const SHOWN_CARDS_NUMBER = 6;
 
 it(`ShowMoreButton renders correctly`, () => {
   const store = mockStore({
-    filmsByGenre,
-    shownCardsNumber: SHOWN_CARDS_NUMBER
+    shownCardsNumber: SHOWN_CARDS_NUMBER,
+    filteredFilms: films
   });
+
+
+  const {filteredFilms} = store.getState();
 
   const tree = renderer
     .create(
         <Provider store={store}>
-          <ShowMoreButton />
+          <ShowMoreButton filteredFilms={filteredFilms}/>
         </Provider>
     )
     .toJSON();

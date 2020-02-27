@@ -27,15 +27,15 @@ it(`MovieDetails renders correctly`, () => {
   const store = mockStore({
     genres: [`genre1`, `genre2`],
     genreFilter: `All genres`,
-    filmsByGenre: films,
-    films
+    films,
+    filteredFilms: films,
   });
 
   const tree = renderer
     .create(
         <MemoryRouter initialEntries={[`/test`]} >
           <Provider store={store}>
-            <MovieDetails cardData={cardData} films={films} match={match}/>
+            <MovieDetails cardData={cardData} films={films} match={match} filteredFilms={films}/>
           </Provider>
         </MemoryRouter>)
     .toJSON();

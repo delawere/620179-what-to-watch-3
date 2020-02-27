@@ -1,11 +1,14 @@
-import React from "react";
-import {exact, string, func, object} from "prop-types";
+import React, {memo} from "react";
+import {func, object} from "prop-types";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
-import {FilmsType} from "../../types";
+import {FilmsType, FilmType} from "../../types";
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
-const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
+const MovieListWithActiveItem = withActiveItem(MovieList);
+
+const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms}) => {
   const {path, url} = match;
 
   return (
@@ -124,7 +127,7 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList onOpenCard={onOpenCard} />
+          <MovieListWithActiveItem onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
         </section>
       </div>
     </>
@@ -133,15 +136,11 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard}) => {
 
 MovieDetails.propTypes = {
   match: object,
-  cardData: exact({
-    name: string,
-    img: string,
-    preview: string,
-    genre: string
-  }),
+  cardData: FilmType,
   films: FilmsType,
-  onOpenCard: func
+  onOpenCard: func,
+  filteredFilms: FilmsType
 };
 
 export {MovieDetails};
-export default withRouter(MovieDetails);
+export default withRouter(memo(MovieDetails));

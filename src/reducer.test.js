@@ -28,16 +28,6 @@ const genres = [
   `genre3`
 ];
 
-it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer({
-    genreFilter: `All genres`,
-    filmsByGenre: films,
-  }, {})).toEqual({
-    genreFilter: `All genres`,
-    filmsByGenre: films,
-  });
-});
-
 it(`Reducer should set current genre by a given value`, () => {
   expect(reducer({
     genreFilter: `test filter`,
@@ -48,26 +38,6 @@ it(`Reducer should set current genre by a given value`, () => {
   })).toEqual({
     genreFilter: `new filter`,
     films,
-  });
-});
-
-it(`Reducer should set current films by a given value`, () => {
-  expect(reducer({
-    filmsByGenre: films
-  }, {
-    type: ActionType.SELECT_FILMS_BY_GENRE,
-    payload: films
-  })).toEqual({
-    filmsByGenre: films
-  });
-
-  expect(reducer({
-    filmsByGenre: films
-  }, {
-    type: ActionType.SELECT_FILMS_BY_GENRE,
-    payload: [`test1`, `test1`],
-  })).toEqual({
-    filmsByGenre: [`test1`, `test1`]
   });
 });
 
