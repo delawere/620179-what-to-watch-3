@@ -2,19 +2,11 @@ import React, {memo} from "react";
 import {string, func, number} from "prop-types";
 import {connect} from "react-redux";
 import MovieCard from "../movie-card/movie-card.jsx";
-import {FilmsType} from '../../types';
+import {FilmsType, FilmType} from '../../types';
 
-
-const MovieList = ({onOpenCard, shownCardsNumber, activeCard, setActiveCard, removeActiveCard, filteredFilms}) => {
+const MovieList = (props) => {
+  const {shownCardsNumber, activeItem, filteredFilms} = props;
   const shownFilms = filteredFilms.slice(0, shownCardsNumber);
-
-  const handleCardMouseEnter = (cardName) => {
-    setActiveCard(cardName);
-  };
-
-  const handleCardMouseLeave = () => {
-    removeActiveCard();
-  };
 
   return (
     <div className="catalog__movies-list">
@@ -25,10 +17,8 @@ const MovieList = ({onOpenCard, shownCardsNumber, activeCard, setActiveCard, rem
           img={img}
           preview={preview}
           genre={genre}
-          onMouseEnter={handleCardMouseEnter}
-          onMouseLeave={handleCardMouseLeave}
-          onOpenCard={onOpenCard}
-          active={name === activeCard}
+          active={name === activeItem.name}
+          {...props}
         />
       ))}
     </div>
@@ -36,13 +26,15 @@ const MovieList = ({onOpenCard, shownCardsNumber, activeCard, setActiveCard, rem
 };
 
 MovieList.propTypes = {
-  activeCard: string,
+  activeItem: FilmType,
   filteredFilms: FilmsType,
   filter: string,
   onOpenCard: func,
   shownCardsNumber: number,
-  setActiveCard: func,
-  removeActiveCard: func,
+  setActiveItem: func,
+  removeActiveItem: func,
+  setTimer: func,
+  removeTimer: func,
 };
 
 const mapStateToProps = ({shownCardsNumber}) => ({

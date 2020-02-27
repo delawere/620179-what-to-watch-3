@@ -4,9 +4,9 @@ import {Route, Switch, Link, withRouter} from "react-router-dom";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import {FilmsType, FilmType} from "../../types";
-import withPlayer from '../../hocs/with-player/with-player.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
-const MovieListWithPlayer = withPlayer(MovieList);
+const MovieListWithActiveItem = withActiveItem(MovieList);
 
 const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms}) => {
   const {path, url} = match;
@@ -127,7 +127,7 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieListWithPlayer onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
+          <MovieListWithActiveItem onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
         </section>
       </div>
     </>

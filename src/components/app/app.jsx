@@ -9,11 +9,11 @@ import {FilmsType, FilmType} from '../../types';
 import {filterFilmsByGenre} from '../../utils/filterFilmsByGenre';
 
 const App = (props) => {
-  const {onSelectGenre, films, genreFilter, setActiveItemData, activeItemData} = props;
+  const {onSelectGenre, films, genreFilter, setActiveItem, activeItem} = props;
 
   const handleOpenCard = ({name, img, genre}) => {
     onSelectGenre(genre, films);
-    setActiveItemData({name, img, genre});
+    setActiveItem({name, img, genre});
   };
 
   const filteredFilms = filterFilmsByGenre(genreFilter, films);
@@ -25,7 +25,7 @@ const App = (props) => {
           <Main {...props} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>;
         </Route>
         <Route path="/dev-component">
-          <MovieDetails cardData={activeItemData} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>
+          <MovieDetails cardData={activeItem} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>
         </Route>
       </Switch>
     </BrowserRouter>);
@@ -35,8 +35,8 @@ App.propTypes = {
   films: FilmsType,
   genreFilter: string,
   onSelectGenre: func,
-  setActiveItemData: func,
-  activeItemData: FilmType
+  setActiveItem: func,
+  activeItem: FilmType
 };
 
 const mapStateToProps = ({films, genreFilter}) => ({

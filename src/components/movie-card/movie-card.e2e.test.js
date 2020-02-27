@@ -9,19 +9,22 @@ Enzyme.configure({
 
 const movieData = {
   name: `test`,
-  img: `img/test.jsp`
 };
+
+jest.useFakeTimers();
 
 describe(`MovieCard`, () => {
   it(`Should mouse enter on card`, () => {
-    const onMouseEnter = jest.fn();
+    const setTimer = jest.fn();
     const {name, img} = movieData;
     const movieCard = shallow(
-        <MovieCard name={name} img={img} onMouseEnter={onMouseEnter}/>
+        <MovieCard name={name} img={img} setTimer={setTimer}/>
     );
-
     movieCard.props().onMouseEnter();
-    expect(onMouseEnter.mock.calls[0][0]).toBe(`test`);
+
+    expect(setTimer).toHaveBeenCalledTimes(1);
+
+
   });
 
   it(`Should card be clicked`, () => {

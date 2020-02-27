@@ -5,19 +5,34 @@ import Player from "../player/player.jsx";
 import withActivePlayer from '../../hocs/with-active-player/with-active-player.jsx';
 
 const PlayerWithActive = withActivePlayer(Player);
+const SHOW_PREVIEW_DELAY = 1000;
 
 const MovieCard = ({
   name,
   img,
   preview,
   genre,
-  onMouseEnter,
-  onMouseLeave,
+  setActiveItem,
+  removeActiveItem,
+  setTimer,
+  getTimer,
+  removeTimer,
   onOpenCard,
   active
 }) => {
-  const onMouseEnterWrapper = () => {
-    onMouseEnter(name);
+  const onMouseEnter = () => {
+    const mouseOverTimer = setTimeout(() => {
+      setActiveItem({genre, img, name});
+    }, SHOW_PREVIEW_DELAY);
+
+    setTimer(mouseOverTimer);
+  };
+
+  const onMouseLeave = () => {
+    const timerId = getTimer();
+    removeTimer(timerId);
+
+    removeActiveItem();
   };
 
   const onOpenCardWrapper = (e) => {
@@ -35,7 +50,7 @@ const MovieCard = ({
       className="small-movie-card catalog__movies-card"
       key={name}
       onClick={onOpenCardWrapper}
-      onMouseEnter={onMouseEnterWrapper}
+      onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{
         position: `relative`
@@ -77,8 +92,11 @@ MovieCard.propTypes = {
   img: string,
   preview: string,
   genre: string,
-  onMouseEnter: func,
-  onMouseLeave: func,
+  setActiveItem: func,
+  removeActiveItem: func,
+  setTimer: func,
+  getTimer: func,
+  removeTimer: func,
   onOpenCard: func,
   active: bool
 };

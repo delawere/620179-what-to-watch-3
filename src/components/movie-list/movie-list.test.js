@@ -22,6 +22,10 @@ const films = [
   },
 ];
 
+const activeItem = {
+  name: `test`
+};
+
 it(`MovieList renders correctly`, () => {
   const store = mockStore({
     films,
@@ -34,7 +38,7 @@ it(`MovieList renders correctly`, () => {
     .create(
         <Router>
           <Provider store={store}>
-            <MovieList filteredFilms={filteredFilms}/>
+            <MovieList filteredFilms={filteredFilms} activeItem={activeItem}/>
           </Provider>
         </Router>
     )
