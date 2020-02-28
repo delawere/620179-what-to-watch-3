@@ -25,7 +25,7 @@ const App = (props) => {
           <Main {...props} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>;
         </Route>
         <Route path="/dev-component">
-          <MovieDetails cardData={activeItem} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>
+          <MovieDetails {...props} cardData={activeItem} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>
         </Route>
       </Switch>
     </BrowserRouter>);

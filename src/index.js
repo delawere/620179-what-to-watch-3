@@ -6,6 +6,7 @@ import reducer, {ActionType} from "./reducer";
 import App from "./components/app/app.jsx";
 import films from './mocks/films';
 import withActiveItem from './hocs/with-active-item/with-active-item.jsx';
+import withPlayer from './hocs/with-player/with-player.jsx';
 
 const promoData = {
   name: `The Grand Budapest Hotel`,
@@ -30,11 +31,11 @@ store.dispatch({
   payload: filmGenres
 });
 
-const AppWithOpenCard = withActiveItem(App);
+const WrappedApp = withActiveItem(withPlayer(App));
 
 ReactDOM.render(
     <Provider store={store}>
-      <AppWithOpenCard promoData={promoData}/>
+      <WrappedApp promoData={promoData}/>
     </Provider>,
     document.querySelector(`#root`)
 );

@@ -8,8 +8,9 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
 const MovieListWithActiveItem = withActiveItem(MovieList);
 
-const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms}) => {
+const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms, setActivePlayer}) => {
   const {path, url} = match;
+  const handlePlayButtonClick = () => setActivePlayer(true);
 
   return (
     <>
@@ -54,9 +55,10 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
                 <button
                   className="btn btn--play movie-card__button"
                   type="button"
+                  onClick={handlePlayButtonClick}
                 >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#d9cd8d">
+                    <path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/>
                   </svg>
                   <span>Play</span>
                 </button>
@@ -139,7 +141,8 @@ MovieDetails.propTypes = {
   cardData: FilmType,
   films: FilmsType,
   onOpenCard: func,
-  filteredFilms: FilmsType
+  filteredFilms: FilmsType,
+  setActivePlayer: func,
 };
 
 export {MovieDetails};
