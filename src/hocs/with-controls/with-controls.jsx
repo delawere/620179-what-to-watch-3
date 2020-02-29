@@ -21,7 +21,6 @@ const withControl = (Component) => {
         progress: 0,
         elapsedTime: `00:00:00`,
         intervalId: null,
-        mode: `window`
       };
 
       this.videoRef = createRef();
@@ -105,9 +104,9 @@ const withControl = (Component) => {
     }
 
     _handleChangeMode() {
-      this.setState({
-        mode: this.state.mode === `full` ? `window` : `full`
-      });
+      const video = this.videoRef.current;
+      const rfs = video.requestFullscreen || video.webkitRequestFullScreen || video.mozRequestFullScreen || video.msRequestFullscreen;
+      rfs.call(video);
     }
 
     _setProgress() {
@@ -130,11 +129,10 @@ const withControl = (Component) => {
     }
 
     render() {
-      const {elapsedTime, mode, progress} = this.state;
+      const {elapsedTime, progress} = this.state;
       const isPaused = this._getPlayerIsPaused();
 
       return <Component
-        mode={mode}
         elapsedTime={elapsedTime}
         onChangeMode={this._handleChangeMode}
         onClosePlayer={this._handleClosePlayer}

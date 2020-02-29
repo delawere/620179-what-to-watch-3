@@ -1,18 +1,12 @@
 import React, {memo, forwardRef} from 'react';
 import {func, string, oneOfType, shape, object, number, bool} from 'prop-types';
 
-const windowModeStyles = {
-  width: `900px`,
-  height: `500px`,
-  top: `calc(50vh - 250px)`,
-  left: `calc(50% - 450px)`
-};
-
-const fullScreenStyles = {
-  position: `fixed`,
+const styles = {
+  zIndex: `4`,
+  position: `absolute`,
   width: `100%`,
-  height: `100vh`,
-  top: `0`,
+  height: `80vh`,
+  top: `10vh`,
   left: `0`
 };
 
@@ -29,26 +23,9 @@ const renderedPauseIcon = (
 );
 
 
-const VideoPlayer = ({mode, elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
-  const getStyles = () => {
-    const initialStyles = {
-      zIndex: `4`,
-      position: `absolute`
-    };
-
-    if (mode === `window`) {
-      return Object.assign(initialStyles, windowModeStyles);
-    }
-
-    if (mode === `full`) {
-      return Object.assign(initialStyles, fullScreenStyles);
-    }
-
-    return initialStyles;
-  };
-
+const VideoPlayer = ({elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
   return (
-    <div className="player" style={getStyles()}>
+    <div className="player" style={styles}>
       <video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         className="player__video"
         poster="img/player-poster.jpg"
@@ -86,15 +63,10 @@ const VideoPlayer = ({mode, elapsedTime, onClosePlayer, onClickPlayButton, onCha
 
 };
 
-VideoPlayer.defaultProps = {
-  mode: `window`
-};
-
 VideoPlayer.propTypes = {
   onClosePlayer: func,
   onClickPlayButton: func,
   elapsedTime: string,
-  mode: string,
   onChangeMode: func,
   progress: number,
   paused: bool,

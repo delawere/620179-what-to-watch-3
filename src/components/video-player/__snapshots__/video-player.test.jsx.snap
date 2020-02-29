@@ -5,11 +5,11 @@ exports[`VideoPlayer renders correctly 1`] = `
   className="player"
   style={
     Object {
-      "height": "500px",
-      "left": "calc(50% - 450px)",
+      "height": "80vh",
+      "left": "0",
       "position": "absolute",
-      "top": "calc(50vh - 250px)",
-      "width": "900px",
+      "top": "10vh",
+      "width": "100%",
       "zIndex": "4",
     }
   }
