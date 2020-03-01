@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
-import withActivePlayer from './with-active-player.jsx';
+import withActiveCard from './with-active-card.jsx';
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -20,9 +20,9 @@ MockComponent.propTypes = {
   ]),
 };
 
-const MockComponentWrapped = withActivePlayer(MockComponent);
+const MockComponentWrapped = withActiveCard(MockComponent);
 
-it(`withActivePlayer renders correctly`, () => {
+it(`withActiveItem renders correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped/>
   ), {

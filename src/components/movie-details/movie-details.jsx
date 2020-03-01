@@ -4,12 +4,13 @@ import {Route, Switch, Link, withRouter} from "react-router-dom";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import {FilmsType, FilmType} from "../../types";
-import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import withActiveCard from '../../hocs/with-active-card/with-active-card.jsx';
 
-const MovieListWithActiveItem = withActiveItem(MovieList);
+const MovieListWithActiveCard = withActiveCard(MovieList);
 
-const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms}) => {
+const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms, setActivePlayer}) => {
   const {path, url} = match;
+  const handlePlayButtonClick = () => setActivePlayer(true);
 
   return (
     <>
@@ -54,9 +55,10 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
                 <button
                   className="btn btn--play movie-card__button"
                   type="button"
+                  onClick={handlePlayButtonClick}
                 >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#d9cd8d">
+                    <path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/>
                   </svg>
                   <span>Play</span>
                 </button>
@@ -127,7 +129,7 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieListWithActiveItem onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
+          <MovieListWithActiveCard onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
         </section>
       </div>
     </>
@@ -139,7 +141,8 @@ MovieDetails.propTypes = {
   cardData: FilmType,
   films: FilmsType,
   onOpenCard: func,
-  filteredFilms: FilmsType
+  filteredFilms: FilmsType,
+  setActivePlayer: func,
 };
 
 export {MovieDetails};

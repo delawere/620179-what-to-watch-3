@@ -3,12 +3,15 @@ import {exact, string, number, func} from 'prop-types';
 import MovieList from '../movie-list/movie-list.jsx';
 import Genres from '../genres/genres.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
+import withActiveCard from '../../hocs/with-active-card/with-active-card.jsx';
 import {FilmsType} from '../../types';
 
-const MovieListWithActiveItem = withActiveItem(MovieList);
+const MovieListWithActiveCard = withActiveCard(MovieList);
 
-const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms}) => (
+const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms, setActivePlayer}) => {
+  const handlePlayButtonClick = () => setActivePlayer(true);
+
+  return (
   <>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -47,9 +50,9 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms}
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
+              <button className="btn btn--play movie-card__button" type="button" onClick={handlePlayButtonClick}>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#d9cd8d">
+                  <path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/>
                 </svg>
                 <span>Play</span>
               </button>
@@ -71,7 +74,7 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms}
 
         <Genres />
 
-        <MovieListWithActiveItem onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
+        <MovieListWithActiveCard onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
 
         <div className="catalog__more">
           <ShowMoreButton filteredFilms={filteredFilms}/>
@@ -93,7 +96,8 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms}
       </footer>
     </div>
   </>
-);
+  );
+};
 
 
 Main.propTypes = {
@@ -103,7 +107,8 @@ Main.propTypes = {
     releaseDate: number
   }),
   onOpenCard: func,
-  filteredFilms: FilmsType
+  filteredFilms: FilmsType,
+  setActivePlayer: func,
 };
 
 export default memo(Main);
