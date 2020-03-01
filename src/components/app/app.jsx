@@ -8,9 +8,9 @@ import MovieDetails from "../movie-details/movie-details.jsx";
 import {FilmsType, FilmType} from "../../types";
 import {filterFilmsByGenre} from "../../utils/filterFilmsByGenre";
 import VideoPlayer from '../video-player/video-player.jsx';
-import withControls from '../../hocs/with-controls/with-controls.jsx';
+import withProgress from '../../hocs/with-progress/with-progress.jsx';
 
-const VideoPlayerWithControls = withControls(VideoPlayer);
+const VideoPlayerWithProgress = withProgress(VideoPlayer);
 
 const App = (props) => {
   const {
@@ -30,7 +30,7 @@ const App = (props) => {
 
   const filteredFilms = filterFilmsByGenre(genreFilter, films);
 
-  const renderVideoPlayer = () => <VideoPlayerWithControls setActivePlayer={setActivePlayer}/>;
+  const renderVideoPlayer = () => <VideoPlayerWithProgress setActivePlayer={setActivePlayer}/>;
   const renderApp = () => (<BrowserRouter>
     <Switch>
       <Route exact path="/">

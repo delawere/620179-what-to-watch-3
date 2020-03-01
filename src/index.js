@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import reducer, {ActionType} from "./reducer";
 import App from "./components/app/app.jsx";
 import films from './mocks/films';
-import withActiveItem from './hocs/with-active-item/with-active-item.jsx';
+import withActiveCard from './hocs/with-active-card/with-active-card.jsx';
 import withPlayer from './hocs/with-player/with-player.jsx';
 
 const promoData = {
@@ -31,7 +31,7 @@ store.dispatch({
   payload: filmGenres
 });
 
-const WrappedApp = withActiveItem(withPlayer(App));
+const WrappedApp = withActiveCard(withPlayer(App));
 
 ReactDOM.render(
     <Provider store={store}>

@@ -1,7 +1,7 @@
 import React, {forwardRef} from "react";
 import renderer from "react-test-renderer";
 import {func, oneOfType, shape, object} from 'prop-types';
-import withControls from './with-controls.jsx';
+import withProgress from './with-progress.jsx';
 
 const MockComponent = () => <video />;
 
@@ -15,9 +15,9 @@ MockComponent.propTypes = {
   forwardedRef: oneOfType([func, shape({current: object})]),
 };
 
-const MockComponentWrapped = withControls(MockComponentWithRef);
+const MockComponentWrapped = withProgress(MockComponentWithRef);
 
-it(`withControls renders correctly`, () => {
+it(`withProgress renders correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped setActivePlayer={() => {}}/>
   ), {
