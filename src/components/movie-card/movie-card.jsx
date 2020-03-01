@@ -2,9 +2,7 @@ import React, {memo} from "react";
 import {string, func, shape, bool} from "prop-types";
 import {Link} from "react-router-dom";
 import Player from "../player/player.jsx";
-import withPlayer from '../../hocs/with-player/with-player.jsx';
 
-const PlayerWithActive = withPlayer(Player);
 const SHOW_PREVIEW_DELAY = 1000;
 
 const MovieCard = ({
@@ -79,7 +77,7 @@ const MovieCard = ({
           {name}
         </Link>
       </h3>
-      <PlayerWithActive active={active} src={preview} name={name} img={img} />
+      <Player active={active} src={preview} name={name} img={img} />
     </article>
   );
 };
