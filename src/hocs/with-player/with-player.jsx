@@ -6,26 +6,26 @@ const withPlayer = (Component) => {
       super(props);
 
       this.state = {
-        active: false
+        activePlayer: false
       };
 
       this._setActivePlayer = this._setActivePlayer.bind(this);
     }
 
-    _setActivePlayer(active) {
+    _setActivePlayer(activePlayer) {
       this.setState({
-        active
+        activePlayer
       });
     }
 
     render() {
-      const {active} = this.state;
+      const {activePlayer} = this.state;
 
       return (
         <>
           <Component
             {...this.props}
-            active={active}
+            activePlayer={activePlayer}
             setActivePlayer={this._setActivePlayer}
           />
         </>

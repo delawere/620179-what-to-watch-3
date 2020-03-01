@@ -12,8 +12,8 @@ const secondsToHms = (seconds) => {
 };
 
 
-const withControl = (Component) => {
-  class WithControl extends PureComponent {
+const withProgressBar = (Component) => {
+  class WithProgressBar extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -143,12 +143,12 @@ const withControl = (Component) => {
     }
   }
 
-  WithControl.propTypes = {
+  WithProgressBar.propTypes = {
     setActivePlayer: func.isRequired,
   };
 
-  return WithControl;
+  return WithProgressBar;
 };
 
 
-export default withControl;
+export default withProgressBar;
