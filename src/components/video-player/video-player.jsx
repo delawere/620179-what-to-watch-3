@@ -1,15 +1,6 @@
 import React, {memo, forwardRef} from 'react';
 import {func, string, oneOfType, shape, object, number, bool} from 'prop-types';
 
-const styles = {
-  zIndex: `4`,
-  position: `absolute`,
-  width: `100%`,
-  height: `80vh`,
-  top: `10vh`,
-  left: `0`
-};
-
 const renderedPlayIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#d9cd8d">
     <path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/>
@@ -22,10 +13,9 @@ const renderedPauseIcon = (
   </svg>
 );
 
-
 const VideoPlayer = ({elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
   return (
-    <div className="player" style={styles}>
+    <div className="player">
       <video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         className="player__video"
         poster="img/player-poster.jpg"

@@ -1,9 +1,4 @@
-import React, {PureComponent} from 'react';
-import {bool} from 'prop-types';
-import VideoPlayer from '../../components/video-player/video-player.jsx';
-import withControls from '../with-controls/with-controls.jsx';
-
-const VidePlayerWithControls = withControls(VideoPlayer);
+import React, {PureComponent} from "react";
 
 const withPlayer = (Component) => {
   class WithPlayer extends PureComponent {
@@ -28,19 +23,17 @@ const withPlayer = (Component) => {
 
       return (
         <>
-          {active ? <VidePlayerWithControls setActivePlayer={this._setActivePlayer}/> : null}
-          <Component {...this.props} setActivePlayer={this._setActivePlayer}/>
+          <Component
+            {...this.props}
+            active={active}
+            setActivePlayer={this._setActivePlayer}
+          />
         </>
       );
     }
   }
 
-  WithPlayer.propTypes = {
-    active: bool
-  };
-
   return WithPlayer;
 };
-
 
 export default withPlayer;

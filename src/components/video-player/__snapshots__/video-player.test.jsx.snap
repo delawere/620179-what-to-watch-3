@@ -3,16 +3,6 @@
 exports[`VideoPlayer renders correctly 1`] = `
 <div
   className="player"
-  style={
-    Object {
-      "height": "80vh",
-      "left": "0",
-      "position": "absolute",
-      "top": "10vh",
-      "width": "100%",
-      "zIndex": "4",
-    }
-  }
 >
   <video
     autoPlay={true}

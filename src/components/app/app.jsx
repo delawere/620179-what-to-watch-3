@@ -1,15 +1,27 @@
-import React, {memo} from 'react';
-import {func, string} from 'prop-types';
-import {connect} from 'react-redux';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {ActionCreator} from '../../reducer';
-import Main from '../main/main.jsx';
-import MovieDetails from '../movie-details/movie-details.jsx';
-import {FilmsType, FilmType} from '../../types';
-import {filterFilmsByGenre} from '../../utils/filterFilmsByGenre';
+import React, {memo} from "react";
+import {func, string} from "prop-types";
+import {connect} from "react-redux";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {ActionCreator} from "../../reducer";
+import Main from "../main/main.jsx";
+import MovieDetails from "../movie-details/movie-details.jsx";
+import {FilmsType, FilmType} from "../../types";
+import {filterFilmsByGenre} from "../../utils/filterFilmsByGenre";
+import VideoPlayer from '../video-player/video-player.jsx';
+import withControls from '../../hocs/with-controls/with-controls.jsx';
+
+const VideoPlayerWithControls = withControls(VideoPlayer);
 
 const App = (props) => {
-  const {onSelectGenre, films, genreFilter, setActiveItem, activeItem} = props;
+  const {
+    onSelectGenre,
+    films,
+    genreFilter,
+    setActiveItem,
+    activeItem,
+    setActivePlayer,
+    active
+  } = props;
 
   const handleOpenCard = ({name, img, genre}) => {
     onSelectGenre(genre, films);
@@ -18,17 +30,32 @@ const App = (props) => {
 
   const filteredFilms = filterFilmsByGenre(genreFilter, films);
 
+  const renderVideoPlayer = () => <VideoPlayerWithControls setActivePlayer={setActivePlayer}/>;
+  const renderApp = () => (<BrowserRouter>
+    <Switch>
+      <Route exact path="/">
+        <Main
+          {...props}
+          onOpenCard={handleOpenCard}
+          filteredFilms={filteredFilms}
+        />
+      </Route>
+      <Route path="/dev-component">
+        <MovieDetails
+          {...props}
+          cardData={activeItem}
+          onOpenCard={handleOpenCard}
+          filteredFilms={filteredFilms}
+        />
+      </Route>
+    </Switch>
+  </BrowserRouter>);
+
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/">
-          <Main {...props} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>;
-        </Route>
-        <Route path="/dev-component">
-          <MovieDetails {...props} cardData={activeItem} onOpenCard={handleOpenCard} filteredFilms={filteredFilms}/>
-        </Route>
-      </Switch>
-    </BrowserRouter>);
+    active
+      ? renderVideoPlayer()
+      : renderApp()
+  );
 };
 
 App.propTypes = {
@@ -50,10 +77,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const AppWrapper = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
-
+const AppWrapper = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default memo(AppWrapper);
