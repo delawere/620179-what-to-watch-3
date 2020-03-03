@@ -9,14 +9,17 @@ const mockStore = configureStore([]);
 
 const films = [
   {
+    id: 1,
     name: `name1`,
     img: `img/name1.jpg`,
   },
   {
+    id: 2,
     name: `name2`,
     img: `img/name2.jpg`,
   },
   {
+    id: 3,
     name: `name3`,
     img: `img/name3.jpg`,
   },

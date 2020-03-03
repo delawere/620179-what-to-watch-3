@@ -2,33 +2,28 @@ import React, {memo} from "react";
 import {func, string, bool} from "prop-types";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {ActionCreator} from "../../reducer";
 import Main from "../main/main.jsx";
 import MovieDetails from "../movie-details/movie-details.jsx";
-import {FilmsType, FilmType} from "../../types";
-import {filterFilmsByGenre} from "../../utils/filterFilmsByGenre";
+import {FilmType} from "../../types";
 import VideoPlayer from '../video-player/video-player.jsx';
 import withProgress from '../../hocs/with-progress/with-progress.jsx';
+import {getFilmsByGenre} from "../../reducer/films/selectors";
+import {getGenreFilter} from "../../reducer/genres/selectors";
 
 const VideoPlayerWithProgress = withProgress(VideoPlayer);
 
 const App = (props) => {
   const {
-    onSelectGenre,
-    films,
-    genreFilter,
     setActiveItem,
     activeItem,
     setActivePlayer,
-    activePlayer
+    activePlayer,
+    filteredFilms
   } = props;
 
-  const handleOpenCard = ({name, img, genre}) => {
-    onSelectGenre(genre, films);
-    setActiveItem({name, img, genre});
+  const handleOpenCard = (data) => {
+    setActiveItem(data);
   };
-
-  const filteredFilms = filterFilmsByGenre(genreFilter, films);
 
   const renderVideoPlayer = () => <VideoPlayerWithProgress setActivePlayer={setActivePlayer}/>;
   const renderApp = () => (<BrowserRouter>
@@ -40,7 +35,7 @@ const App = (props) => {
           filteredFilms={filteredFilms}
         />
       </Route>
-      <Route path="/dev-component">
+      <Route path="/films/:id">
         <MovieDetails
           {...props}
           cardData={activeItem}
@@ -59,26 +54,18 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  films: FilmsType,
   genreFilter: string,
-  onSelectGenre: func,
   setActiveItem: func,
   activeItem: FilmType,
   setActivePlayer: func,
   activePlayer: bool,
 };
 
-const mapStateToProps = ({films, genreFilter}) => ({
-  films,
-  genreFilter
+const mapStateToProps = (state) => ({
+  genreFilter: getGenreFilter(state),
+  filteredFilms: getFilmsByGenre(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSelectGenre: (genre) => {
-    dispatch(ActionCreator.selectGenreFilter(genre));
-  }
-});
-
-const AppWrapper = connect(mapStateToProps, mapDispatchToProps)(App);
+const AppWrapper = connect(mapStateToProps)(App);
 
 export default memo(AppWrapper);

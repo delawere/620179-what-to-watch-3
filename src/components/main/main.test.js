@@ -4,6 +4,7 @@ import Main from './main';
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {BrowserRouter as Router} from 'react-router-dom';
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -15,14 +16,17 @@ const promoData = {
 
 const films = [
   {
+    id: 1,
     name: `name1`,
     img: `img/name1.jpg`,
   },
   {
+    id: 2,
     name: `name2`,
     img: `img/name2.jpg`,
   },
   {
+    id: 3,
     name: `name3`,
     img: `img/name3.jpg`,
   },
@@ -30,10 +34,13 @@ const films = [
 
 it(`Main renders correctly`, () => {
   const store = mockStore({
-    genres: [`genre1`, `genre2`],
-    genreFilter: `All genres`,
-    films,
-    filteredFilms: films,
+    [NameSpace.GENRES]: {
+      genres: [`genre1`, `genre2`],
+      genreFilter: `All genres`
+    },
+    [NameSpace.FILMS]: {
+      films
+    }
   });
 
   const tree = renderer

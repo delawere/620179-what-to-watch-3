@@ -21,7 +21,6 @@ exports[`MovieList renders correctly 1`] = `
       <img
         alt="name1"
         height="175"
-        src="img/name1.jpg"
         width="280"
       />
     </div>
@@ -36,7 +35,7 @@ exports[`MovieList renders correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="/dev-component"
+        href="/films/1"
         onClick={[Function]}
         style={
           Object {
@@ -68,7 +67,6 @@ exports[`MovieList renders correctly 1`] = `
       <img
         alt="name2"
         height="175"
-        src="img/name2.jpg"
         width="280"
       />
     </div>
@@ -83,7 +81,7 @@ exports[`MovieList renders correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="/dev-component"
+        href="/films/2"
         onClick={[Function]}
         style={
           Object {
@@ -115,7 +113,6 @@ exports[`MovieList renders correctly 1`] = `
       <img
         alt="name3"
         height="175"
-        src="img/name3.jpg"
         width="280"
       />
     </div>
@@ -130,7 +127,7 @@ exports[`MovieList renders correctly 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="/dev-component"
+        href="/films/3"
         onClick={[Function]}
         style={
           Object {

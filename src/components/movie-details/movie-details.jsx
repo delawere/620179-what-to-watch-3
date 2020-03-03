@@ -1,23 +1,29 @@
 import React, {memo} from "react";
 import {func, object} from "prop-types";
+import {connect} from "react-redux";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import {FilmsType, FilmType} from "../../types";
 import withActiveCard from '../../hocs/with-active-card/with-active-card.jsx';
+import {getFilms} from "../../reducer/films/selectors.js";
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
 
-const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFilms, setActivePlayer}) => {
-  const {path, url} = match;
+const MovieDetails = ({match, films = [], onOpenCard, filteredFilms, setActivePlayer}) => {
+  const {path, url, params: {id}} = match;
+  const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
+  const {name, genre, posterImage, released, backgroundColor, backgroundImage} = data;
   const handlePlayButtonClick = () => setActivePlayer(true);
 
   return (
     <>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={{
+        backgroundColor
+      }}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={img} alt={name} />
+            <img src={backgroundImage} alt={name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -34,7 +40,7 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
             <div className="user-block">
               <div className="user-block__avatar">
                 <img
-                  src="img/avatar.jpg"
+                  src="../img/avatar.jpg"
                   alt="User avatar"
                   width="63"
                   height="63"
@@ -47,8 +53,8 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">Drama</span>
-                <span className="movie-card__year">2014</span>
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -83,8 +89,8 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={posterImage}
+                alt={`${name} poster`}
                 width="218"
                 height="327"
               />
@@ -114,10 +120,10 @@ const MovieDetails = ({match, cardData: {name, img} = {}, onOpenCard, filteredFi
               <div>
                 <Switch>
                   <Route exact path={`${path}`}>
-                    <Tabs />
+                    <Tabs {...data}/>
                   </Route>
                   <Route path={`${path}/:tab`}>
-                    <Tabs />
+                    <Tabs {...data}/>
                   </Route>
                 </Switch>
               </div>
@@ -145,5 +151,11 @@ MovieDetails.propTypes = {
   setActivePlayer: func,
 };
 
+const mapStateToProps = (state) => ({
+  films: getFilms(state)
+});
+
 export {MovieDetails};
-export default withRouter(memo(MovieDetails));
+export default connect(mapStateToProps)(withRouter(memo(MovieDetails)));
+
+

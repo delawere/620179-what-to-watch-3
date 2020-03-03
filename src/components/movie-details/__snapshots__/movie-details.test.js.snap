@@ -4,6 +4,11 @@ exports[`MovieDetails renders correctly 1`] = `
 Array [
   <section
     className="movie-card movie-card--full"
+    style={
+      Object {
+        "backgroundColor": undefined,
+      }
+    }
   >
     <div
       className="movie-card__hero"
@@ -12,8 +17,7 @@ Array [
         className="movie-card__bg"
       >
         <img
-          alt="test"
-          src="img/test.jpg"
+          alt="test1"
         />
       </div>
       <h1
@@ -57,7 +61,7 @@ Array [
             <img
               alt="User avatar"
               height="63"
-              src="img/avatar.jpg"
+              src="../img/avatar.jpg"
               width="63"
             />
           </div>
@@ -72,7 +76,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            test
+            test1
           </h2>
           <p
             className="movie-card__meta"
@@ -80,13 +84,11 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Drama
+              test1Genre
             </span>
             <span
               className="movie-card__year"
-            >
-              2014
-            </span>
+            />
           </p>
           <div
             className="movie-card__buttons"
@@ -152,9 +154,8 @@ Array [
           className="movie-card__poster movie-card__poster--big"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="test1 poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
           />
         </div>
@@ -238,7 +239,6 @@ Array [
             <img
               alt="test1"
               height="175"
-              src="test1.img"
               width="280"
             />
           </div>
@@ -253,7 +253,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/dev-component"
+              href="/films/1"
               onClick={[Function]}
               style={
                 Object {
@@ -285,7 +285,6 @@ Array [
             <img
               alt="test2"
               height="175"
-              src="test2.img"
               width="280"
             />
           </div>
@@ -300,7 +299,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/dev-component"
+              href="/films/2"
               onClick={[Function]}
               style={
                 Object {
@@ -332,7 +331,6 @@ Array [
             <img
               alt="test3"
               height="175"
-              src="test3.img"
               width="280"
             />
           </div>
@@ -347,7 +345,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/dev-component"
+              href="/films/3"
               onClick={[Function]}
               style={
                 Object {

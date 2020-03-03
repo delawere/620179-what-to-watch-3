@@ -3,6 +3,7 @@ import {string, func, number} from "prop-types";
 import {connect} from "react-redux";
 import MovieCard from "../movie-card/movie-card.jsx";
 import {FilmsType, FilmType} from '../../types';
+import {getShownCardsNumber} from "../../reducer/films/selectors.js";
 
 const MovieList = (props) => {
   const {shownCardsNumber, activeItem, filteredFilms} = props;
@@ -10,17 +11,17 @@ const MovieList = (props) => {
 
   return (
     <div className="catalog__movies-list">
-      {shownFilms.map(({name, img, preview, genre}) => (
-        <MovieCard
-          key={name}
-          name={name}
-          img={img}
-          preview={preview}
-          genre={genre}
-          active={name === activeItem.name}
-          {...props}
-        />
-      ))}
+      {shownFilms.map((film) => {
+        const {name, id} = film;
+        return (
+          <MovieCard
+            key={id}
+            active={name === activeItem.name}
+            {...film}
+            {...props}
+          />
+        );
+      })}
     </div>
   );
 };
@@ -37,8 +38,8 @@ MovieList.propTypes = {
   removeTimer: func,
 };
 
-const mapStateToProps = ({shownCardsNumber}) => ({
-  shownCardsNumber,
+const mapStateToProps = (state) => ({
+  shownCardsNumber: getShownCardsNumber(state)
 });
 
 export {MovieList};
