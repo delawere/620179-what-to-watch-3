@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer';
 import {func, number} from 'prop-types';
 import {FilmsType} from '../../types';
+import {getShownCardsNumber} from '../../reducer/films/selectors';
 
 const ShowMoreButton = ({shownCardsNumber, showMoreCards, filteredFilms}) => {
   const visible = shownCardsNumber <= filteredFilms.length;
@@ -24,8 +25,8 @@ ShowMoreButton.propTypes = {
   filteredFilms: FilmsType
 };
 
-const mapStateToProps = ({shownCardsNumber}) => ({
-  shownCardsNumber
+const mapStateToProps = (state) => ({
+  shownCardsNumber: getShownCardsNumber(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

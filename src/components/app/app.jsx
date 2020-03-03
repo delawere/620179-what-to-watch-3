@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, {memo, useEffect} from "react";
 import {func, string, bool} from "prop-types";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -9,6 +9,8 @@ import {FilmsType, FilmType} from "../../types";
 import {filterFilmsByGenre} from "../../utils/filterFilmsByGenre";
 import VideoPlayer from '../video-player/video-player.jsx';
 import withProgress from '../../hocs/with-progress/with-progress.jsx';
+import {getFilms} from "../../reducer/films/selectors";
+import {getGenreFilter} from "../../reducer/genres/selectors";
 
 const VideoPlayerWithProgress = withProgress(VideoPlayer);
 
@@ -20,7 +22,7 @@ const App = (props) => {
     setActiveItem,
     activeItem,
     setActivePlayer,
-    activePlayer
+    activePlayer,
   } = props;
 
   const handleOpenCard = ({name, img, genre}) => {
@@ -68,9 +70,9 @@ App.propTypes = {
   activePlayer: bool,
 };
 
-const mapStateToProps = ({films, genreFilter}) => ({
-  films,
-  genreFilter
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
+  genreFilter: getGenreFilter(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
