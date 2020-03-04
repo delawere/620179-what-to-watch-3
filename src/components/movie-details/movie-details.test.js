@@ -14,9 +14,9 @@ const cardData = {
 };
 
 const films = [
-  {id: `1`, name: `test1`, img: `test1.img`, genre: `test1Genre`},
-  {id: `2`, name: `test2`, img: `test2.img`, genre: `test2Genre`},
-  {id: `3`, name: `test3`, img: `test3.img`, genre: `test3Genre`},
+  {id: 1, name: `test1`, img: `test1.img`, genre: `test1Genre`},
+  {id: 2, name: `test2`, img: `test2.img`, genre: `test2Genre`},
+  {id: 3, name: `test3`, img: `test3.img`, genre: `test3Genre`},
 ];
 
 const match = {

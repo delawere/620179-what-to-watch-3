@@ -2,13 +2,40 @@ import React, {memo} from 'react';
 import {withRouter} from "react-router-dom";
 import convertTime from '../../utils/convertTime.js';
 
+const LEVELS = {
+  bad: `Bad`,
+  normal: `Normal`,
+  good: `Good`,
+  veryGood: `Very Good`,
+  awesome: `Awesome`
+};
+
+const getRatingLevelByScore = (score) => {
+  const {bad, normal, good, veryGood, awesome} = LEVELS;
+  if (score >= 0 && score < 3) {
+    return bad;
+  } else if (score >= 3 && score < 5) {
+    return normal;
+
+  } else if (score >= 5 && score < 8) {
+    return good;
+
+  } else if (score >= 8 && score < 10) {
+    return veryGood;
+  } else if (score === 10) {
+    return awesome;
+  }
+
+  return `-`;
+};
+
 const Tabs = ({match, description, rating, scoresCount, director, starring = [], genre, runTime, released}) => {
   const renderOverview = () => (
       <>
     <div className="movie-rating">
       <div className="movie-rating__score">{rating}</div>
       <p className="movie-rating__meta">
-        <span className="movie-rating__level">Very good</span>
+        <span className="movie-rating__level">{getRatingLevelByScore(rating)}</span>
         <span className="movie-rating__count">{`${scoresCount} ratings`}</span>
       </p>
     </div>

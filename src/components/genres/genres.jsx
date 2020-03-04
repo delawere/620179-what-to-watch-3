@@ -1,7 +1,7 @@
 import React, {memo} from "react";
 import {array, func, string} from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/genres/genres.js";
 import {FilmsType} from '../../types';
 import GenresItem from '../genres-item/genres-item.jsx';
 import {getGenreFilter, getGenres} from "../../reducer/genres/selectors";
