@@ -1,57 +1,79 @@
-import React, {memo} from "react";
+import React, {PureComponent} from "react";
 import {func, string, bool} from "prop-types";
 import {connect} from "react-redux";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MovieDetails from "../movie-details/movie-details.jsx";
 import {FilmType} from "../../types";
-import VideoPlayer from '../video-player/video-player.jsx';
-import withProgress from '../../hocs/with-progress/with-progress.jsx';
+import VideoPlayer from "../video-player/video-player.jsx";
+import withProgress from "../../hocs/with-progress/with-progress.jsx";
 import {getFilmsByGenre} from "../../reducer/films/selectors";
 import {getGenreFilter} from "../../reducer/genres/selectors";
+import {getAuthStatus} from "../../reducer/user/selectors.js";
+import SignIn from '../sign-in/sign-in.jsx';
 
 const VideoPlayerWithProgress = withProgress(VideoPlayer);
 
-const App = (props) => {
-  const {
-    setActiveItem,
-    activeItem,
-    setActivePlayer,
-    activePlayer,
-    filteredFilms
-  } = props;
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  const handleOpenCard = (data) => {
+    this._handleOpenCard = this._handleOpenCard.bind(this);
+    this._renderVideoPlayer = this._renderVideoPlayer.bind(this);
+    this._renderApp = this._renderApp.bind(this);
+  }
+
+  // componentDidUpdate() {
+  //   const {isAuth, history} = this.props;
+  //   if (!isAuth) {
+  //     history.push(`/login`);
+  //   }
+  // }
+
+  _handleOpenCard(data) {
+    const {setActiveItem} = this.props;
     setActiveItem(data);
-  };
+  }
 
-  const renderVideoPlayer = () => <VideoPlayerWithProgress setActivePlayer={setActivePlayer}/>;
-  const renderApp = () => (<BrowserRouter>
-    <Switch>
-      <Route exact path="/">
-        <Main
-          {...props}
-          onOpenCard={handleOpenCard}
-          filteredFilms={filteredFilms}
-        />
-      </Route>
-      <Route path="/films/:id">
-        <MovieDetails
-          {...props}
-          cardData={activeItem}
-          onOpenCard={handleOpenCard}
-          filteredFilms={filteredFilms}
-        />
-      </Route>
-    </Switch>
-  </BrowserRouter>);
+  _renderVideoPlayer() {
+    const {setActivePlayer} = this.props;
+    return <VideoPlayerWithProgress setActivePlayer={setActivePlayer} />;
+  }
 
-  return (
-    activePlayer
-      ? renderVideoPlayer()
-      : renderApp()
-  );
-};
+  _renderApp() {
+    const {filteredFilms, activeItem} = this.props;
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Main
+              {...this.props}
+              onOpenCard={this._handleOpenCard}
+              filteredFilms={filteredFilms}
+            />
+          </Route>
+          <Route path="/films/:id">
+            <MovieDetails
+              {...this.props}
+              cardData={activeItem}
+              onOpenCard={this._handleOpenCard}
+              filteredFilms={filteredFilms}
+            />
+          </Route>
+          <Route path="/login">
+            <SignIn />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+
+  render() {
+    return (
+      this.props.activePlayer ? this._renderVideoPlayer() : this._renderApp()
+    );
+  }
+}
 
 App.propTypes = {
   genreFilter: string,
@@ -59,13 +81,15 @@ App.propTypes = {
   activeItem: FilmType,
   setActivePlayer: func,
   activePlayer: bool,
+  isAuth: bool
 };
 
 const mapStateToProps = (state) => ({
   genreFilter: getGenreFilter(state),
-  filteredFilms: getFilmsByGenre(state)
+  filteredFilms: getFilmsByGenre(state),
+  isAuth: getAuthStatus(state) === `AUTH`
 });
 
 const AppWrapper = connect(mapStateToProps)(App);
 
-export default memo(AppWrapper);
+export default withRouter(AppWrapper);
