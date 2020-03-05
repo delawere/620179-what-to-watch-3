@@ -1,10 +1,8 @@
 
-import {exact, arrayOf, string} from 'prop-types';
+import {shape, arrayOf, string} from 'prop-types';
 
-export const FilmType = exact({
+export const FilmType = shape({
   name: string,
-  img: string,
-  preview: string,
   genre: string
 });
 

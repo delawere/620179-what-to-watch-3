@@ -1,15 +1,16 @@
 import React, {memo} from "react";
-import {string, func, shape, bool} from "prop-types";
+import {string, func, shape, bool, number} from "prop-types";
 import {Link} from "react-router-dom";
 import Player from "../player/player.jsx";
 
 const SHOW_PREVIEW_DELAY = 1000;
 
 const MovieCard = ({
+  id,
   name,
-  img,
-  preview,
   genre,
+  previewImage,
+  videoLink,
   setActiveItem,
   removeActiveItem,
   setTimer,
@@ -20,7 +21,7 @@ const MovieCard = ({
 }) => {
   const onMouseEnter = () => {
     const mouseOverTimer = setTimeout(() => {
-      setActiveItem({genre, img, name});
+      setActiveItem({genre, previewImage, name});
     }, SHOW_PREVIEW_DELAY);
 
     setTimer(mouseOverTimer);
@@ -37,9 +38,7 @@ const MovieCard = ({
     e.preventDefault();
 
     onOpenCard({
-      name,
-      img,
-      genre
+      id,
     });
   };
 
@@ -55,7 +54,7 @@ const MovieCard = ({
       }}
     >
       <div className="small-movie-card__image">
-        <img src={img} alt={name} width="280" height="175" />
+        <img src={previewImage} alt={name} width="280" height="175" />
       </div>
       <h3
         className="small-movie-card__title"
@@ -65,7 +64,7 @@ const MovieCard = ({
         }}
       >
         <Link
-          to="/dev-component"
+          to={`/films/${id}`}
           className="small-movie-card__link"
           style={{
             width: `100%`,
@@ -77,7 +76,7 @@ const MovieCard = ({
           {name}
         </Link>
       </h3>
-      <Player active={active} src={preview} name={name} img={img} />
+      <Player active={active} src={videoLink} name={name} img={previewImage} />
     </article>
   );
 };
@@ -86,17 +85,18 @@ MovieCard.propTypes = {
   history: shape({
     history: func
   }),
+  id: number,
   name: string,
-  img: string,
-  preview: string,
   genre: string,
+  previewImage: string,
+  videoLink: string,
   setActiveItem: func,
   removeActiveItem: func,
   setTimer: func,
   getTimer: func,
   removeTimer: func,
   onOpenCard: func,
-  active: bool
+  active: bool,
 };
 
 export default memo(MovieCard);

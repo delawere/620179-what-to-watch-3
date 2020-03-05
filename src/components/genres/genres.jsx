@@ -1,14 +1,16 @@
 import React, {memo} from "react";
 import {array, func, string} from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/genres/genres.js";
 import {FilmsType} from '../../types';
 import GenresItem from '../genres-item/genres-item.jsx';
+import {getGenreFilter, getGenres} from "../../reducer/genres/selectors";
+import {getFilms} from "../../reducer/films/selectors";
 
 
 const SELECTED_GENRE_CLASS = `catalog__genres-item--active`;
 
-const Genres = ({genres, genreFilter, films, onSelectGenre}) => {
+const Genres = ({genres = [], genreFilter, films, onSelectGenre}) => {
   const handleOnSelectGenre = (e, genre) => {
     e.preventDefault();
 
@@ -49,10 +51,10 @@ Genres.propTypes = {
   onSelectGenre: func
 };
 
-const mapStateToProps = ({genres, genreFilter, films}) => ({
-  genres,
-  genreFilter,
-  films
+const mapStateToProps = (state) => ({
+  genres: getGenres(state),
+  genreFilter: getGenreFilter(state),
+  films: getFilms(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

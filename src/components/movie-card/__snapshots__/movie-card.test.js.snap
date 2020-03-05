@@ -18,7 +18,6 @@ exports[`MovieCard renders correctly 1`] = `
     <img
       alt="test"
       height="175"
-      src="img/test.jpg"
       width="280"
     />
   </div>
@@ -33,7 +32,7 @@ exports[`MovieCard renders correctly 1`] = `
   >
     <a
       className="small-movie-card__link"
-      href="/dev-component"
+      href="/films/undefined"
       onClick={[Function]}
       style={
         Object {

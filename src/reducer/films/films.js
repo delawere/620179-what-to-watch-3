@@ -1,33 +1,24 @@
-import {extend} from "./utils/extend";
+import {extend} from "../../utils/extend";
+import {keysToCamel} from '../../utils/toCamel';
+import {ActionCreator as GenresActionCreater} from '../genres/genres.js';
 
 const SHOWN_CARDS_STEP = 8;
+const getFilmGenres = (films) => [`All genres`, ...new Set(films.map((film) => film.genre))];
 
 const initialState = {
-  genres: [],
   films: [],
-  genreFilter: `All genres`,
   shownCardsNumber: SHOWN_CARDS_STEP
 };
 
 export const ActionType = {
-  SET_GENRES: `SET_GENRES`,
   SET_FIMLS: `SET_FILMS`,
-  SELECT_GENRE_FILTER: `SELECT_GENRE_FILTER`,
   SHOW_MORE_CARDS: `SHOW_MORE_CARDS`
 };
 
 export const ActionCreator = {
-  setGenres: (list) => ({
-    type: ActionType.SET_GENRES,
-    payload: list
-  }),
   setFilms: (list) => ({
     type: ActionType.SET_FIMLS,
     payload: list
-  }),
-  selectGenreFilter: (genre) => ({
-    type: ActionType.SELECT_GENRE_FILTER,
-    payload: genre
   }),
   showMoreCards: () => ({
     type: ActionType.SHOW_MORE_CARDS
@@ -35,19 +26,21 @@ export const ActionCreator = {
 
 };
 
-const reducer = (state = initialState, action) => {
+export const Operation = {
+  loadMovies: () => (dispatch, _, api) => {
+    return api.get(`/films`)
+          .then(({data}) => {
+            dispatch(ActionCreator.setFilms(data.map((it) => keysToCamel(it))));
+            dispatch(GenresActionCreater.setGenres(getFilmGenres(data)));
+          });
+  },
+};
+
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.SET_GENRES:
-      return extend(state, {
-        genres: action.payload
-      });
     case ActionType.SET_FIMLS:
       return extend(state, {
         films: action.payload
-      });
-    case ActionType.SELECT_GENRE_FILTER:
-      return extend(state, {
-        genreFilter: action.payload
       });
     case ActionType.SHOW_MORE_CARDS:
       return extend(state, {
@@ -57,5 +50,3 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
-
-export default reducer;

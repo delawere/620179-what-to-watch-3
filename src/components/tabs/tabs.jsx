@@ -1,41 +1,57 @@
 import React, {memo} from 'react';
 import {withRouter} from "react-router-dom";
+import convertTime from '../../utils/convertTime.js';
 
-const Tabs = ({match}) => {
+const LEVELS = {
+  bad: `Bad`,
+  normal: `Normal`,
+  good: `Good`,
+  veryGood: `Very Good`,
+  awesome: `Awesome`
+};
+
+const getRatingLevelByScore = (score) => {
+  const {bad, normal, good, veryGood, awesome} = LEVELS;
+  if (score >= 0 && score < 3) {
+    return bad;
+  } else if (score >= 3 && score < 5) {
+    return normal;
+
+  } else if (score >= 5 && score < 8) {
+    return good;
+
+  } else if (score >= 8 && score < 10) {
+    return veryGood;
+  } else if (score === 10) {
+    return awesome;
+  }
+
+  return `-`;
+};
+
+const Tabs = ({match, description, rating, scoresCount, director, starring = [], genre, runTime, released}) => {
   const renderOverview = () => (
       <>
     <div className="movie-rating">
-      <div className="movie-rating__score">8,9</div>
+      <div className="movie-rating__score">{rating}</div>
       <p className="movie-rating__meta">
-        <span className="movie-rating__level">Very good</span>
-        <span className="movie-rating__count">240 ratings</span>
+        <span className="movie-rating__level">{getRatingLevelByScore(rating)}</span>
+        <span className="movie-rating__count">{`${scoresCount} ratings`}</span>
       </p>
     </div>
 
   <div className="movie-card__text">
     <p>
-      In the 1930s, the Grand Budapest Hotel is a popular European
-      ski resort, presided over by concierge Gustave H. (Ralph
-      Fiennes). Zero, a junior lobby boy, becomes Gustave&#39;s friend
-      and protege.
-    </p>
-
-    <p>
-      Gustave prides himself on providing first-class service to the
-      hotel&#39;s guests, including satisfying the sexual needs of the
-      many elderly women who stay there. When one of Gustave&#39;s
-      lovers dies mysteriously, Gustave finds himself the recipient
-      of a priceless painting and the chief suspect in her murder.
+      {description}
     </p>
 
     <p className="movie-card__director">
-      <strong>Director: Wes Andreson</strong>
+      <strong>{`Director: ${director}`}</strong>
     </p>
 
     <p className="movie-card__starring">
       <strong>
-        Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe
-        and other
+        {starring.join(`, `)}
       </strong>
     </p>
   </div>
@@ -48,23 +64,12 @@ const Tabs = ({match}) => {
       <div className="movie-card__text-col">
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Director</strong>
-          <span className="movie-card__details-value">Wes Andreson</span>
+          <span className="movie-card__details-value">{director}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Starring</strong>
           <span className="movie-card__details-value">
-          Bill Murray,
-          Edward Norton,
-          Jude Law,
-          Willem Dafoe,
-          Saoirse Ronan,
-          Tony Revoloru,
-          Tilda Swinton,
-          Tom Wilkinson,
-          Owen Wilkinson,
-          Adrien Brody,
-          Ralph Fiennes,
-          Jeff Goldblum
+            {starring.join(`, `)}
           </span>
         </p>
       </div>
@@ -72,15 +77,15 @@ const Tabs = ({match}) => {
       <div className="movie-card__text-col">
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Run Time</strong>
-          <span className="movie-card__details-value">1h 39m</span>
+          <span className="movie-card__details-value">{convertTime(runTime)}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Genre</strong>
-          <span className="movie-card__details-value">Comedy</span>
+          <span className="movie-card__details-value">{genre}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Released</strong>
-          <span className="movie-card__details-value">2014</span>
+          <span className="movie-card__details-value">{released}</span>
         </p>
       </div>
     </div>

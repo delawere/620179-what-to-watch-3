@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {MovieDetails} from './movie-details';
 import {MemoryRouter} from 'react-router';
+import NameSpace from "../../reducer/name-space.js";
 
 const mockStore = configureStore([]);
 
@@ -13,22 +14,28 @@ const cardData = {
 };
 
 const films = [
-  {name: `test1`, img: `test1.img`, genre: `test1Genre`},
-  {name: `test2`, img: `test2.img`, genre: `test2Genre`},
-  {name: `test3`, img: `test3.img`, genre: `test3Genre`},
+  {id: 1, name: `test1`, img: `test1.img`, genre: `test1Genre`},
+  {id: 2, name: `test2`, img: `test2.img`, genre: `test2Genre`},
+  {id: 3, name: `test3`, img: `test3.img`, genre: `test3Genre`},
 ];
 
 const match = {
   path: `testPath`,
-  url: `testURL`
+  url: `testURL`,
+  params: {
+    id: `1`
+  }
 };
 
 it(`MovieDetails renders correctly`, () => {
   const store = mockStore({
-    genres: [`genre1`, `genre2`],
-    genreFilter: `All genres`,
-    films,
-    filteredFilms: films,
+    [NameSpace.GENRES]: {
+      genres: [`genre1`, `genre2`],
+      genreFilter: `All genres`
+    },
+    [NameSpace.FILMS]: {
+      films
+    }
   });
 
   const tree = renderer
