@@ -1,7 +1,13 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 import withCheckAuth from './with-check-auth.jsx';
+import NameSpace from "../../reducer/name-space.js";
+import configureStore from "redux-mock-store";
+
+const mockStore = configureStore([]);
 
 const MockComponent = (props) => {
   const {children} = props;
@@ -23,8 +29,19 @@ MockComponent.propTypes = {
 const MockComponentWrapped = withCheckAuth(MockComponent);
 
 it(`withCheckAuth renders correctly`, () => {
+  const store = mockStore({
+    [NameSpace.USER]: {
+      authorizationStatus: `AUTH`,
+    }
+  });
+
   const tree = renderer.create((
-    <MockComponentWrapped/>
+    <Provider store={store}>
+      <BrowserRouter>
+        <MockComponentWrapped/>
+      </BrowserRouter>
+    </Provider>
+
   ), {
     createNodeMock() {
       return {};

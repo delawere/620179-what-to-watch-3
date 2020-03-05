@@ -12,6 +12,7 @@ import {getFilmsByGenre} from "../../reducer/films/selectors";
 import {getGenreFilter} from "../../reducer/genres/selectors";
 import SignIn from '../sign-in/sign-in.jsx';
 import withCheckAuth from '../../hocs/with-check-auth/with-check-auth.jsx';
+import {getUser, getAuthStatus} from "../../reducer/user/selectors.js";
 
 const VideoPlayerWithProgress = withProgress(VideoPlayer);
 const SignInWithInputs = withCheckAuth(withInputs(SignIn));
@@ -81,6 +82,8 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   genreFilter: getGenreFilter(state),
   filteredFilms: getFilmsByGenre(state),
+  user: getUser(state),
+  isAuth: getAuthStatus(state) === `AUTH`
 });
 
 const AppWrapper = connect(mapStateToProps)(App);
