@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {func, string, bool} from "prop-types";
+import {func, string, bool, array} from "prop-types";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
@@ -81,7 +81,8 @@ App.propTypes = {
   activeItem: FilmType,
   setActivePlayer: func,
   activePlayer: bool,
-  isAuth: bool
+  isAuth: bool,
+  filteredFilms: array,
 };
 
 const mapStateToProps = (state) => ({
