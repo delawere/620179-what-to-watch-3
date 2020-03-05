@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {createStore, applyMiddleware, compose} from 'redux';
+import {BrowserRouter} from "react-router-dom";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
@@ -9,6 +10,7 @@ import {Operation as FilmsOperation} from './reducer/films/films.js';
 import {Operation as UserOperation} from './reducer/user/user.js';
 import withActiveCard from './hocs/with-active-card/with-active-card.jsx';
 import withPlayer from './hocs/with-player/with-player.jsx';
+import withCheckAuth from './hocs/with-check-auth/with-check-auth.jsx';
 import {createAPI} from "./api.js";
 
 const api = createAPI(() => {});
@@ -30,11 +32,13 @@ const store = createStore(
 store.dispatch(FilmsOperation.loadMovies());
 store.dispatch(UserOperation.check());
 
-const WrappedApp = withActiveCard(withPlayer(App));
+const WrappedApp = withCheckAuth(withActiveCard(withPlayer(App)));
 
 ReactDOM.render(
     <Provider store={store}>
-      <WrappedApp promoData={promoData}/>
+      <BrowserRouter>
+        <WrappedApp promoData={promoData}/>
+      </BrowserRouter>
     </Provider>,
     document.querySelector(`#root`)
 );

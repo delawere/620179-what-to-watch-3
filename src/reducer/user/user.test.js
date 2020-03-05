@@ -37,7 +37,11 @@ describe(`Operation work correctly`, () => {
 
     return checkAuth(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(0);
+          expect(dispatch).toHaveBeenCalledTimes(1);
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.SET_AUTH,
+            payload: AUTH,
+          });
         });
   });
 

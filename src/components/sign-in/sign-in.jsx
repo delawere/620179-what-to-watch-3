@@ -1,6 +1,18 @@
 import React, {memo} from 'react';
+import {func, string} from 'prop-types';
+import {connect} from "react-redux";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 
-const SignIn = () => {
+const SignIn = ({onSubmit, email, password, onChangeEmail, onChangePassword}) => {
+  const wrapperOnSubmit = (event) => {
+    event.preventDefault();
+
+    onSubmit({
+      email,
+      password
+    });
+  };
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -16,14 +28,29 @@ const SignIn = () => {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="#" className="sign-in__form" onSubmit={wrapperOnSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
-              <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
+              <input
+                className="sign-in__input"
+                type="email"
+                placeholder="Email address"
+
+                name="user-email"
+                id="user-email"
+                onChange={onChangeEmail}
+                value={email}/>
+              <label className="sign-in__label visually-hidden" htmlFor="user-email">Email adress</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <input
+                className="sign-in__input"
+                type="password"
+                placeholder="Password"
+                name="user-password"
+                id="user-password"
+                onChange={onChangePassword}
+                value={password}/>
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
@@ -50,4 +77,21 @@ const SignIn = () => {
   );
 };
 
-export default memo(SignIn);
+SignIn.propTypes = {
+  onSubmit: func,
+  email: string,
+  password: string,
+  onChangeEmail: func,
+  onChangePassword: func
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(authData) {
+    dispatch(UserOperation.login(authData));
+  },
+});
+
+const WrapperSignIn = connect(null, mapDispatchToProps)(SignIn);
+
+export {SignIn};
+export default memo(WrapperSignIn);

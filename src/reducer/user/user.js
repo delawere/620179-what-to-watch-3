@@ -19,8 +19,10 @@ export const ActionCreator = {
 };
 
 export const Operation = {
-  check: () => (_, __, api) => {
-    return api.get(`/login`);
+  check: () => (dispatch, _, api) => {
+    return api.get(`/login`).then(() => {
+      dispatch(ActionCreator.setAuth(AUTH));
+    });
   },
   login: ({email, password}) => (dispatch, _, api) => {
     return api.post(`/login`, {
