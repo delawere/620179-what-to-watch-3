@@ -5,7 +5,8 @@ import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
 import reducer from "./reducer/reducer.js";
-import {Operation} from './reducer/films/films.js';
+import {Operation as FilmsOperation} from './reducer/films/films.js';
+import {Operation as UserOperation} from './reducer/user/user.js';
 import withActiveCard from './hocs/with-active-card/with-active-card.jsx';
 import withPlayer from './hocs/with-player/with-player.jsx';
 import {createAPI} from "./api.js";
@@ -26,7 +27,8 @@ const store = createStore(
     )
 );
 
-store.dispatch(Operation.loadMovies());
+store.dispatch(FilmsOperation.loadMovies());
+store.dispatch(UserOperation.check());
 
 const WrappedApp = withActiveCard(withPlayer(App));
 

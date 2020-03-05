@@ -7,9 +7,15 @@ import withActiveCard from '../../hocs/with-active-card/with-active-card.jsx';
 import {FilmsType} from '../../types';
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
+const AUTH_STATUS = `NO_AUTH`;
 
 const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms, setActivePlayer}) => {
   const handlePlayButtonClick = () => setActivePlayer(true);
+  const renderLogIn = AUTH_STATUS === `NO_AUTH`
+    ? <a href="#">Sign In</a>
+    : <div className="user-block__avatar">
+      <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+    </div>;
 
   return (
   <>
@@ -30,9 +36,7 @@ const Main = ({promoData: {name, genre, releaseDate}, onOpenCard, filteredFilms,
         </div>
 
         <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-          </div>
+          {renderLogIn}
         </div>
       </header>
 
