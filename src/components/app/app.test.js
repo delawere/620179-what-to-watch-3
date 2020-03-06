@@ -1,9 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
-import App from './app';
+import {App} from './app';
 
 const mockStore = configureStore([]);
 
@@ -52,7 +53,9 @@ it(`App renders correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App promoData={promoData}/>
+          <BrowserRouter>
+            <App promoData={promoData} filteredFilms={films}/>
+          </BrowserRouter>
         </Provider>)
     .toJSON();
   expect(tree).toMatchSnapshot();

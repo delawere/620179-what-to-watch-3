@@ -11,13 +11,13 @@ const initialState = {
 };
 
 export const ActionType = {
-  SET_FIMLS: `SET_FILMS`,
+  SET_FILMS: `SET_FILMS`,
   SHOW_MORE_CARDS: `SHOW_MORE_CARDS`
 };
 
 export const ActionCreator = {
   setFilms: (list) => ({
-    type: ActionType.SET_FIMLS,
+    type: ActionType.SET_FILMS,
     payload: list
   }),
   showMoreCards: () => ({
@@ -29,16 +29,16 @@ export const ActionCreator = {
 export const Operation = {
   loadMovies: () => (dispatch, _, api) => {
     return api.get(`/films`)
-          .then(({data}) => {
-            dispatch(ActionCreator.setFilms(data.map((it) => keysToCamel(it))));
-            dispatch(GenresActionCreater.setGenres(getFilmGenres(data)));
+          .then(({data: films}) => {
+            dispatch(ActionCreator.setFilms(films.map((film) => keysToCamel(film))));
+            dispatch(GenresActionCreater.setGenres(getFilmGenres(films)));
           });
   },
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.SET_FIMLS:
+    case ActionType.SET_FILMS:
       return extend(state, {
         films: action.payload
       });
