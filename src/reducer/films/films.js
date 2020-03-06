@@ -29,9 +29,9 @@ export const ActionCreator = {
 export const Operation = {
   loadMovies: () => (dispatch, _, api) => {
     return api.get(`/films`)
-          .then(({data}) => {
-            dispatch(ActionCreator.setFilms(data.map((it) => keysToCamel(it))));
-            dispatch(GenresActionCreater.setGenres(getFilmGenres(data)));
+          .then(({data: films}) => {
+            dispatch(ActionCreator.setFilms(films.map((film) => keysToCamel(film))));
+            dispatch(GenresActionCreater.setGenres(getFilmGenres(films)));
           });
   },
 };

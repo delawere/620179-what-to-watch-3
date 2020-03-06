@@ -10,7 +10,6 @@ import {Operation as FilmsOperation} from './reducer/films/films.js';
 import {Operation as UserOperation} from './reducer/user/user.js';
 import withActiveCard from './hocs/with-active-card/with-active-card.jsx';
 import withPlayer from './hocs/with-player/with-player.jsx';
-import withCheckAuth from './hocs/with-check-auth/with-check-auth.jsx';
 import {createAPI} from "./api.js";
 
 const api = createAPI(() => {});
@@ -32,7 +31,7 @@ const store = createStore(
 store.dispatch(FilmsOperation.loadMovies());
 store.dispatch(UserOperation.check());
 
-const WrappedApp = withCheckAuth(withActiveCard(withPlayer(App)));
+const WrappedApp = withActiveCard(withPlayer(App));
 
 ReactDOM.render(
     <Provider store={store}>
