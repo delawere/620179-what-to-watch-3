@@ -1,12 +1,13 @@
 import React, {memo} from "react";
 import {exact, string, number, func, object, bool} from "prop-types";
+import {FilmsType} from "../../types";
+import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
 import MovieList from "../movie-list/movie-list.jsx";
 import Genres from "../genres/genres.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
-import {FilmsType} from "../../types";
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
+const origin = `https://htmlacademy-react-3.appspot.com`;
 
 const Main = ({
   promoData: {name, genre, releaseDate},
@@ -22,7 +23,7 @@ const Main = ({
       <a href="/login">Sign In</a>
     ) : (
       <div className="user-block__avatar">
-        <img src={avatarUrl} alt="User avatar" width="63" height="63" />
+        <img src={`${origin}${avatarUrl}`} alt="User avatar" width="63" height="63" />
       </div>
     );
 

@@ -4,6 +4,17 @@ import {Link} from "react-router-dom";
 import Player from "../player/player.jsx";
 
 const SHOW_PREVIEW_DELAY = 1000;
+const LINK_STYLES = {
+  width: `100%`,
+  height: `100%`,
+  display: `flex`,
+  alignItems: `flex-end`
+};
+const TITLE_STYLES = {
+  width: `100%`,
+  height: `100%`
+};
+
 
 const MovieCard = ({
   id,
@@ -58,20 +69,12 @@ const MovieCard = ({
       </div>
       <h3
         className="small-movie-card__title"
-        style={{
-          width: `100%`,
-          height: `100%`
-        }}
+        style={TITLE_STYLES}
       >
         <Link
           to={`/films/${id}`}
           className="small-movie-card__link"
-          style={{
-            width: `100%`,
-            height: `100%`,
-            display: `flex`,
-            alignItems: `flex-end`
-          }}
+          style={LINK_STYLES}
         >
           {name}
         </Link>

@@ -2,11 +2,12 @@ import React, {memo} from "react";
 import {func, object} from "prop-types";
 import {connect} from "react-redux";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
+import {FilmsType, FilmType} from "../../types";
+import {getFilms} from "../../reducer/films/selectors.js";
+import withActiveCard from '../../hocs/with-active-card/with-active-card.jsx';
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
-import {FilmsType, FilmType} from "../../types";
-import withActiveCard from '../../hocs/with-active-card/with-active-card.jsx';
-import {getFilms} from "../../reducer/films/selectors.js";
+
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
 

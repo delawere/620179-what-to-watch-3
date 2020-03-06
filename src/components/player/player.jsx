@@ -1,30 +1,15 @@
-import React, {PureComponent} from 'react';
+import React, {memo} from 'react';
 import {string, bool} from 'prop-types';
 
-class Player extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const Player = ({active, src, img}) => {
+  const renderePlayer = (
+    <div className="player">
+      <video src={src} className="player__video" poster={img} autoPlay muted></video>
+    </div>
+  );
 
-  render() {
-    const {active, src, img} = this.props;
-
-    if (!active) {
-      return null;
-    }
-
-    return (
-      <div className="player" style={{
-        width: `100%`,
-        height: `100%`,
-        position: `absolute`,
-        zIndex: `10`,
-      }}>
-        <video src={src} className="player__video" poster={img} autoPlay muted></video>
-      </div>
-    );
-  }
-}
+  return active ? renderePlayer : null;
+};
 
 Player.propTypes = {
   active: bool,
@@ -32,6 +17,6 @@ Player.propTypes = {
   img: string,
 };
 
-export default Player;
+export default memo(Player);
 
 

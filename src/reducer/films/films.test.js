@@ -33,7 +33,9 @@ const SHOWN_CARDS_NUMBER = 8;
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     films: [],
-    shownCardsNumber: SHOWN_CARDS_NUMBER
+    shownCardsNumber: SHOWN_CARDS_NUMBER,
+    loading: false,
+    error: ``
   });
 });
 
