@@ -187,6 +187,9 @@ exports[`AddReview renders correctly 1`] = `
           </label>
         </div>
       </div>
+      <div>
+        При отправке возникла ошибка: error
+      </div>
       <div
         className="add-review__text"
       >

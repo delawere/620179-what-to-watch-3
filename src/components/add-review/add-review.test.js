@@ -7,7 +7,7 @@ it(`AddReview renders correctly`, () => {
     .create(
         <AddReview
           loading={false}
-          error={false}
+          error={`error`}
           id={1}
           comment={`test`}
           rating={1} />
