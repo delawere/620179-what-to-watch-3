@@ -61,9 +61,10 @@ it(`Reducer should increase shown cards number`, () => {
 });
 
 describe(`Operation work correctly`, () => {
+  const apiMock = new MockAdapter(api);
+  const dispatch = jest.fn();
+
   it(`Should make a correct API call to /films`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
     const filmsLoader = Operation.loadMovies();
 
     apiMock
@@ -72,11 +73,28 @@ describe(`Operation work correctly`, () => {
 
     return filmsLoader(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(2);
+          expect(dispatch).toHaveBeenCalled();
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.SET_FILMS,
             payload: [{fake: true}],
           });
+        });
+  });
+
+  it(`Should make a correct API call to /comments`, () => {
+    const addedComment = Operation.addComment();
+    const data = {
+      comment: `test`,
+      rating: 1
+    };
+
+    apiMock
+        .onPost(`/comments/1`, data)
+        .reply(200);
+
+    return addedComment(dispatch, () => {}, api)
+        .then(() => {
+          expect(dispatch).toHaveBeenCalled();
         });
   });
 });
