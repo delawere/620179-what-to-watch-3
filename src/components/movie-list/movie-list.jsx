@@ -1,9 +1,9 @@
 import React, {memo} from "react";
 import {string, func, number} from "prop-types";
 import {connect} from "react-redux";
-import MovieCard from "../movie-card/movie-card.jsx";
 import {FilmsType, FilmType} from '../../types';
 import {getShownCardsNumber} from "../../reducer/films/selectors.js";
+import MovieCard from "../movie-card/movie-card.jsx";
 
 const MovieList = (props) => {
   const {shownCardsNumber, activeItem, filteredFilms} = props;

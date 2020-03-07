@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
 import {Provider} from "react-redux";
+import {AUTH} from '../../consts.js';
 import {BrowserRouter} from "react-router-dom";
 import withCheckAuth from './with-check-auth.jsx';
 import NameSpace from "../../reducer/name-space.js";
@@ -31,7 +32,7 @@ const MockComponentWrapped = withCheckAuth(MockComponent);
 it(`withCheckAuth renders correctly`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
-      authorizationStatus: `AUTH`,
+      authorizationStatus: AUTH,
     }
   });
 

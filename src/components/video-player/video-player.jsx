@@ -70,7 +70,7 @@ const MemoizedVideoPlayerWithRef = forwardRef((props, ref) => {
   return <MemoizedVideoPlayer {...props} forwardedRef={ref} />;
 });
 
-MemoizedVideoPlayerWithRef.displayName = `VidePlayer`;
+MemoizedVideoPlayerWithRef.displayName = `VideoPlayer`;
 
 export default MemoizedVideoPlayerWithRef;
 

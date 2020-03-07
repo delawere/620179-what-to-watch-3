@@ -1,8 +1,6 @@
+import {AUTH, NO_AUTH} from '../../consts.js';
 import {extend} from "../../utils/extend";
 import {keysToCamel} from '../../utils/toCamel';
-
-const NO_AUTH = `NO_AUTH`;
-const AUTH = `AUTH`;
 
 const initialState = {
   authorizationStatus: NO_AUTH,
