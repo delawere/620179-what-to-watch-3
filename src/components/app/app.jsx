@@ -1,21 +1,25 @@
 import React, {PureComponent} from "react";
-import {func, string, bool, array} from "prop-types";
+import {func, string, bool} from "prop-types";
 import {connect} from "react-redux";
 import {Route, Switch, withRouter} from "react-router-dom";
-import Main from "../main/main.jsx";
-import MovieDetails from "../movie-details/movie-details.jsx";
-import {FilmType} from "../../types";
-import VideoPlayer from "../video-player/video-player.jsx";
-import withProgress from "../../hocs/with-progress/with-progress.jsx";
-import withInputs from "../../hocs/with-inputs/with-inputs.jsx";
+import {FilmsType, FilmType} from "../../types";
+import {AUTH} from '../../consts.js';
 import {getFilmsByGenre} from "../../reducer/films/selectors";
 import {getGenreFilter} from "../../reducer/genres/selectors";
-import SignIn from '../sign-in/sign-in.jsx';
-import withCheckAuth from '../../hocs/with-check-auth/with-check-auth.jsx';
 import {getUser, getAuthStatus} from "../../reducer/user/selectors.js";
+import withProgress from "../../hocs/with-progress/with-progress.jsx";
+import withInputs from "../../hocs/with-inputs/with-inputs.jsx";
+import withCheckAuth from '../../hocs/with-check-auth/with-check-auth.jsx';
+import withReviewData from '../../hocs/with-review-data/with-review-data.jsx';
+import Main from "../main/main.jsx";
+import MovieDetails from "../movie-details/movie-details.jsx";
+import VideoPlayer from "../video-player/video-player.jsx";
+import SignIn from '../sign-in/sign-in.jsx';
+import AddReview from '../add-review/add-review.jsx';
 
 const VideoPlayerWithProgress = withProgress(VideoPlayer);
 const SignInWithInputs = withCheckAuth(withInputs(SignIn));
+const RewiewWithReviewData = withReviewData(AddReview);
 
 class App extends PureComponent {
   constructor(props) {
@@ -58,6 +62,9 @@ class App extends PureComponent {
         <Route path="/login">
           <SignInWithInputs />
         </Route>
+        <Route path="/dev-review">
+          <RewiewWithReviewData />
+        </Route>
       </Switch>
     );
   }
@@ -76,14 +83,14 @@ App.propTypes = {
   setActivePlayer: func,
   activePlayer: bool,
   isAuth: bool,
-  filteredFilms: array,
+  filteredFilms: FilmsType,
 };
 
 const mapStateToProps = (state) => ({
   genreFilter: getGenreFilter(state),
   filteredFilms: getFilmsByGenre(state),
   user: getUser(state),
-  isAuth: getAuthStatus(state) === `AUTH`
+  isAuth: getAuthStatus(state) === AUTH
 });
 
 const AppWrapper = connect(mapStateToProps)(App);

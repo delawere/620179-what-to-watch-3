@@ -1,12 +1,11 @@
 import React, {memo} from "react";
 import {array, func, string} from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/genres/genres.js";
 import {FilmsType} from '../../types';
-import GenresItem from '../genres-item/genres-item.jsx';
+import {ActionCreator} from "../../reducer/genres/genres.js";
 import {getGenreFilter, getGenres} from "../../reducer/genres/selectors";
 import {getFilms} from "../../reducer/films/selectors";
-
+import GenresItem from '../genres-item/genres-item.jsx';
 
 const SELECTED_GENRE_CLASS = `catalog__genres-item--active`;
 

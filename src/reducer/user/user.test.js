@@ -1,12 +1,10 @@
 
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
+import {AUTH, NO_AUTH} from '../../consts.js';
 import {reducer, ActionType, Operation} from "./user.js";
 
 const api = createAPI(() => {});
-
-const NO_AUTH = `NO_AUTH`;
-const AUTH = `AUTH`;
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({

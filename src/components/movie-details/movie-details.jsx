@@ -1,26 +1,61 @@
 import React, {memo} from "react";
-import {func, object} from "prop-types";
+import {func, object, bool} from "prop-types";
 import {connect} from "react-redux";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
+import {FilmsType, FilmType} from "../../types";
+import {AUTH} from "../../consts.js";
+import {getFilms} from "../../reducer/films/selectors.js";
+import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
-import {FilmsType, FilmType} from "../../types";
-import withActiveCard from '../../hocs/with-active-card/with-active-card.jsx';
-import {getFilms} from "../../reducer/films/selectors.js";
+import {getAuthStatus} from "../../reducer/user/selectors";
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
 
-const MovieDetails = ({match, films = [], onOpenCard, filteredFilms, setActivePlayer}) => {
-  const {path, url, params: {id}} = match;
+const MovieDetails = ({
+  isAuth,
+  match,
+  films = [],
+  onOpenCard,
+  filteredFilms,
+  setActivePlayer
+}) => {
+  const {
+    path,
+    url,
+    params: {id}
+  } = match;
   const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
-  const {name, genre, posterImage, released, backgroundColor, backgroundImage} = data;
+  const {
+    name,
+    genre,
+    posterImage,
+    released,
+    backgroundColor,
+    backgroundImage
+  } = data;
   const handlePlayButtonClick = () => setActivePlayer(true);
+
+  const renderAddReview = () => {
+    if (isAuth) {
+      return (
+        <Link to='/dev-review' className="btn movie-card__button">
+          Add review
+        </Link>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <>
-      <section className="movie-card movie-card--full" style={{
-        backgroundColor
-      }}>
+      <section
+        className="movie-card movie-card--full"
+        style={{
+          backgroundColor
+        }}
+      >
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={backgroundImage} alt={name} />
@@ -63,8 +98,15 @@ const MovieDetails = ({match, films = [], onOpenCard, filteredFilms, setActivePl
                   type="button"
                   onClick={handlePlayButtonClick}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#d9cd8d">
-                    <path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    fill="#d9cd8d"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                    <path d="M0 0h24v24H0z" fill="none" />
                   </svg>
                   <span>Play</span>
                 </button>
@@ -77,9 +119,7 @@ const MovieDetails = ({match, films = [], onOpenCard, filteredFilms, setActivePl
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">
-                  Add review
-                </a>
+                {renderAddReview()}
               </div>
             </div>
           </div>
@@ -120,10 +160,10 @@ const MovieDetails = ({match, films = [], onOpenCard, filteredFilms, setActivePl
               <div>
                 <Switch>
                   <Route exact path={`${path}`}>
-                    <Tabs {...data}/>
+                    <Tabs {...data} />
                   </Route>
                   <Route path={`${path}/:tab`}>
-                    <Tabs {...data}/>
+                    <Tabs {...data} />
                   </Route>
                 </Switch>
               </div>
@@ -135,7 +175,10 @@ const MovieDetails = ({match, films = [], onOpenCard, filteredFilms, setActivePl
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieListWithActiveCard onOpenCard={onOpenCard} filteredFilms={filteredFilms}/>
+          <MovieListWithActiveCard
+            onOpenCard={onOpenCard}
+            filteredFilms={filteredFilms}
+          />
         </section>
       </div>
     </>
@@ -143,19 +186,19 @@ const MovieDetails = ({match, films = [], onOpenCard, filteredFilms, setActivePl
 };
 
 MovieDetails.propTypes = {
+  isAuth: bool,
   match: object,
   cardData: FilmType,
   films: FilmsType,
   onOpenCard: func,
   filteredFilms: FilmsType,
-  setActivePlayer: func,
+  setActivePlayer: func
 };
 
 const mapStateToProps = (state) => ({
-  films: getFilms(state)
+  films: getFilms(state),
+  isAuth: getAuthStatus(state) === AUTH
 });
 
 export {MovieDetails};
 export default connect(mapStateToProps)(withRouter(memo(MovieDetails)));
-
-

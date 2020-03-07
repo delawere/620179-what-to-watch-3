@@ -7,12 +7,16 @@ const getFilmGenres = (films) => [`All genres`, ...new Set(films.map((film) => f
 
 const initialState = {
   films: [],
-  shownCardsNumber: SHOWN_CARDS_STEP
+  shownCardsNumber: SHOWN_CARDS_STEP,
+  loading: false,
+  error: ``
 };
 
 export const ActionType = {
   SET_FILMS: `SET_FILMS`,
-  SHOW_MORE_CARDS: `SHOW_MORE_CARDS`
+  SHOW_MORE_CARDS: `SHOW_MORE_CARDS`,
+  SET_LOADING: `SET_LOADING`,
+  SET_ERROR: `SET_ERROR`
 };
 
 export const ActionCreator = {
@@ -23,7 +27,14 @@ export const ActionCreator = {
   showMoreCards: () => ({
     type: ActionType.SHOW_MORE_CARDS
   }),
-
+  setLoading: (loading) => ({
+    type: ActionType.SET_LOADING,
+    payload: loading
+  }),
+  setError: (error) => ({
+    type: ActionType.SET_ERROR,
+    payload: error
+  }),
 };
 
 export const Operation = {
@@ -34,6 +45,21 @@ export const Operation = {
             dispatch(GenresActionCreater.setGenres(getFilmGenres(films)));
           });
   },
+  addComment: (filmId, data, cb) => (dispatch, _1, api) => {
+    dispatch(ActionCreator.setLoading(true));
+    dispatch(ActionCreator.setError(``));
+    return api.post(`/comments/${filmId}`, data)
+          .then(() => {
+            dispatch(ActionCreator.setLoading(false));
+            if (typeof cb === `function`) {
+              cb();
+            }
+          },
+          (error) => {
+            dispatch(ActionCreator.setLoading(false));
+            dispatch(ActionCreator.setError(error.toString()));
+          });
+  }
 };
 
 export const reducer = (state = initialState, action) => {
@@ -45,6 +71,14 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SHOW_MORE_CARDS:
       return extend(state, {
         shownCardsNumber: state.shownCardsNumber + SHOWN_CARDS_STEP
+      });
+    case ActionType.SET_LOADING:
+      return extend(state, {
+        loading: action.payload
+      });
+    case ActionType.SET_ERROR:
+      return extend(state, {
+        error: action.payload
       });
     default:
       return state;

@@ -1,8 +1,8 @@
 import React, {memo} from 'react';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/films/films.js';
 import {func, number} from 'prop-types';
+import {connect} from 'react-redux';
 import {FilmsType} from '../../types';
+import {ActionCreator} from '../../reducer/films/films.js';
 import {getShownCardsNumber} from '../../reducer/films/selectors';
 
 const ShowMoreButton = ({shownCardsNumber, showMoreCards, filteredFilms}) => {
