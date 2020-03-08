@@ -1,25 +1,36 @@
 import React, {memo} from "react";
-import {func, object, bool} from "prop-types";
+import {func, object, bool, array} from "prop-types";
 import {connect} from "react-redux";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
 import {FilmsType, FilmType} from "../../types";
-import {AUTH} from "../../consts.js";
+import {LOGIN} from "../../router/paths.js";
+import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
 import {getFilms} from "../../reducer/films/selectors.js";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
-import {getAuthStatus} from "../../reducer/user/selectors";
+import {getIsAuth, getUser} from "../../reducer/user/selectors";
+import MyListButton from "../my-list-button/my-list-button.jsx";
+import {getFavorites} from "../../reducer/favorites/selectors";
+import Avatar from "../avatar/avatar.jsx";
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
 
 const MovieDetails = ({
+  user,
   isAuth,
   match,
+  history,
   films = [],
   onOpenCard,
   filteredFilms,
-  setActivePlayer
+  setActivePlayer,
+  updateFavorite,
+  favorites = [],
+  loadFavorites,
+  onClickAvatar
 }) => {
+  const {avatarUrl} = user;
   const {
     path,
     url,
@@ -39,13 +50,24 @@ const MovieDetails = ({
   const renderAddReview = () => {
     if (isAuth) {
       return (
-        <Link to='/dev-review' className="btn movie-card__button">
+        <Link to="/review" className="btn movie-card__button">
           Add review
         </Link>
       );
     }
 
     return null;
+  };
+
+  const isFavorite = !!favorites.find((film) => film.id === parseInt(id, 10));
+
+  const handleOnClickMyList = () => {
+    if (!isAuth) {
+      history.push(LOGIN);
+      return;
+    }
+
+    updateFavorite(id, isFavorite ? 0 : 1, loadFavorites);
   };
 
   return (
@@ -73,14 +95,11 @@ const MovieDetails = ({
             </div>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img
-                  src="../img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
+              <Avatar
+                isAuth={isAuth}
+                onClick={onClickAvatar}
+                avatarUrl={avatarUrl}
+              />
             </div>
           </header>
 
@@ -110,15 +129,11 @@ const MovieDetails = ({
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list movie-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <MyListButton
+                  isFavorite={isFavorite}
+                  isAuth={isAuth}
+                  onClick={handleOnClickMyList}
+                />
                 {renderAddReview()}
               </div>
             </div>
@@ -186,19 +201,39 @@ const MovieDetails = ({
 };
 
 MovieDetails.propTypes = {
+  user: object,
   isAuth: bool,
+  history: object,
   match: object,
   cardData: FilmType,
   films: FilmsType,
   onOpenCard: func,
   filteredFilms: FilmsType,
-  setActivePlayer: func
+  setActivePlayer: func,
+  updateFavorite: func,
+  favorites: array,
+  loadFavorites: func,
+  onClickAvatar: func
 };
 
 const mapStateToProps = (state) => ({
+  user: getUser(state),
   films: getFilms(state),
-  isAuth: getAuthStatus(state) === AUTH
+  isAuth: getIsAuth(state),
+  favorites: getFavorites(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFavorites() {
+    dispatch(FavoritesOperation.loadFavorites());
+  },
+  updateFavorite: (id, status, cb) => {
+    dispatch(FavoritesOperation.setFavoriteStatus(id, status, cb));
+  }
 });
 
 export {MovieDetails};
-export default connect(mapStateToProps)(withRouter(memo(MovieDetails)));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(memo(MovieDetails)));

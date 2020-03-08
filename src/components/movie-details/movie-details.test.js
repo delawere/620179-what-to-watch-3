@@ -35,14 +35,19 @@ it(`MovieDetails renders correctly`, () => {
     },
     [NameSpace.FILMS]: {
       films
-    }
+    },
   });
 
   const tree = renderer
     .create(
         <MemoryRouter initialEntries={[`/test`]} >
           <Provider store={store}>
-            <MovieDetails cardData={cardData} films={films} match={match} filteredFilms={films}/>
+            <MovieDetails
+              cardData={cardData}
+              films={films}
+              match={match}
+              filteredFilms={films}
+              user={{avatarUrl: `test`}}/>
           </Provider>
         </MemoryRouter>)
     .toJSON();

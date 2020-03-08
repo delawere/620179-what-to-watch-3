@@ -5,6 +5,7 @@ import {withRouter} from "react-router-dom";
 import {Operation as FilmsOperation} from '../../reducer/films/films.js';
 import {getLoading} from '../../reducer/films/selectors.js';
 import {getError} from '../../reducer/films/selectors.js';
+import Logo from '../logo/logo.jsx';
 
 const DISABLE = {
   opacity: 0.2,
@@ -36,13 +37,7 @@ const AddReview = ({history, onSubmit, loading, error, id, comment, rating, onCh
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">

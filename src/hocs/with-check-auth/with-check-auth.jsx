@@ -2,8 +2,7 @@ import React, {PureComponent} from 'react';
 import {object, bool} from 'prop-types';
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {AUTH} from '../../consts.js';
-import {getAuthStatus} from '../../reducer/user/selectors';
+import {getIsAuth} from '../../reducer/user/selectors';
 import {INDEX, LOGIN} from '../../router/paths.js';
 
 const withCheckAuth = (Component) => {
@@ -49,7 +48,7 @@ const withCheckAuth = (Component) => {
 
 
   const mapStateToProps = (state) => ({
-    isAuth: getAuthStatus(state) === AUTH
+    isAuth: getIsAuth(state)
   });
 
   return connect(mapStateToProps)(withRouter(WithCheckAuth));

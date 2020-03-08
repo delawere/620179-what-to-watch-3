@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar renders correctly 1`] = `
+<div
+  className="user-block__avatar"
+>
+  <img
+    alt="User avatar"
+    height="63"
+    src="https://htmlacademy-react-3.appspot.comtestURL"
+    width="63"
+  />
+</div>
+`;

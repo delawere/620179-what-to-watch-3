@@ -5,9 +5,11 @@ import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
 import MovieList from "../movie-list/movie-list.jsx";
 import Genres from "../genres/genres.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+import Footer from '../footer/footer.jsx';
+import MyListButton from '../my-list-button/my-list-button.jsx';
+import Avatar from '../avatar/avatar.jsx';
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
-const origin = `https://htmlacademy-react-3.appspot.com`;
 
 const Main = ({
   promoData: {name, genre, releaseDate},
@@ -15,17 +17,13 @@ const Main = ({
   filteredFilms,
   setActivePlayer,
   isAuth,
-  user: {avatarUrl} = {}
+  user: {avatarUrl} = {},
+  onClickMyList,
+  onClickAvatar
 }) => {
   const handlePlayButtonClick = () => setActivePlayer(true);
-  const renderLogIn =
-    !isAuth ? (
-      <a href="/login">Sign In</a>
-    ) : (
-      <div className="user-block__avatar">
-        <img src={`${origin}${avatarUrl}`} alt="User avatar" width="63" height="63" />
-      </div>
-    );
+
+  const renderLogIn = <Avatar isAuth={isAuth} onClick={onClickAvatar} avatarUrl={avatarUrl}/>;
 
   return (
     <>
@@ -87,15 +85,7 @@ const Main = ({
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list movie-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <MyListButton isAuth={isAuth} onClick={onClickMyList}/>
               </div>
             </div>
           </div>
@@ -118,25 +108,14 @@ const Main = ({
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
 };
 
 Main.propTypes = {
+  history: object,
   promoData: exact({
     name: string,
     genre: string,
@@ -146,7 +125,9 @@ Main.propTypes = {
   filteredFilms: FilmsType,
   setActivePlayer: func,
   isAuth: bool,
-  user: object
+  user: object,
+  onClickMyList: func,
+  onClickAvatar: func
 };
 
 export default memo(Main);

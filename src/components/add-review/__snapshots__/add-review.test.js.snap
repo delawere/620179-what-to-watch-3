@@ -27,8 +27,7 @@ exports[`AddReview renders correctly 1`] = `
         className="logo"
       >
         <a
-          className="logo__link"
-          href="main.html"
+          className="logo__link logo__link--light"
         >
           <span
             className="logo__letter logo__letter--1"

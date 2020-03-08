@@ -84,6 +84,11 @@ const MovieCard = ({
   );
 };
 
+MovieCard.defaultProps = {
+  setTimer: () => {},
+  getTimer: () => {}
+};
+
 MovieCard.propTypes = {
   history: shape({
     history: func
