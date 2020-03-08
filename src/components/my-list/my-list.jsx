@@ -1,10 +1,14 @@
+// Libs
 import React, {PureComponent} from "react";
 import {array, func} from 'prop-types';
 import {connect} from "react-redux";
-import Logo from "../logo/logo.jsx";
-import Footer from "../footer/footer.jsx";
+// Utils
 import {Operation as FavoritesOpearion} from "../../reducer/favorites/favorites.js";
 import {getFavorites} from "../../reducer/favorites/selectors.js";
+// Components
+import Logo from "../logo/logo.jsx";
+import Footer from "../footer/footer.jsx";
+
 import MovieCard from "../movie-card/movie-card.jsx";
 
 class MyList extends PureComponent {

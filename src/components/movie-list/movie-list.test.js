@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from "react-redux";
-import {MovieList} from './movie-list';
 import {BrowserRouter as Router} from 'react-router-dom';
 import configureStore from "redux-mock-store";
+import {MovieList} from './movie-list';
 
 const mockStore = configureStore([]);
 

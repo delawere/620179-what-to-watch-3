@@ -1,8 +1,10 @@
+// Libs
 import React, {PureComponent} from "react";
-import {func, string, bool, object} from "prop-types";
+import {func, string, bool} from "prop-types";
 import {connect} from "react-redux";
 import {Route, Switch, withRouter} from "react-router-dom";
-import {FilmsType, FilmType} from "../../types";
+// Utils
+import {FilmsType, FilmType, HistoryType} from "../../types";
 import {getFilmsByGenre} from "../../reducer/films/selectors";
 import {getGenreFilter} from "../../reducer/genres/selectors";
 import {getUser, getIsAuth} from "../../reducer/user/selectors.js";
@@ -10,6 +12,7 @@ import withProgress from "../../hocs/with-progress/with-progress.jsx";
 import withInputs from "../../hocs/with-inputs/with-inputs.jsx";
 import withCheckAuth from "../../hocs/with-check-auth/with-check-auth.jsx";
 import withReviewData from "../../hocs/with-review-data/with-review-data.jsx";
+// Components
 import Main from "../main/main.jsx";
 import MovieDetails from "../movie-details/movie-details.jsx";
 import VideoPlayer from "../video-player/video-player.jsx";
@@ -88,7 +91,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  history: object,
+  history: HistoryType,
   genreFilter: string,
   setActiveItem: func,
   activeItem: FilmType,

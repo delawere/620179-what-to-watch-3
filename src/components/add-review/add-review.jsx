@@ -1,10 +1,14 @@
+// Libs
 import React from 'react';
-import {number, string, func, bool, object} from 'prop-types';
+import {number, string, func, bool} from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
+// Utils
+import {HistoryType} from '../../types.js';
 import {Operation as FilmsOperation} from '../../reducer/films/films.js';
 import {getLoading} from '../../reducer/films/selectors.js';
 import {getError} from '../../reducer/films/selectors.js';
+// Components
 import Logo from '../logo/logo.jsx';
 
 const DISABLE = {
@@ -114,7 +118,7 @@ const AddReview = ({history, onSubmit, loading, error, id, comment, rating, onCh
 };
 
 AddReview.propTypes = {
-  history: object,
+  history: HistoryType,
   loading: bool,
   onSubmit: func,
   id: number,

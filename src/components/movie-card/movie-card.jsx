@@ -1,6 +1,7 @@
 import React, {memo} from "react";
-import {string, func, shape, bool, number} from "prop-types";
+import {string, func, bool, number} from "prop-types";
 import {Link} from "react-router-dom";
+import {HistoryType} from '../../types.js';
 import Player from "../player/player.jsx";
 
 const SHOW_PREVIEW_DELAY = 1000;
@@ -14,7 +15,6 @@ const TITLE_STYLES = {
   width: `100%`,
   height: `100%`
 };
-
 
 const MovieCard = ({
   id,
@@ -90,9 +90,7 @@ MovieCard.defaultProps = {
 };
 
 MovieCard.propTypes = {
-  history: shape({
-    history: func
-  }),
+  history: HistoryType,
   id: number,
   name: string,
   genre: string,

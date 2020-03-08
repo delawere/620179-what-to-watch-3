@@ -1,7 +1,10 @@
+// Libs
 import React, {memo} from "react";
 import {exact, string, number, func, object, bool} from "prop-types";
-import {FilmsType} from "../../types";
+// Utils
+import {FilmsType, HistoryType} from "../../types";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
+// Components
 import MovieList from "../movie-list/movie-list.jsx";
 import Genres from "../genres/genres.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
@@ -115,7 +118,7 @@ const Main = ({
 };
 
 Main.propTypes = {
-  history: object,
+  history: HistoryType,
   promoData: exact({
     name: string,
     genre: string,

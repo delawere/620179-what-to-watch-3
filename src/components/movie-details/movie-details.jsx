@@ -1,17 +1,20 @@
+// Libs
 import React, {memo} from "react";
 import {func, object, bool, array} from "prop-types";
 import {connect} from "react-redux";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
-import {FilmsType, FilmType} from "../../types";
+// Utils
+import {FilmsType, FilmType, HistoryType} from "../../types";
 import {LOGIN} from "../../router/paths.js";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
 import {getFilms} from "../../reducer/films/selectors.js";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
+import {getIsAuth, getUser} from "../../reducer/user/selectors";
+import {getFavorites} from "../../reducer/favorites/selectors";
+// Components
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
-import {getIsAuth, getUser} from "../../reducer/user/selectors";
 import MyListButton from "../my-list-button/my-list-button.jsx";
-import {getFavorites} from "../../reducer/favorites/selectors";
 import Avatar from "../avatar/avatar.jsx";
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
@@ -203,7 +206,7 @@ const MovieDetails = ({
 MovieDetails.propTypes = {
   user: object,
   isAuth: bool,
-  history: object,
+  history: HistoryType,
   match: object,
   cardData: FilmType,
   films: FilmsType,
