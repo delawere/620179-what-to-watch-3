@@ -2,9 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {MovieDetails} from './movie-details';
 import {MemoryRouter} from 'react-router';
 import NameSpace from "../../reducer/name-space.js";
+import {MovieDetails} from './movie-details';
 
 const mockStore = configureStore([]);
 
@@ -35,14 +35,19 @@ it(`MovieDetails renders correctly`, () => {
     },
     [NameSpace.FILMS]: {
       films
-    }
+    },
   });
 
   const tree = renderer
     .create(
         <MemoryRouter initialEntries={[`/test`]} >
           <Provider store={store}>
-            <MovieDetails cardData={cardData} films={films} match={match} filteredFilms={films}/>
+            <MovieDetails
+              cardData={cardData}
+              films={films}
+              match={match}
+              filteredFilms={films}
+              user={{avatarUrl: `test`}}/>
           </Provider>
         </MemoryRouter>)
     .toJSON();

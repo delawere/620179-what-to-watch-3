@@ -55,16 +55,12 @@ Array [
         <div
           className="user-block"
         >
-          <div
-            className="user-block__avatar"
+          <a
+            href="/login"
+            onClick={[Function]}
           >
-            <img
-              alt="User avatar"
-              height="63"
-              src="../img/avatar.jpg"
-              width="63"
-            />
-          </div>
+            Sign In
+          </a>
         </div>
       </header>
       <div
@@ -115,23 +111,6 @@ Array [
               </svg>
               <span>
                 Play
-              </span>
-            </button>
-            <button
-              className="btn btn--list movie-card__button"
-              type="button"
-            >
-              <svg
-                height="20"
-                viewBox="0 0 19 20"
-                width="19"
-              >
-                <use
-                  xlinkHref="#add"
-                />
-              </svg>
-              <span>
-                My list
               </span>
             </button>
           </div>

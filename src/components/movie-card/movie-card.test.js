@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import MovieCard from './movie-card';
 import {MemoryRouter} from 'react-router';
+import MovieCard from './movie-card';
 
 const movieData = {
   name: `test`,

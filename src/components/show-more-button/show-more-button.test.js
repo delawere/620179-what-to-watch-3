@@ -1,10 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
-import ShowMoreButton from "./show-more-button";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
-
+import ShowMoreButton from "./show-more-button";
 
 const mockStore = configureStore([]);
 

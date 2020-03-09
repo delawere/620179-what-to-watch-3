@@ -1,5 +1,4 @@
-
-import {shape, exact, arrayOf, string, number, bool} from 'prop-types';
+import {shape, exact, arrayOf, string, number, bool, func, oneOf, object, oneOfType, array} from "prop-types";
 
 export const FilmType = shape({
   backgroundColor: string,
@@ -32,4 +31,36 @@ export const CommentType = exact({
   rating: number,
   comment: string,
   date: string
+});
+
+export const LoacationType = shape({
+  hash: string.isRequired,
+  key: string,
+  pathname: string.isRequired,
+  search: string.isRequired,
+  state: oneOfType([array, bool, number, object, string])
+});
+
+export const HistoryType = shape({
+  action: oneOf([`PUSH`, `REPLACE`, `POP`]).isRequired,
+  block: func.isRequired,
+  canGo: func,
+  createHref: func.isRequired,
+  entries: arrayOf(location),
+  go: func.isRequired,
+  goBack: func.isRequired,
+  goForward: func.isRequired,
+  index: number,
+  length: number,
+  listen: func.isRequired,
+  location: location.isRequired,
+  push: func.isRequired,
+  replace: func.isRequired
+});
+
+export const MatchType = shape({
+  isExact: bool,
+  params: object.isRequired,
+  path: string.isRequired,
+  url: string.isRequired
 });
