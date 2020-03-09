@@ -1,5 +1,6 @@
 import React, {PureComponent, createRef} from 'react';
 import {func} from 'prop-types';
+import {HistoryType} from '../../types.js';
 
 const secondsToHms = (seconds) => {
   seconds = Number(seconds);
@@ -78,6 +79,8 @@ const withProgress = (Component) => {
       this.props.setActivePlayer(false);
       this.setState({
         intervalId: null
+      }, () => {
+        this.props.history.goBack();
       });
     }
 
@@ -144,6 +147,7 @@ const withProgress = (Component) => {
   }
 
   WithProgress.propTypes = {
+    history: HistoryType,
     setActivePlayer: func.isRequired,
   };
 

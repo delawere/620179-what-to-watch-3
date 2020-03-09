@@ -19,6 +19,8 @@ import VideoPlayer from "../video-player/video-player.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import AddReview from "../add-review/add-review.jsx";
 import MyList from "../my-list/my-list.jsx";
+import PrivateRoute from '../private-route/private-route.jsx';
+import {getPromo} from "../../reducer/promo/selectors";
 
 const VideoPlayerWithProgress = withProgress(VideoPlayer);
 const SignInWithInputs = withCheckAuth(withInputs(SignIn));
@@ -50,7 +52,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {filteredFilms, activeItem} = this.props;
+    const {filteredFilms, activeItem, promo, setActivePlayer} = this.props;
     return (
       <Switch>
         <Route exact path="/">
@@ -59,6 +61,7 @@ class App extends PureComponent {
             onOpenCard={this._handleOpenCard}
             filteredFilms={filteredFilms}
             onClickAvatar={this._handleOnClickAvatar}
+            promoData={promo}
           />
         </Route>
         <Route path="/films/:id">
@@ -68,17 +71,22 @@ class App extends PureComponent {
             onOpenCard={this._handleOpenCard}
             filteredFilms={filteredFilms}
             onClickAvatar={this._handleOnClickAvatar}
+            setActivePlayer={setActivePlayer}
           />
         </Route>
         <Route path="/login">
           <SignInWithInputs />
         </Route>
-        <Route path="/review">
-          <RewiewWithReviewData />
-        </Route>
-        <Route path="/mylist">
-          <MyList />
-        </Route>
+        <PrivateRoute>
+          <Route path="/review">
+            <RewiewWithReviewData />
+          </Route>
+        </PrivateRoute>
+        <PrivateRoute>
+          <Route path="/mylist">
+            <MyList />
+          </Route>
+        </PrivateRoute>
       </Switch>
     );
   }
@@ -98,14 +106,16 @@ App.propTypes = {
   setActivePlayer: func,
   activePlayer: bool,
   isAuth: bool,
-  filteredFilms: FilmsType
+  filteredFilms: FilmsType,
+  promo: FilmType
 };
 
 const mapStateToProps = (state) => ({
   genreFilter: getGenreFilter(state),
   filteredFilms: getFilmsByGenre(state),
   user: getUser(state),
-  isAuth: getIsAuth(state)
+  isAuth: getIsAuth(state),
+  promo: getPromo(state)
 });
 
 const AppWrapper = connect(mapStateToProps)(App);

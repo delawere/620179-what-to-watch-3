@@ -11,13 +11,16 @@ import {getFilms} from "../../reducer/films/selectors.js";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
 import {getIsAuth, getUser} from "../../reducer/user/selectors";
 import {getFavorites} from "../../reducer/favorites/selectors";
+import withProgress from "../../hocs/with-progress/with-progress.jsx";
 // Components
 import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import MyListButton from "../my-list-button/my-list-button.jsx";
 import Avatar from "../avatar/avatar.jsx";
+import VideoPlayer from "../video-player/video-player.jsx";
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
+const VideoPlayerWithProgress = withProgress(VideoPlayer);
 
 const MovieDetails = ({
   user,
@@ -27,11 +30,10 @@ const MovieDetails = ({
   films = [],
   onOpenCard,
   filteredFilms,
-  setActivePlayer,
   updateFavorite,
   favorites = [],
   loadFavorites,
-  onClickAvatar
+  onClickAvatar,
 }) => {
   const {avatarUrl} = user;
   const {
@@ -46,9 +48,13 @@ const MovieDetails = ({
     posterImage,
     released,
     backgroundColor,
-    backgroundImage
+    backgroundImage,
+    videoLink,
+    previewVideoLink
   } = data;
-  const handlePlayButtonClick = () => setActivePlayer(true);
+  const handlePlayButtonClick = () => {
+    history.push(`${url}/player`);
+  };
 
   const renderAddReview = () => {
     if (isAuth) {
@@ -73,7 +79,7 @@ const MovieDetails = ({
     updateFavorite(id, isFavorite ? 0 : 1, loadFavorites);
   };
 
-  return (
+  const renderDetails = () => (
     <>
       <section
         className="movie-card movie-card--full"
@@ -201,6 +207,22 @@ const MovieDetails = ({
       </div>
     </>
   );
+
+  return (
+    <Switch>
+      <Route exact path={`${path}`}>
+        {renderDetails()}
+      </Route>
+      <Route path={`${path}/player`}>
+        <VideoPlayerWithProgress
+          history={history}
+          src={videoLink}
+          poster={previewVideoLink}
+          setActivePlayer={() => {}}/>
+      </Route>
+    </Switch>
+
+  );
 };
 
 MovieDetails.propTypes = {
@@ -216,7 +238,7 @@ MovieDetails.propTypes = {
   updateFavorite: func,
   favorites: array,
   loadFavorites: func,
-  onClickAvatar: func
+  onClickAvatar: func,
 };
 
 const mapStateToProps = (state) => ({
