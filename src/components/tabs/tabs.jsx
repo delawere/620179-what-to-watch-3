@@ -29,7 +29,7 @@ const getRatingLevelByScore = (score) => {
   return `-`;
 };
 
-const Tabs = ({match, description, rating, scoresCount, director, starring = [], genre, runTime, released}) => {
+const Tabs = ({description, rating, scoresCount, director, starring = [], genre, runTime, released, tab}) => {
   const renderOverview = () => (
       <>
     <div className="movie-rating">
@@ -178,8 +178,6 @@ const Tabs = ({match, description, rating, scoresCount, director, starring = [],
   );
 
   const renderActiveTab = () => {
-    const {params: {tab}} = match;
-
     if (tab === `details`) {
       return renderDetails();
     } else if (tab === `reviews`) {

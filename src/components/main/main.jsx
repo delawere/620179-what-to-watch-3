@@ -1,8 +1,8 @@
 // Libs
 import React, {memo} from "react";
-import {exact, string, number, func, object, bool} from "prop-types";
+import {func, object, bool} from "prop-types";
 // Utils
-import {FilmsType, HistoryType} from "../../types";
+import {FilmType, FilmsType, HistoryType} from "../../types";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
 // Components
 import MovieList from "../movie-list/movie-list.jsx";
@@ -15,16 +15,18 @@ import Avatar from '../avatar/avatar.jsx';
 const MovieListWithActiveCard = withActiveCard(MovieList);
 
 const Main = ({
-  promoData: {name, genre, releaseDate},
+  history,
+  promoData: {id, name, genre, released, backgroundImage, posterImage},
   onOpenCard,
   filteredFilms,
-  setActivePlayer,
   isAuth,
   user: {avatarUrl} = {},
   onClickMyList,
   onClickAvatar
 }) => {
-  const handlePlayButtonClick = () => setActivePlayer(true);
+  const handlePlayButtonClick = () => {
+    history.push(`films/${id}/player`);
+  };
 
   const renderLogIn = <Avatar isAuth={isAuth} onClick={onClickAvatar} avatarUrl={avatarUrl}/>;
 
@@ -33,7 +35,7 @@ const Main = ({
       <section className="movie-card">
         <div className="movie-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
+            src={backgroundImage}
             alt="The Grand Budapest Hotel"
           />
         </div>
@@ -56,7 +58,7 @@ const Main = ({
           <div className="movie-card__info">
             <div className="movie-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
+                src={posterImage}
                 alt="The Grand Budapest Hotel poster"
                 width="218"
                 height="327"
@@ -67,7 +69,7 @@ const Main = ({
               <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{releaseDate}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -119,14 +121,9 @@ const Main = ({
 
 Main.propTypes = {
   history: HistoryType,
-  promoData: exact({
-    name: string,
-    genre: string,
-    releaseDate: number
-  }),
+  promoData: FilmType,
   onOpenCard: func,
   filteredFilms: FilmsType,
-  setActivePlayer: func,
   isAuth: bool,
   user: object,
   onClickMyList: func,

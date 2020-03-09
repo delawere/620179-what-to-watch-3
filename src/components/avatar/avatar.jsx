@@ -14,7 +14,7 @@ const Avatar = ({onClick, isAuth, avatarUrl}) => {
     );
   } else {
     return (
-      <Link to="/login">Sign In</Link>
+      <Link to="/login" className="sign-in__link">Sign In</Link>
     );
   }
 };

@@ -3,6 +3,7 @@ const NameSpace = {
   GENRES: `GENRES`,
   USER: `USER`,
   FAVORITES: `FAVORITES`,
+  PROMO: `PROMO`,
 };
 
 export default NameSpace;
