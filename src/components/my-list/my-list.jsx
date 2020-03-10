@@ -8,7 +8,7 @@ import {getFavorites} from "../../reducer/favorites/selectors.js";
 // Components
 import Logo from "../logo/logo.jsx";
 import Footer from "../footer/footer.jsx";
-
+import Avatar from '../avatar/avatar.jsx';
 import MovieCard from "../movie-card/movie-card.jsx";
 
 class MyList extends PureComponent {
@@ -32,14 +32,7 @@ class MyList extends PureComponent {
           <h1 className="page-title user-page__title">My list</h1>
 
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img
-                src="img/avatar.jpg"
-                alt="User avatar"
-                width="63"
-                height="63"
-              />
-            </div>
+            <Avatar />
           </div>
         </header>
 

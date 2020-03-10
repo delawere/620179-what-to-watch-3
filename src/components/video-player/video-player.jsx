@@ -15,7 +15,7 @@ const renderedPauseIcon = (
   </svg>
 );
 
-const VideoPlayer = ({match, films, elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
+const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
   const {
     params: {id}
   } = match;
@@ -24,6 +24,7 @@ const VideoPlayer = ({match, films, elapsedTime, onClosePlayer, onClickPlayButto
     videoLink,
     previewImage
   } = data;
+
   return (
     <div className="player">
       <video src={videoLink}

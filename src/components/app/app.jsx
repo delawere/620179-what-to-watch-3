@@ -34,7 +34,6 @@ class App extends PureComponent {
     this._handleOpenCard = this._handleOpenCard.bind(this);
     this._renderVideoPlayer = this._renderVideoPlayer.bind(this);
     this._renderApp = this._renderApp.bind(this);
-    this._handleOnClickAvatar = this._handleOnClickAvatar.bind(this);
   }
 
   _handleOpenCard(data) {
@@ -47,13 +46,8 @@ class App extends PureComponent {
     return <VideoPlayerWithProgress setActivePlayer={setActivePlayer} />;
   }
 
-  _handleOnClickAvatar() {
-    const {history} = this.props;
-    history.push(`/mylist`);
-  }
-
   _renderApp() {
-    const {filteredFilms, activeItem, promo, setActivePlayer, history, films, match} = this.props;
+    const {filteredFilms, activeItem, promo, setActivePlayer, history, films} = this.props;
     return (
       <Switch>
         <Route exact path="/">
@@ -61,31 +55,29 @@ class App extends PureComponent {
             {...this.props}
             onOpenCard={this._handleOpenCard}
             filteredFilms={filteredFilms}
-            onClickAvatar={this._handleOnClickAvatar}
             promoData={promo}
             history={history}
           />
         </Route>
         <Route path="/films/:id/player">
-          <VideoPlayerWithProgress setActivePlayer={setActivePlayer} history={history} films={films} match={match}/>
+          <VideoPlayerWithProgress setActivePlayer={setActivePlayer} history={history} films={films}/>
         </Route>
+        <PrivateRoute exact path="/films/:id/review" render={() => (
+          <RewiewWithReviewData />
+        )}>
+        </PrivateRoute>
         <Route path="/films/:id/">
           <MovieDetails
             {...this.props}
             cardData={activeItem}
             onOpenCard={this._handleOpenCard}
             filteredFilms={filteredFilms}
-            onClickAvatar={this._handleOnClickAvatar}
             setActivePlayer={setActivePlayer}
           />
         </Route>
         <Route path="/login">
           <SignInWithInputs />
         </Route>
-        <PrivateRoute exact path="/review" render={() => (
-          <RewiewWithReviewData />
-        )}>
-        </PrivateRoute>
         <PrivateRoute exact path="/mylist" render={() => (
           <MyList />
         )}>
@@ -110,7 +102,8 @@ App.propTypes = {
   activePlayer: bool,
   isAuth: bool,
   filteredFilms: FilmsType,
-  promo: FilmType
+  promo: FilmType,
+  films: FilmsType,
 };
 
 const mapStateToProps = (state) => ({

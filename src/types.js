@@ -64,3 +64,10 @@ export const MatchType = shape({
   path: string.isRequired,
   url: string.isRequired
 });
+
+export const UserType = shape({
+  id: number,
+  email: string,
+  name: string,
+  avatarUrl: string
+});

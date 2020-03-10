@@ -9,7 +9,7 @@ import {LOGIN} from "../../router/paths.js";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
 import {getFilms} from "../../reducer/films/selectors.js";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
-import {getIsAuth, getUser} from "../../reducer/user/selectors";
+import {getIsAuth} from "../../reducer/user/selectors";
 import {getFavorites} from "../../reducer/favorites/selectors";
 // Components
 import MovieList from "../movie-list/movie-list.jsx";
@@ -20,7 +20,6 @@ import Avatar from "../avatar/avatar.jsx";
 const MovieListWithActiveCard = withActiveCard(MovieList);
 
 const MovieDetails = ({
-  user,
   isAuth,
   match,
   history,
@@ -30,9 +29,7 @@ const MovieDetails = ({
   updateFavorite,
   favorites = [],
   loadFavorites,
-  onClickAvatar,
 }) => {
-  const {avatarUrl} = user;
   const {
     path,
     url,
@@ -99,11 +96,7 @@ const MovieDetails = ({
           </div>
 
           <div className="user-block">
-            <Avatar
-              isAuth={isAuth}
-              onClick={onClickAvatar}
-              avatarUrl={avatarUrl}
-            />
+            <Avatar />
           </div>
         </header>
 
@@ -208,7 +201,6 @@ const MovieDetails = ({
 };
 
 MovieDetails.propTypes = {
-  user: object,
   isAuth: bool,
   history: HistoryType,
   match: object,
@@ -220,11 +212,9 @@ MovieDetails.propTypes = {
   updateFavorite: func,
   favorites: array,
   loadFavorites: func,
-  onClickAvatar: func,
 };
 
 const mapStateToProps = (state) => ({
-  user: getUser(state),
   films: getFilms(state),
   isAuth: getIsAuth(state),
   favorites: getFavorites(state)
