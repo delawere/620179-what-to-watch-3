@@ -8,6 +8,7 @@ const getFilmGenres = (films) => [`All genres`, ...new Set(films.map((film) => f
 const initialState = {
   films: [],
   shownCardsNumber: SHOWN_CARDS_STEP,
+  comments: [],
   loading: false,
   error: ``
 };
@@ -15,6 +16,7 @@ const initialState = {
 export const ActionType = {
   SET_FILMS: `SET_FILMS`,
   SHOW_MORE_CARDS: `SHOW_MORE_CARDS`,
+  SET_COMMENTS: `SET_COMMENTS`,
   SET_LOADING: `SET_LOADING`,
   SET_ERROR: `SET_ERROR`
 };
@@ -26,6 +28,10 @@ export const ActionCreator = {
   }),
   showMoreCards: () => ({
     type: ActionType.SHOW_MORE_CARDS
+  }),
+  setComments: (comments) => ({
+    type: ActionType.SET_COMMENTS,
+    payload: comments
   }),
   setLoading: (loading) => ({
     type: ActionType.SET_LOADING,
@@ -59,6 +65,15 @@ export const Operation = {
             dispatch(ActionCreator.setLoading(false));
             dispatch(ActionCreator.setError(error.toString()));
           });
+  },
+  loadComments: (id, cb) => (dispatch, _, api) => {
+    return api.get(`comments/${id}`)
+      .then(({data}) => {
+        dispatch(ActionCreator.setComments(data.map((comment) => keysToCamel(comment))));
+        if (typeof cb === `function`) {
+          cb();
+        }
+      });
   }
 };
 
@@ -71,6 +86,10 @@ export const reducer = (state = initialState, action) => {
     case ActionType.SHOW_MORE_CARDS:
       return extend(state, {
         shownCardsNumber: state.shownCardsNumber + SHOWN_CARDS_STEP
+      });
+    case ActionType.SET_COMMENTS:
+      return extend(state, {
+        comments: action.payload
       });
     case ActionType.SET_LOADING:
       return extend(state, {

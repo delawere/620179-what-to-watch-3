@@ -174,10 +174,10 @@ const MovieDetails = ({
                 <Route exact path={`${path}`}>
                   <Tabs {...data} />
                 </Route>
-                <Route path={`/films/${id}/details`}>
+                <Route path={`/films/:id/details`}>
                   <Tabs {...data} tab='details'/>
                 </Route>
-                <Route path={`/films/${id}/reviews`}>
+                <Route path={`/films/:id/reviews`}>
                   <Tabs {...data} tab='reviews'/>
                 </Route>
               </Switch>
