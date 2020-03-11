@@ -32,6 +32,13 @@ const films = [
   },
 ];
 
+const user = {
+  id: 1,
+  email: `test@email.com`,
+  name: `test user`,
+  avatarUrl: `avatar`
+};
+
 it(`Main renders correctly`, () => {
   const store = mockStore({
     [NameSpace.GENRES]: {
@@ -40,6 +47,12 @@ it(`Main renders correctly`, () => {
     },
     [NameSpace.FILMS]: {
       films
+    },
+    [NameSpace.USER]: {
+      user
+    },
+    [NameSpace.FAVORITES]: {
+      favorites: films
     }
   });
 

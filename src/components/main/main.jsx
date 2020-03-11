@@ -1,9 +1,15 @@
 // Libs
 import React, {memo} from "react";
 import {func, object, bool} from "prop-types";
+import {connect} from "react-redux";
 // Utils
 import {FilmType, FilmsType, HistoryType} from "../../types";
 import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
+import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
+import {getFilms} from "../../reducer/films/selectors.js";
+import {getIsAuth} from "../../reducer/user/selectors";
+import {getFavorites} from "../../reducer/favorites/selectors";
+import {LOGIN} from "../../router/paths.js";
 // Components
 import MovieList from "../movie-list/movie-list.jsx";
 import Genres from "../genres/genres.jsx";
@@ -16,16 +22,29 @@ const MovieListWithActiveCard = withActiveCard(MovieList);
 
 const Main = ({
   history,
-  promoData: {id, name, genre, released, backgroundImage, posterImage},
+  promoData: {id, name, genre, released, backgroundImage, posterImage} = {},
   onOpenCard,
   filteredFilms,
   isAuth,
   user: {avatarUrl} = {},
-  onClickMyList,
-  onClickAvatar
+  onClickAvatar,
+  loadFavorites,
+  updateFavorite,
+  favorites
 }) => {
   const handlePlayButtonClick = () => {
     history.push(`films/${id}/player`);
+  };
+
+  const isFavorite = !!favorites.find((film) => film.id === parseInt(id, 10));
+
+  const handleOnClickMyList = () => {
+    if (!isAuth) {
+      history.push(LOGIN);
+      return;
+    }
+
+    updateFavorite(id, isFavorite ? 0 : 1, loadFavorites);
   };
 
   const renderLogIn = <Avatar isAuth={isAuth} onClick={onClickAvatar} avatarUrl={avatarUrl}/>;
@@ -90,7 +109,7 @@ const Main = ({
                   </svg>
                   <span>Play</span>
                 </button>
-                <MyListButton isAuth={isAuth} onClick={onClickMyList}/>
+                <MyListButton isAuth={isAuth} isFavorite={isFavorite} onClick={handleOnClickMyList}/>
               </div>
             </div>
           </div>
@@ -124,10 +143,28 @@ Main.propTypes = {
   promoData: FilmType,
   onOpenCard: func,
   filteredFilms: FilmsType,
-  isAuth: bool,
   user: object,
-  onClickMyList: func,
-  onClickAvatar: func
+  onClickAvatar: func,
+  loadFavorites: func,
+  updateFavorite: func,
+  films: FilmsType,
+  isAuth: bool,
+  favorites: FilmsType
 };
 
-export default memo(Main);
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
+  isAuth: getIsAuth(state),
+  favorites: getFavorites(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFavorites() {
+    dispatch(FavoritesOperation.loadFavorites());
+  },
+  updateFavorite: (id, status, cb) => {
+    dispatch(FavoritesOperation.setFavoriteStatus(id, status, cb));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Main));

@@ -86,7 +86,10 @@ const MovieCard = ({
 
 MovieCard.defaultProps = {
   setTimer: () => {},
-  getTimer: () => {}
+  getTimer: () => {},
+  setActiveItem: () => {},
+  removeActiveItem: () => {},
+  removeTimer: () => {}
 };
 
 MovieCard.propTypes = {

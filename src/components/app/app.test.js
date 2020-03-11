@@ -8,12 +8,6 @@ import {App} from './app';
 
 const mockStore = configureStore([]);
 
-const promoData = {
-  name: `promoName`,
-  genre: `promoGenre`,
-  releaseDate: 0,
-};
-
 const films = [
   {
     id: 1,
@@ -38,7 +32,6 @@ const films = [
   },
 ];
 
-
 it(`App renders correctly`, () => {
   const store = mockStore({
     [NameSpace.GENRES]: {
@@ -47,14 +40,29 @@ it(`App renders correctly`, () => {
     },
     [NameSpace.FILMS]: {
       films
-    }
+    },
+    [NameSpace.PROMO]: {
+      promo: films[0]
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: `AUTH`,
+      user: {
+        id: 1,
+        email: `test@email.com`,
+        name: `test user`,
+        avatarUrl: `avatar`
+      }
+    },
+    [NameSpace.FAVORITES]: {
+      favorites: films
+    },
   });
 
   const tree = renderer
     .create(
         <Provider store={store}>
           <BrowserRouter>
-            <App promoData={promoData} filteredFilms={films}/>
+            <App filteredFilms={films}/>
           </BrowserRouter>
         </Provider>)
     .toJSON();

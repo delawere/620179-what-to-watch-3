@@ -46,14 +46,14 @@ export const HistoryType = shape({
   block: func.isRequired,
   canGo: func,
   createHref: func.isRequired,
-  entries: arrayOf(location),
+  entries: arrayOf(LoacationType),
   go: func.isRequired,
   goBack: func.isRequired,
   goForward: func.isRequired,
   index: number,
   length: number,
   listen: func.isRequired,
-  location: location.isRequired,
+  location: LoacationType.isRequired,
   push: func.isRequired,
   replace: func.isRequired
 });

@@ -42,4 +42,5 @@ const mapStateToProps = (state) => ({
   isAuth: getIsAuth(state)
 });
 
+export {Avatar};
 export default connect(mapStateToProps)(memo(withRouter(Avatar)));

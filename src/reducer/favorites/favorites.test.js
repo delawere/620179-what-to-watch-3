@@ -6,7 +6,8 @@ const api = createAPI(() => {});
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
-    favorites: []
+    favorites: [],
+    error: ``
   });
 });
 
@@ -36,7 +37,7 @@ describe(`Operation work correctly`, () => {
     apiMock.onGet(`/favorite`).reply(200, [{fake: true}]);
 
     return loadFav(dispatch, () => {}, api).then(() => {
-      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.SET_FAVORITES,
         payload: [{fake: true}]

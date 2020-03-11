@@ -9,7 +9,8 @@ const api = createAPI(() => {});
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     authorizationStatus: NO_AUTH,
-    user: {}
+    user: {},
+    error: ``
   });
 });
 
@@ -36,7 +37,7 @@ describe(`Operation work correctly`, () => {
 
     return checkAuth(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(2);
+          expect(dispatch).toHaveBeenCalledTimes(3);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.SET_AUTH,
             payload: AUTH,
@@ -58,7 +59,7 @@ describe(`Operation work correctly`, () => {
 
     return login(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
+          expect(dispatch).toHaveBeenCalledTimes(3);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.SET_AUTH,
             payload: AUTH,

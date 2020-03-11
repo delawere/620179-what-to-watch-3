@@ -20,13 +20,14 @@ const DISABLE = {
 const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
 
-const AddReview = ({match, films, history, onSubmit, loading, error, comment, rating, onChangeComment, onChangeRating}) => {
+const AddReview = ({match, films = [], history, onSubmit, loading, error, comment, rating, onChangeComment, onChangeRating}) => {
   const {params: {id}} = match;
   const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
   const {
     name,
     posterImage,
-    backgroundImage
+    backgroundImage,
+    backgroundColor
   } = data;
 
   const handleOnSubmit = (e) => {
@@ -41,7 +42,9 @@ const AddReview = ({match, films, history, onSubmit, loading, error, comment, ra
   };
 
   return (
-    <section className="movie-card movie-card--full">
+    <section className="movie-card movie-card--full" style={{
+      backgroundColor
+    }}>
       <div className="movie-card__header">
         <div className="movie-card__bg">
           <img src={backgroundImage} alt={name}/>

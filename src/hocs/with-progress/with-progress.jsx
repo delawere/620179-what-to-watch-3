@@ -149,7 +149,7 @@ const withProgress = (Component) => {
 
   WithProgress.propTypes = {
     history: HistoryType,
-    setActivePlayer: func.isRequired,
+    setActivePlayer: func,
   };
 
   return WithProgress;

@@ -4,6 +4,7 @@ import {func, string, bool} from "prop-types";
 import {connect} from "react-redux";
 import {Route, Switch, withRouter} from "react-router-dom";
 // Utils
+import {LOGIN, INDEX, FILMS_$ID_PLAYER, FILMS_$ID_REVIEW, FILMS_$ID, MY_LIST} from '../../router/paths';
 import {FilmsType, FilmType, HistoryType} from "../../types";
 import {getFilmsByGenre} from "../../reducer/films/selectors";
 import {getGenreFilter} from "../../reducer/genres/selectors";
@@ -50,7 +51,7 @@ class App extends PureComponent {
     const {filteredFilms, activeItem, promo, setActivePlayer, history, films} = this.props;
     return (
       <Switch>
-        <Route exact path="/">
+        <Route exact path={INDEX}>
           <Main
             {...this.props}
             onOpenCard={this._handleOpenCard}
@@ -59,14 +60,14 @@ class App extends PureComponent {
             history={history}
           />
         </Route>
-        <Route path="/films/:id/player">
+        <Route path={FILMS_$ID_PLAYER}>
           <VideoPlayerWithProgress setActivePlayer={setActivePlayer} history={history} films={films}/>
         </Route>
-        <PrivateRoute exact path="/films/:id/review" render={() => (
+        <PrivateRoute exact path={FILMS_$ID_REVIEW} render={() => (
           <RewiewWithReviewData />
         )}>
         </PrivateRoute>
-        <Route path="/films/:id/">
+        <Route path={FILMS_$ID}>
           <MovieDetails
             {...this.props}
             cardData={activeItem}
@@ -75,10 +76,10 @@ class App extends PureComponent {
             setActivePlayer={setActivePlayer}
           />
         </Route>
-        <Route path="/login">
+        <Route path={LOGIN}>
           <SignInWithInputs />
         </Route>
-        <PrivateRoute exact path="/mylist" render={() => (
+        <PrivateRoute exact path={MY_LIST} render={() => (
           <MyList />
         )}>
         </PrivateRoute>
