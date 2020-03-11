@@ -3,24 +3,9 @@ import {func} from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {CommentsType, MatchType} from '../../types.js';
-import {getDate} from '../../utils/getDate.js'
 import {getComments} from '../../reducer/films/selectors';
 import {Operation as FilmsOperation} from "../../reducer/films/films.js";
-
-const Comment = ({user: {name} = {}, rating, comment, date}) => {
-  return (
-    <div className="review">
-      <blockquote className="review__quote">
-        <p className="review__text">{comment}</p>
-        <footer className="review__details">
-          <cite className="review__author">{name}</cite>
-          <time className="review__date" dateTime="2016-12-24">{getDate(date)}</time>
-        </footer>
-      </blockquote>
-      <div className="review__rating">{rating}</div>
-    </div>
-  );
-};
+import Comment from '../comment/comment.jsx';
 
 class Comments extends PureComponent {
   constructor(props) {
@@ -42,7 +27,10 @@ class Comments extends PureComponent {
     return (
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
-          {commentsData.map(({id, ...data}) => <Comment key={id} {...data}/>)}
+          {commentsData.map((data) => {
+            const {id} = data;
+            return <Comment key={id} {...data}/>;
+          })}
         </div>
       </div>);
   }
@@ -64,4 +52,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export {Comments};
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Comments));
