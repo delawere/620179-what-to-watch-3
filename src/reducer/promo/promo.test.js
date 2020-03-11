@@ -5,24 +5,26 @@ import {reducer, ActionType, Operation} from "./promo.js";
 
 const api = createAPI(() => {});
 
-it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(void 0, {})).toEqual({
-    promo: {}
+describe(`Reducers work correctly`, () => {
+  it(`Reducer without additional parameters should return initial state`, () => {
+    expect(reducer(void 0, {})).toEqual({
+      promo: {}
+    });
   });
-});
 
-it(`Reducer should update promo by set promo`, () => {
-  expect(reducer({
-    promo: {},
-  }, {
-    type: ActionType.SET_PROMO,
-    payload: {
-      test: `1`
-    },
-  })).toEqual({
-    promo: {
-      test: `1`
-    }
+  it(`Reducer should update promo by set promo`, () => {
+    expect(reducer({
+      promo: {},
+    }, {
+      type: ActionType.SET_PROMO,
+      payload: {
+        test: `1`
+      },
+    })).toEqual({
+      promo: {
+        test: `1`
+      }
+    });
   });
 });
 

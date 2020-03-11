@@ -4,26 +4,34 @@ import {reducer, ActionType, Operation} from "./favorites.js";
 
 const api = createAPI(() => {});
 
-it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(void 0, {})).toEqual({
-    favorites: [],
-    error: ``
+describe(`Reducers work correctly`, () => {
+  it(`Reducer without additional parameters should return initial state`, () => {
+    expect(reducer(void 0, {})).toEqual({
+      favorites: [],
+      error: ``
+    });
   });
-});
 
-it(`Reducer should update favorites status by set favorites`, () => {
-  expect(
-      reducer(
-          {
-            favorites: []
-          },
-          {
-            type: ActionType.SET_FAVORITES,
-            payload: [`test`]
-          }
-      )
-  ).toEqual({
-    favorites: [`test`]
+  it(`Reducer should update favorites status by set favorites`, () => {
+    expect(reducer({
+      favorites: []
+    }, {
+      type: ActionType.SET_FAVORITES,
+      payload: [`test`]
+    })).toEqual({
+      favorites: [`test`]
+    });
+  });
+
+  it(`Reducer should update error by set error`, () => {
+    expect(reducer({
+      error: ``
+    }, {
+      type: ActionType.SET_ERROR,
+      payload: `test error`
+    })).toEqual({
+      error: `test error`
+    });
   });
 });
 
