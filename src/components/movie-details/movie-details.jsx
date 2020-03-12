@@ -16,6 +16,7 @@ import MovieList from "../movie-list/movie-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import MyListButton from "../my-list-button/my-list-button.jsx";
 import Avatar from "../avatar/avatar.jsx";
+import Logo from '../logo/logo.jsx';
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
 
@@ -87,13 +88,7 @@ const MovieDetails = ({
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header movie-card__head">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
 
           <div className="user-block">
             <Avatar />
