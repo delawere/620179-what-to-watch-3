@@ -33,6 +33,8 @@ export const CommentType = exact({
   date: string
 });
 
+export const CommentsType = arrayOf(CommentType);
+
 export const LoacationType = shape({
   hash: string.isRequired,
   key: string,

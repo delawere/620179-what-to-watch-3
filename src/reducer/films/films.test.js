@@ -36,7 +36,8 @@ describe(`Reducers work correctly`, () => {
       films: [],
       shownCardsNumber: SHOWN_CARDS_NUMBER,
       loading: false,
-      error: ``
+      error: ``,
+      comments: []
     });
   });
 
@@ -82,6 +83,17 @@ describe(`Reducers work correctly`, () => {
       loading: true
     });
   });
+
+  it(`Reducer should update comments by set comments`, () => {
+    expect(reducer({
+      comments: []
+    }, {
+      type: ActionType.SET_COMMENTS,
+      payload: [`comments`]
+    })).toEqual({
+      comments: [`comments`]
+    });
+  });
 });
 
 describe(`Operation work correctly`, () => {
@@ -119,6 +131,23 @@ describe(`Operation work correctly`, () => {
     return addedComment(dispatch, () => {}, api)
         .then(() => {
           expect(dispatch).toHaveBeenCalled();
+        });
+  });
+
+  it(`Should make a correct API call to /comments`, () => {
+    const commentsLoader = Operation.loadComments();
+
+    apiMock
+        .onGet(`/comments/12`)
+        .reply(200, [{fake: true}]);
+
+    return commentsLoader(dispatch, () => {}, api)
+        .then(() => {
+          expect(dispatch).toHaveBeenCalled(1);
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.SET_COMMENTS,
+            payload: [{fake: true}],
+          });
         });
   });
 });

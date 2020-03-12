@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comment renders correctly 1`] = `
+<div
+  className="review"
+>
+  <blockquote
+    className="review__quote"
+  >
+    <p
+      className="review__text"
+    />
+    <footer
+      className="review__details"
+    >
+      <cite
+        className="review__author"
+      />
+      <time
+        className="review__date"
+        dateTime="2016-12-24"
+      >
+        December 12, 2011
+      </time>
+    </footer>
+  </blockquote>
+  <div
+    className="review__rating"
+  />
+</div>
+`;
