@@ -32,8 +32,8 @@ Array [
           className="logo"
         >
           <a
-            className="logo__link"
-            href="main.html"
+            className="logo__link logo__link--light"
+            href="/"
           >
             <span
               className="logo__letter logo__letter--1"
@@ -56,6 +56,7 @@ Array [
           className="user-block"
         >
           <a
+            className="sign-in__link"
             href="/login"
             onClick={[Function]}
           >

@@ -12,6 +12,7 @@ exports[`MyList renders correctly 1`] = `
     >
       <a
         className="logo__link logo__link--light"
+        href="/"
       >
         <span
           className="logo__letter logo__letter--1"
@@ -38,16 +39,13 @@ exports[`MyList renders correctly 1`] = `
     <div
       className="user-block"
     >
-      <div
-        className="user-block__avatar"
+      <a
+        className="sign-in__link"
+        href="/login"
+        onClick={[Function]}
       >
-        <img
-          alt="User avatar"
-          height="63"
-          src="img/avatar.jpg"
-          width="63"
-        />
-      </div>
+        Sign In
+      </a>
     </div>
   </header>
   <section
@@ -60,54 +58,7 @@ exports[`MyList renders correctly 1`] = `
     </h2>
     <div
       className="catalog__movies-list"
-    >
-      <article
-        className="small-movie-card catalog__movies-card"
-        onClick={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        style={
-          Object {
-            "position": "relative",
-          }
-        }
-      >
-        <div
-          className="small-movie-card__image"
-        >
-          <img
-            alt="test"
-            height="175"
-            width="280"
-          />
-        </div>
-        <h3
-          className="small-movie-card__title"
-          style={
-            Object {
-              "height": "100%",
-              "width": "100%",
-            }
-          }
-        >
-          <a
-            className="small-movie-card__link"
-            href="/films/1"
-            onClick={[Function]}
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "display": "flex",
-                "height": "100%",
-                "width": "100%",
-              }
-            }
-          >
-            test
-          </a>
-        </h3>
-      </article>
-    </div>
+    />
   </section>
   <footer
     className="page-footer"
@@ -117,6 +68,7 @@ exports[`MyList renders correctly 1`] = `
     >
       <a
         className="logo__link logo__link--light"
+        href="/"
       >
         <span
           className="logo__letter logo__letter--1"

@@ -1,5 +1,7 @@
 import React, {memo, forwardRef} from 'react';
 import {func, string, oneOfType, shape, object, number, bool} from 'prop-types';
+import {withRouter} from 'react-router-dom';
+import {MatchType, FilmsType} from '../../types.js';
 
 const renderedPlayIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#d9cd8d">
@@ -13,12 +15,21 @@ const renderedPauseIcon = (
   </svg>
 );
 
-const VideoPlayer = ({elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
+const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
+  const {
+    params: {id}
+  } = match;
+  const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
+  const {
+    videoLink,
+    previewImage
+  } = data;
+
   return (
     <div className="player">
-      <video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+      <video src={videoLink}
         className="player__video"
-        poster="img/player-poster.jpg"
+        poster={previewImage}
         autoPlay
         ref={forwardedRef}></video>
 
@@ -54,6 +65,8 @@ const VideoPlayer = ({elapsedTime, onClosePlayer, onClickPlayButton, onChangeMod
 };
 
 VideoPlayer.propTypes = {
+  match: MatchType,
+  films: FilmsType,
   onClosePlayer: func,
   onClickPlayButton: func,
   elapsedTime: string,
@@ -64,7 +77,7 @@ VideoPlayer.propTypes = {
 };
 
 
-const MemoizedVideoPlayer = memo(VideoPlayer);
+const MemoizedVideoPlayer = memo(withRouter(VideoPlayer));
 
 const MemoizedVideoPlayerWithRef = forwardRef((props, ref) => {
   return <MemoizedVideoPlayer {...props} forwardedRef={ref} />;
@@ -72,6 +85,7 @@ const MemoizedVideoPlayerWithRef = forwardRef((props, ref) => {
 
 MemoizedVideoPlayerWithRef.displayName = `VideoPlayer`;
 
+export {VideoPlayer};
 export default MemoizedVideoPlayerWithRef;
 
 

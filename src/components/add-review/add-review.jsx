@@ -4,12 +4,13 @@ import {number, string, func, bool} from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 // Utils
-import {HistoryType} from '../../types.js';
+import {HistoryType, FilmsType, MatchType} from '../../types.js';
 import {Operation as FilmsOperation} from '../../reducer/films/films.js';
-import {getLoading} from '../../reducer/films/selectors.js';
+import {getLoading, getFilms} from '../../reducer/films/selectors.js';
 import {getError} from '../../reducer/films/selectors.js';
 // Components
 import Logo from '../logo/logo.jsx';
+import Avatar from '../avatar/avatar.jsx';
 
 const DISABLE = {
   opacity: 0.2,
@@ -19,7 +20,16 @@ const DISABLE = {
 const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
 
-const AddReview = ({history, onSubmit, loading, error, id, comment, rating, onChangeComment, onChangeRating}) => {
+const AddReview = ({match, films = [], history, onSubmit, loading, error, comment, rating, onChangeComment, onChangeRating}) => {
+  const {params: {id}} = match;
+  const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
+  const {
+    name,
+    posterImage,
+    backgroundImage,
+    backgroundColor
+  } = data;
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
@@ -32,10 +42,12 @@ const AddReview = ({history, onSubmit, loading, error, id, comment, rating, onCh
   };
 
   return (
-    <section className="movie-card movie-card--full">
+    <section className="movie-card movie-card--full" style={{
+      backgroundColor
+    }}>
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -46,7 +58,7 @@ const AddReview = ({history, onSubmit, loading, error, id, comment, rating, onCh
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href="movie-page.html" className="breadcrumbs__link">{name}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -55,14 +67,12 @@ const AddReview = ({history, onSubmit, loading, error, id, comment, rating, onCh
           </nav>
 
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+            <Avatar />
           </div>
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={posterImage} alt={name} width="218" height="327" />
         </div>
       </div>
 
@@ -126,12 +136,15 @@ AddReview.propTypes = {
   rating: number,
   onChangeComment: func,
   onChangeRating: func,
-  error: string
+  error: string,
+  films: FilmsType,
+  match: MatchType
 };
 
 const mapStateToProps = (state) => ({
   loading: getLoading(state),
-  error: getError(state)
+  error: getError(state),
+  films: getFilms(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

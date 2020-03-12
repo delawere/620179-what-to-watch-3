@@ -10,7 +10,6 @@ Array [
     >
       <img
         alt="The Grand Budapest Hotel"
-        src="img/bg-the-grand-budapest-hotel.jpg"
       />
     </div>
     <h1
@@ -48,6 +47,7 @@ Array [
         className="user-block"
       >
         <a
+          className="sign-in__link"
           href="/login"
           onClick={[Function]}
         >
@@ -67,7 +67,6 @@ Array [
           <img
             alt="The Grand Budapest Hotel poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
           />
         </div>
@@ -89,9 +88,7 @@ Array [
             </span>
             <span
               className="movie-card__year"
-            >
-              0
-            </span>
+            />
           </p>
           <div
             className="movie-card__buttons"
@@ -316,6 +313,7 @@ Array [
       >
         <a
           className="logo__link logo__link--light"
+          href="/"
         >
           <span
             className="logo__letter logo__letter--1"

@@ -30,33 +30,57 @@ const films = [
 
 const SHOWN_CARDS_NUMBER = 8;
 
-it(`Reducer without additional parameters should return initial state`, () => {
-  expect(reducer(void 0, {})).toEqual({
-    films: [],
-    shownCardsNumber: SHOWN_CARDS_NUMBER,
-    loading: false,
-    error: ``
+describe(`Reducers work correctly`, () => {
+  it(`Reducer without additional parameters should return initial state`, () => {
+    expect(reducer(void 0, {})).toEqual({
+      films: [],
+      shownCardsNumber: SHOWN_CARDS_NUMBER,
+      loading: false,
+      error: ``
+    });
   });
-});
 
-it(`Reducer should update films by set films`, () => {
-  expect(reducer({
-    films: [],
-  }, {
-    type: ActionType.SET_FILMS,
-    payload: films,
-  })).toEqual({
-    films,
+  it(`Reducer should update films by set films`, () => {
+    expect(reducer({
+      films: [],
+    }, {
+      type: ActionType.SET_FILMS,
+      payload: films,
+    })).toEqual({
+      films,
+    });
   });
-});
 
-it(`Reducer should increase shown cards number`, () => {
-  expect(reducer({
-    shownCardsNumber: SHOWN_CARDS_NUMBER
-  }, {
-    type: ActionType.SHOW_MORE_CARDS,
-  })).toEqual({
-    shownCardsNumber: SHOWN_CARDS_NUMBER * 2
+  it(`Reducer should increase shown cards number`, () => {
+    expect(reducer({
+      shownCardsNumber: SHOWN_CARDS_NUMBER
+    }, {
+      type: ActionType.SHOW_MORE_CARDS,
+    })).toEqual({
+      shownCardsNumber: SHOWN_CARDS_NUMBER * 2
+    });
+  });
+
+  it(`Reducer should update error by set error`, () => {
+    expect(reducer({
+      error: ``
+    }, {
+      type: ActionType.SET_ERROR,
+      payload: `test error`,
+    })).toEqual({
+      error: `test error`
+    });
+  });
+
+  it(`Reducer should update loading by set loading`, () => {
+    expect(reducer({
+      loading: false
+    }, {
+      type: ActionType.SET_LOADING,
+      payload: true,
+    })).toEqual({
+      loading: true
+    });
   });
 });
 

@@ -27,6 +27,13 @@ const match = {
   }
 };
 
+const user = {
+  id: 1,
+  email: `test@email.com`,
+  name: `test user`,
+  avatarUrl: `avatar`
+};
+
 it(`MovieDetails renders correctly`, () => {
   const store = mockStore({
     [NameSpace.GENRES]: {
@@ -36,6 +43,9 @@ it(`MovieDetails renders correctly`, () => {
     [NameSpace.FILMS]: {
       films
     },
+    [NameSpace.USER]: {
+      user
+    }
   });
 
   const tree = renderer
