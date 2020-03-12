@@ -67,7 +67,7 @@ export const Operation = {
           });
   },
   loadComments: (id, cb) => (dispatch, _, api) => {
-    return api.get(`comments/${id}`)
+    return api.get(`/comments/${id}`)
       .then(({data}) => {
         dispatch(ActionCreator.setComments(data.map((comment) => keysToCamel(comment))));
         if (typeof cb === `function`) {

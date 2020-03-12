@@ -20,7 +20,7 @@ const DISABLE = {
 const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
 
-const AddReview = ({match, films = [], history, onSubmit, loading, error, comment, rating, onChangeComment, onChangeRating}) => {
+const AddReview = ({match, films = [], history, onSubmit, loading, error: requestError, comment, rating, onChangeComment, onChangeRating}) => {
   const {params: {id}} = match;
   const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
   const {
@@ -33,12 +33,14 @@ const AddReview = ({match, films = [], history, onSubmit, loading, error, commen
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    onSubmit(id, {
-      rating,
-      comment,
-    }, () => {
-      history.push(`/`);
-    });
+    if (comment.length >= COMMENT_MIN_LENGTH) {
+      onSubmit(id, {
+        rating,
+        comment,
+      }, () => {
+        history.push(`/`);
+      });
+    }
   };
 
   return (
@@ -97,7 +99,7 @@ const AddReview = ({match, films = [], history, onSubmit, loading, error, commen
             </div>
           </div>
 
-          {error ? <div>{`При отправке возникла ошибка: ${error}`}</div> : null}
+          {requestError ? <div>{`При отправке возникла ошибка: ${requestError}`}</div> : null}
           <div className="add-review__text">
             <textarea
               className="add-review__textarea"

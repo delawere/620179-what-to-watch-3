@@ -138,7 +138,7 @@ describe(`Operation work correctly`, () => {
     const commentsLoader = Operation.loadComments();
 
     apiMock
-        .onGet(`/comments/12`)
+        .onGet(`/comments/2`)
         .reply(200, [{fake: true}]);
 
     return commentsLoader(dispatch, () => {}, api)
