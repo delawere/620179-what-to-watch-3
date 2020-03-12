@@ -1,7 +1,11 @@
-import React, {PureComponent} from "react";
+import * as React from 'react';
+
+interface State {
+  activePlayer: boolean;
+}
 
 const withPlayer = (Component) => {
-  class WithPlayer extends PureComponent {
+  class WithPlayer extends React.PureComponent<{}, State> {
     constructor(props) {
       super(props);
 

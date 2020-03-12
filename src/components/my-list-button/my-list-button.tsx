@@ -1,7 +1,12 @@
-import React, {memo} from "react";
-import {bool, func} from "prop-types";
+import * as React from 'react';
 
-const MyListButton = ({isFavorite, isAuth, onClick}) => {
+interface Props {
+  isFavorite: boolean;
+  isAuth: boolean;
+  onClick: () => void;
+}
+
+const MyListButton = ({isFavorite, isAuth, onClick}: Props) => {
   const renderIcon = () => {
     if (isFavorite) {
       return (
@@ -34,10 +39,4 @@ const MyListButton = ({isFavorite, isAuth, onClick}) => {
   );
 };
 
-MyListButton.propTypes = {
-  isFavorite: bool,
-  isAuth: bool,
-  onClick: func
-};
-
-export default memo(MyListButton);
+export default React.memo(MyListButton);

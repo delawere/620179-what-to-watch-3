@@ -1,6 +1,5 @@
 // Libs
-import React, {PureComponent} from "react";
-import {func, string, bool} from "prop-types";
+import * as React from 'react';
 import {connect} from "react-redux";
 import {Route, Switch, withRouter} from "react-router-dom";
 // Utils
@@ -10,25 +9,36 @@ import {getFilmsByGenre} from "../../reducer/films/selectors";
 import {getGenreFilter} from "../../reducer/genres/selectors";
 import {getFilms} from "../../reducer/films/selectors";
 import {getUser, getIsAuth} from "../../reducer/user/selectors.js";
-import withProgress from "../../hocs/with-progress/with-progress.jsx";
-import withInputs from "../../hocs/with-inputs/with-inputs.jsx";
-import withCheckAuth from "../../hocs/with-check-auth/with-check-auth.jsx";
-import withReviewData from "../../hocs/with-review-data/with-review-data.jsx";
+import withProgress from "../../hocs/with-progress/with-progress";
+import withInputs from "../../hocs/with-inputs/with-inputs";
+import withCheckAuth from "../../hocs/with-check-auth/with-check-auth";
+import withReviewData from "../../hocs/with-review-data/with-review-data";
 // Components
 import Main from "../main/main.jsx";
-import MovieDetails from "../movie-details/movie-details.jsx";
-import VideoPlayer from "../video-player/video-player.jsx";
-import SignIn from "../sign-in/sign-in.jsx";
-import AddReview from "../add-review/add-review.jsx";
-import MyList from "../my-list/my-list.jsx";
-import PrivateRoute from '../private-route/private-route.jsx';
+import MovieDetails from "../movie-details/movie-details";
+import VideoPlayer from "../video-player/video-player";
+import SignIn from "../sign-in/sign-in";
+import AddReview from "../add-review/add-review";
+import MyList from "../my-list/my-list";
+import PrivateRoute from '../private-route/private-route';
 import {getPromo} from "../../reducer/promo/selectors";
 
 const VideoPlayerWithProgress = withProgress(VideoPlayer);
 const SignInWithInputs = withCheckAuth(withInputs(SignIn));
 const RewiewWithReviewData = withReviewData(AddReview);
 
-class App extends PureComponent {
+interface Props {
+  setActiveItem: (data: FilmType) => void;
+  setActivePlayer: (activePlayer: boolean) => void;
+  filteredFilms: FilmsType;
+  activeItem: FilmType;
+  promo: FilmType;
+  history: HistoryType;
+  films: FilmsType;
+  activePlayer: boolean;
+}
+
+class App extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
 
@@ -37,7 +47,7 @@ class App extends PureComponent {
     this._renderApp = this._renderApp.bind(this);
   }
 
-  _handleOpenCard(data) {
+  _handleOpenCard(data: FilmType) {
     const {setActiveItem} = this.props;
     setActiveItem(data);
   }
@@ -48,7 +58,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {filteredFilms, activeItem, promo, setActivePlayer, history, films} = this.props;
+    const {filteredFilms, activeItem, promo, setActivePlayer, history} = this.props;
     return (
       <Switch>
         <Route exact path={INDEX}>
@@ -61,7 +71,7 @@ class App extends PureComponent {
           />
         </Route>
         <Route path={FILMS_$ID_PLAYER}>
-          <VideoPlayerWithProgress setActivePlayer={setActivePlayer} history={history} films={films}/>
+          <VideoPlayerWithProgress setActivePlayer={setActivePlayer} history={history}/>
         </Route>
         <PrivateRoute exact path={FILMS_$ID_REVIEW} render={() => (
           <RewiewWithReviewData />
@@ -93,19 +103,6 @@ class App extends PureComponent {
       : this._renderApp();
   }
 }
-
-App.propTypes = {
-  history: HistoryType,
-  genreFilter: string,
-  setActiveItem: func,
-  activeItem: FilmType,
-  setActivePlayer: func,
-  activePlayer: bool,
-  isAuth: bool,
-  filteredFilms: FilmsType,
-  promo: FilmType,
-  films: FilmsType,
-};
 
 const mapStateToProps = (state) => ({
   films: getFilms(state),

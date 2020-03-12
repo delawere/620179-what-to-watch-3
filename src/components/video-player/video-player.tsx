@@ -1,7 +1,6 @@
-import React, {memo, forwardRef} from 'react';
-import {func, string, oneOfType, shape, object, number, bool} from 'prop-types';
+import * as React from 'react';
 import {withRouter} from 'react-router-dom';
-import {MatchType, FilmsType} from '../../types.js';
+import {MatchType, FilmsType, FilmType} from '../../types.js';
 
 const renderedPlayIcon = (
   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="#d9cd8d">
@@ -15,11 +14,25 @@ const renderedPauseIcon = (
   </svg>
 );
 
-const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}) => {
+interface Props {
+  match: MatchType;
+  films: FilmsType;
+  onClosePlayer: () => void;
+  onClickPlayButton: () => ConstrainVideoFacingModeParameters;
+  elapsedTime: string;
+  onChangeMode: () => void;
+  progress: number;
+  paused: () => void;
+  forwardedRef: () => void | {
+    current: object;
+  };
+}
+
+const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}: Props) => {
   const {
     params: {id}
   } = match;
-  const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
+  const data: FilmType = films.find(({id: movieId}) => movieId.toString() === id);
   const {
     videoLink,
     previewImage
@@ -64,22 +77,9 @@ const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlay
 
 };
 
-VideoPlayer.propTypes = {
-  match: MatchType,
-  films: FilmsType,
-  onClosePlayer: func,
-  onClickPlayButton: func,
-  elapsedTime: string,
-  onChangeMode: func,
-  progress: number,
-  paused: bool,
-  forwardedRef: oneOfType([func, shape({current: object})]),
-};
+const MemoizedVideoPlayer = React.memo(withRouter(VideoPlayer));
 
-
-const MemoizedVideoPlayer = memo(withRouter(VideoPlayer));
-
-const MemoizedVideoPlayerWithRef = forwardRef((props, ref) => {
+const MemoizedVideoPlayerWithRef = React.forwardRef((props, ref) => {
   return <MemoizedVideoPlayer {...props} forwardedRef={ref} />;
 });
 

@@ -1,16 +1,15 @@
 // Libs
-import React from 'react';
-import {number, string, func, bool} from 'prop-types';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 // Utils
-import {HistoryType, FilmsType, MatchType} from '../../types.js';
+import {HistoryType, FilmsType, FilmType, MatchType} from '../../types.js';
 import {Operation as FilmsOperation} from '../../reducer/films/films.js';
 import {getLoading, getFilms} from '../../reducer/films/selectors.js';
 import {getError} from '../../reducer/films/selectors.js';
 // Components
-import Logo from '../logo/logo.jsx';
-import Avatar from '../avatar/avatar.jsx';
+import Logo from '../logo/logo';
+import Avatar from '../avatar/avatar';
 
 const DISABLE = {
   opacity: 0.2,
@@ -20,9 +19,27 @@ const DISABLE = {
 const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
 
-const AddReview = ({match, films = [], history, onSubmit, loading, error: requestError, comment, rating, onChangeComment, onChangeRating}) => {
+interface Props {
+  history: HistoryType;
+  loading: boolean;
+  onSubmit: (id: number, {
+    rating: number,
+    comment: string
+  }, cb: () => void) => void;
+  id: number;
+  comment: string;
+  rating: number;
+  onChangeComment: () => void;
+  onChangeRating: () => void;
+  error: string;
+  films: FilmsType;
+  match: MatchType;
+}
+
+const AddReview = ({match, films = [], history, onSubmit, loading, error: requestError, comment, rating, onChangeComment, onChangeRating}: Props) => {
   const {params: {id}} = match;
-  const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
+  const data: FilmType = films.find(({id: movieId}) => movieId.toString() === id);
+
   const {
     name,
     posterImage,
@@ -127,20 +144,6 @@ const AddReview = ({match, films = [], history, onSubmit, loading, error: reques
 
     </section>
   );
-};
-
-AddReview.propTypes = {
-  history: HistoryType,
-  loading: bool,
-  onSubmit: func,
-  id: number,
-  comment: string,
-  rating: number,
-  onChangeComment: func,
-  onChangeRating: func,
-  error: string,
-  films: FilmsType,
-  match: MatchType
 };
 
 const mapStateToProps = (state) => ({

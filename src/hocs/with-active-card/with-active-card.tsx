@@ -1,12 +1,33 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
+import {FilmsType} from '../../types';
+
+interface Props {
+  onOpenCard?: () => void;
+  filteredFilms?: FilmsType;
+}
+
+interface State {
+  activeItem: {
+    genre: string;
+    previewImage: string;
+    name: string;
+  };
+  timer: number;
+}
+
+const INITIAL_STATE = {
+  genre: ``,
+  previewImage: ``,
+  name: ``
+};
 
 const withActiveItem = (Component) => (
-  class WithActiveItem extends PureComponent {
+  class WithActiveItem extends React.PureComponent<Props, State> {
     constructor(props) {
       super(props);
 
       this.state = {
-        activeItem: {},
+        activeItem: INITIAL_STATE,
         timer: null
       };
 
@@ -25,7 +46,7 @@ const withActiveItem = (Component) => (
 
     _removeActiveItem() {
       this.setState({
-        activeItem: {}
+        activeItem: INITIAL_STATE
       });
     }
 

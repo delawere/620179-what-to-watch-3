@@ -1,13 +1,17 @@
-import React, {PureComponent} from 'react';
-import {bool} from 'prop-types';
+import * as React from 'react';
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {HistoryType} from '../../types.js';
 import {getIsAuth} from '../../reducer/user/selectors';
 import {INDEX, LOGIN} from '../../router/paths.js';
 
+interface Props {
+  history: HistoryType;
+  isAuth: boolean;
+}
+
 const withCheckAuth = (Component) => {
-  class WithCheckAuth extends PureComponent {
+  class WithCheckAuth extends React.PureComponent<Props> {
     constructor(props) {
       super(props);
 
@@ -41,12 +45,6 @@ const withCheckAuth = (Component) => {
       );
     }
   }
-
-  WithCheckAuth.propTypes = {
-    history: HistoryType,
-    isAuth: bool
-  };
-
 
   const mapStateToProps = (state) => ({
     isAuth: getIsAuth(state)

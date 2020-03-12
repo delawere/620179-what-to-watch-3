@@ -1,7 +1,12 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
+
+interface State {
+  email: string;
+  password: string;
+}
 
 const withInputs = (Component) => (
-  class WithInputs extends PureComponent {
+  class WithInputs extends React.PureComponent<{}, State> {
     constructor(props) {
       super(props);
 

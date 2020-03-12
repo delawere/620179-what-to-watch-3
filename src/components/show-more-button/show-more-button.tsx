@@ -1,11 +1,16 @@
-import React, {memo} from 'react';
-import {func, number} from 'prop-types';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {FilmsType} from '../../types';
 import {ActionCreator} from '../../reducer/films/films.js';
 import {getShownCardsNumber} from '../../reducer/films/selectors';
 
-const ShowMoreButton = ({shownCardsNumber, showMoreCards, filteredFilms}) => {
+interface Props {
+  shownCardsNumber: number;
+  showMoreCards: () => void;
+  filteredFilms: FilmsType;
+}
+
+const ShowMoreButton = ({shownCardsNumber, showMoreCards, filteredFilms}: Props) => {
   const visible = shownCardsNumber <= filteredFilms.length;
 
   if (!visible) {
@@ -19,12 +24,6 @@ const ShowMoreButton = ({shownCardsNumber, showMoreCards, filteredFilms}) => {
   );
 };
 
-ShowMoreButton.propTypes = {
-  shownCardsNumber: number,
-  showMoreCards: func,
-  filteredFilms: FilmsType
-};
-
 const mapStateToProps = (state) => ({
   shownCardsNumber: getShownCardsNumber(state)
 });
@@ -35,4 +34,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(ShowMoreButton));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(ShowMoreButton));

@@ -1,7 +1,12 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
+
+interface State {
+  comment: string;
+  rating: number;
+}
 
 const withReviewData = (Component) => (
-  class WithReviewData extends PureComponent {
+  class WithReviewData extends React.PureComponent<{}, State> {
     constructor(props) {
       super(props);
 

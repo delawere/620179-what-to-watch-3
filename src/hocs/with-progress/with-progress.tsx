@@ -1,20 +1,38 @@
-import React, {PureComponent, createRef} from 'react';
-import {func} from 'prop-types';
+import * as React from 'react';
 import {HistoryType} from '../../types.js';
 
 const secondsToHms = (seconds) => {
   seconds = Number(seconds);
 
-  let h = Math.floor(seconds / 3600);
-  let m = Math.floor(seconds % 3600 / 60);
-  let s = Math.floor(seconds % 3600 % 60);
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor(seconds % 3600 / 60);
+  const s = Math.floor(seconds % 3600 % 60);
 
   return (`0` + h).slice(-2) + `:` + (`0` + m).slice(-2) + `:` + (`0` + s).slice(-2);
 };
 
+interface Props {
+  history?: HistoryType;
+  setActivePlayer: (active: boolean) => void;
+}
+
+interface State {
+  progress: number;
+  elapsedTime: string;
+  intervalId: number;
+}
+
+interface VideoElementType extends HTMLVideoElement {
+  webkitRequestFullScreen: () => void;
+  mozRequestFullScreen: () => void;
+  msRequestFullscreen: () => void;
+}
+
 
 const withProgress = (Component) => {
-  class WithProgress extends PureComponent {
+  class WithProgress extends React.PureComponent<Props, State> {
+    private videoRef: React.RefObject<VideoElementType>;
+
     constructor(props) {
       super(props);
 
@@ -24,7 +42,7 @@ const withProgress = (Component) => {
         intervalId: null,
       };
 
-      this.videoRef = createRef();
+      this.videoRef = React.createRef();
 
       this._handleClosePlayer = this._handleClosePlayer.bind(this);
       this.__handleOnClickPlayButton = this.__handleOnClickPlayButton.bind(this);
@@ -45,12 +63,12 @@ const withProgress = (Component) => {
 
     _handleOnPlayingVideo() {
       const video = this.videoRef.current;
-      const intervalId = setInterval(() => {
+      const intervalId: number = window.setInterval(() => {
         const elapsedTime = Math.floor(video.duration - video.currentTime);
 
         this._setProgress();
 
-        if (this.state.elapsedTime === elapsedTime) {
+        if (parseInt(this.state.elapsedTime, 10) === elapsedTime) {
           return;
         }
 
@@ -146,11 +164,6 @@ const withProgress = (Component) => {
         {...this.props}/>;
     }
   }
-
-  WithProgress.propTypes = {
-    history: HistoryType,
-    setActivePlayer: func,
-  };
 
   return WithProgress;
 };

@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import * as React from 'react';
 
 const Logo = () => (
   <div className="logo">
@@ -10,4 +10,4 @@ const Logo = () => (
   </div>
 );
 
-export default memo(Logo);
+export default React.memo(Logo);

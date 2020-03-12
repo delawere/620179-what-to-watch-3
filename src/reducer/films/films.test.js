@@ -135,7 +135,7 @@ describe(`Operation work correctly`, () => {
   });
 
   it(`Should make a correct API call to /comments`, () => {
-    const commentsLoader = Operation.loadComments();
+    const commentsLoader = Operation.loadComments(2);
 
     apiMock
         .onGet(`/comments/2`)

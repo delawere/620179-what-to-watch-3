@@ -1,5 +1,4 @@
-import React, {memo} from "react";
-import {string, func, bool, number} from "prop-types";
+import * as React from 'react';
 import {Link} from "react-router-dom";
 import {HistoryType} from '../../types.js';
 import Player from "../player/player.jsx";
@@ -16,6 +15,33 @@ const TITLE_STYLES = {
   height: `100%`
 };
 
+interface ActiveItem {
+  genre: string;
+  previewImage: string;
+  name: string;
+}
+
+interface Props {
+  key: number;
+  history?: HistoryType;
+  id: number;
+  name: string;
+  genre: string;
+  previewImage: string;
+  videoLink: string;
+  setActiveItem?: (activeItem: ActiveItem) => void;
+  removeActiveItem?: () => void;
+  setTimer?: (mouseOverTimer: number) => void;
+  getTimer?: () => number;
+  removeTimer?: (id: number) => void;
+  onOpenCard?: (card: {
+    id: number;
+  }) => void;
+  active?: boolean;
+}
+
+type Timeout = number
+
 const MovieCard = ({
   id,
   name,
@@ -29,9 +55,9 @@ const MovieCard = ({
   removeTimer,
   onOpenCard,
   active
-}) => {
+}: Props) => {
   const onMouseEnter = () => {
-    const mouseOverTimer = setTimeout(() => {
+    const mouseOverTimer: number = window.setTimeout(() => {
       setActiveItem({genre, previewImage, name});
     }, SHOW_PREVIEW_DELAY);
 
@@ -39,7 +65,7 @@ const MovieCard = ({
   };
 
   const onMouseLeave = () => {
-    const timerId = getTimer();
+    const timerId: number = getTimer();
     removeTimer(timerId);
 
     removeActiveItem();
@@ -79,33 +105,17 @@ const MovieCard = ({
           {name}
         </Link>
       </h3>
-      <Player active={active} src={videoLink} name={name} img={previewImage} />
+      <Player active={active} src={videoLink} img={previewImage} />
     </article>
   );
 };
 
 MovieCard.defaultProps = {
-  setTimer: () => {},
-  getTimer: () => {},
-  setActiveItem: () => {},
-  removeActiveItem: () => {},
-  removeTimer: () => {}
+  setTimer: () => void 0,
+  getTimer: () => void 0,
+  setActiveItem: () => void 0,
+  removeActiveItem: () => void 0,
+  removeTimer: () => void 0
 };
 
-MovieCard.propTypes = {
-  history: HistoryType,
-  id: number,
-  name: string,
-  genre: string,
-  previewImage: string,
-  videoLink: string,
-  setActiveItem: func,
-  removeActiveItem: func,
-  setTimer: func,
-  getTimer: func,
-  removeTimer: func,
-  onOpenCard: func,
-  active: bool,
-};
-
-export default memo(MovieCard);
+export default React.memo(MovieCard);

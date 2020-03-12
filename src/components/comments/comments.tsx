@@ -1,13 +1,18 @@
-import React, {PureComponent} from 'react';
-import {func} from 'prop-types';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {CommentsType, MatchType} from '../../types.js';
+import {CommentsType, MatchType, CommentType} from '../../types.js';
 import {getComments} from '../../reducer/films/selectors';
 import {Operation as FilmsOperation} from "../../reducer/films/films.js";
-import Comment from '../comment/comment.jsx';
+import Comment from '../comment/comment';
 
-class Comments extends PureComponent {
+interface Props {
+  commentsData: CommentsType;
+  match: MatchType;
+  loadComments: (id: number) => void;
+}
+
+class Comments extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
   }
@@ -27,7 +32,7 @@ class Comments extends PureComponent {
     return (
       <div className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
-          {commentsData.map((data) => {
+          {commentsData.map((data: CommentType) => {
             const {id} = data;
             return <Comment key={id} {...data}/>;
           })}
@@ -35,12 +40,6 @@ class Comments extends PureComponent {
       </div>);
   }
 }
-
-Comments.propTypes = {
-  commentsData: CommentsType,
-  match: MatchType,
-  loadComments: func
-};
 
 const mapStateToProps = (state) => ({
   commentsData: getComments(state)

@@ -1,14 +1,25 @@
 // Libs
-import React, {memo} from "react";
-import {string, func, number} from "prop-types";
+import * as React from 'react';
 import {connect} from "react-redux";
 // Utils
 import {FilmsType, FilmType} from '../../types';
 import {getShownCardsNumber} from "../../reducer/films/selectors.js";
 // Components
-import MovieCard from "../movie-card/movie-card.jsx";
+import MovieCard from "../movie-card/movie-card";
 
-const MovieList = (props) => {
+interface Props {
+  activeItem: FilmType;
+  filteredFilms: FilmsType;
+  filter: string;
+  onOpenCard: () => void;
+  shownCardsNumber: number;
+  setActiveItem: () => void;
+  removeActiveItem: () => void;
+  setTimer: () => void;
+  removeTimer: () => void;
+}
+
+const MovieList = (props: Props) => {
   const {shownCardsNumber, activeItem, filteredFilms} = props;
   const shownFilms = filteredFilms.slice(0, shownCardsNumber);
 
@@ -29,21 +40,9 @@ const MovieList = (props) => {
   );
 };
 
-MovieList.propTypes = {
-  activeItem: FilmType,
-  filteredFilms: FilmsType,
-  filter: string,
-  onOpenCard: func,
-  shownCardsNumber: number,
-  setActiveItem: func,
-  removeActiveItem: func,
-  setTimer: func,
-  removeTimer: func,
-};
-
 const mapStateToProps = (state) => ({
   shownCardsNumber: getShownCardsNumber(state)
 });
 
 export {MovieList};
-export default connect(mapStateToProps)(memo(MovieList));
+export default connect(mapStateToProps)(React.memo(MovieList));

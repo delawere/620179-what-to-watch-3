@@ -1,11 +1,21 @@
-import React, {memo} from 'react';
-import {func, string} from 'prop-types';
+import * as React from 'react';
 import {connect} from "react-redux";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import Footer from '../footer/footer.jsx';
 import Logo from '../logo/logo.jsx';
 
-const SignIn = ({onSubmit, email, password, onChangeEmail, onChangePassword}) => {
+interface Props {
+  onSubmit: (data: {
+    email: string;
+    password: string;
+  }) => void;
+  email: string;
+  password: string;
+  onChangeEmail: () => void;
+  onChangePassword: () => void;
+}
+
+const SignIn = ({onSubmit, email, password, onChangeEmail, onChangePassword}: Props) => {
   const wrapperOnSubmit = (event) => {
     event.preventDefault();
 
@@ -60,14 +70,6 @@ const SignIn = ({onSubmit, email, password, onChangeEmail, onChangePassword}) =>
   );
 };
 
-SignIn.propTypes = {
-  onSubmit: func,
-  email: string,
-  password: string,
-  onChangeEmail: func,
-  onChangePassword: func
-};
-
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
     dispatch(UserOperation.login(authData));
@@ -77,4 +79,4 @@ const mapDispatchToProps = (dispatch) => ({
 const WrapperSignIn = connect(null, mapDispatchToProps)(SignIn);
 
 export {SignIn};
-export default memo(WrapperSignIn);
+export default React.memo(WrapperSignIn);

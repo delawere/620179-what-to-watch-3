@@ -1,6 +1,5 @@
 // Libs
-import React, {memo} from "react";
-import {array, func, string} from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 // Utils
 import {FilmsType} from '../../types';
@@ -12,7 +11,14 @@ import GenresItem from '../genres-item/genres-item.jsx';
 
 const SELECTED_GENRE_CLASS = `catalog__genres-item--active`;
 
-const Genres = ({genres = [], genreFilter, films, onSelectGenre}) => {
+interface Props {
+  genres: string[];
+  genreFilter: string;
+  films: FilmsType;
+  onSelectGenre: (genre: string, films: FilmsType) => void;
+}
+
+const Genres = ({genres = [], genreFilter, films, onSelectGenre}: Props) => {
   const handleOnSelectGenre = (e, genre) => {
     e.preventDefault();
 
@@ -42,15 +48,8 @@ const Genres = ({genres = [], genreFilter, films, onSelectGenre}) => {
 Genres.defaultProps = {
   selectedGenre: `All genres`,
   genresList: [],
-  onSelectGenre: () => {},
+  onSelectGenre: () => void 0,
   films: []
-};
-
-Genres.propTypes = {
-  genres: array,
-  genreFilter: string,
-  films: FilmsType,
-  onSelectGenre: func
 };
 
 const mapStateToProps = (state) => ({
@@ -66,4 +65,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {Genres};
-export default connect(mapStateToProps, mapDispatchToProps)(memo(Genres));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Genres));

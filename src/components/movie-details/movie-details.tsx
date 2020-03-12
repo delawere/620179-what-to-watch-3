@@ -1,10 +1,9 @@
 // Libs
-import React, {memo} from "react";
-import {func, object, bool, array} from "prop-types";
+import * as React from 'react';
 import {connect} from "react-redux";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
 // Utils
-import {FilmsType, FilmType, HistoryType} from "../../types";
+import {FilmsType, FilmType, HistoryType, MatchType} from "../../types";
 import {LOGIN} from "../../router/paths.js";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
 import {getFilms} from "../../reducer/films/selectors.js";
@@ -12,13 +11,27 @@ import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
 import {getIsAuth} from "../../reducer/user/selectors";
 import {getFavorites} from "../../reducer/favorites/selectors";
 // Components
-import MovieList from "../movie-list/movie-list.jsx";
-import Tabs from "../tabs/tabs.jsx";
-import MyListButton from "../my-list-button/my-list-button.jsx";
-import Avatar from "../avatar/avatar.jsx";
-import Logo from '../logo/logo.jsx';
+import MovieList from "../movie-list/movie-list";
+import Tabs from "../tabs/tabs";
+import MyListButton from "../my-list-button/my-list-button";
+import Avatar from "../avatar/avatar";
+import Logo from '../logo/logo';
 
 const MovieListWithActiveCard = withActiveCard(MovieList);
+
+interface Props {
+  isAuth: boolean;
+  history: HistoryType;
+  match: MatchType;
+  cardData: FilmType;
+  films: FilmsType;
+  onOpenCard: () => void;
+  filteredFilms: FilmsType;
+  setActivePlayer: () => void;
+  updateFavorite: (id: number, isFavorite: 0 | 1, loadFavorites: () => void) => void;
+  favorites: FilmsType;
+  loadFavorites: () => void;
+}
 
 const MovieDetails = ({
   isAuth,
@@ -30,13 +43,13 @@ const MovieDetails = ({
   updateFavorite,
   favorites = [],
   loadFavorites,
-}) => {
+}: Props) => {
   const {
     path,
     url,
     params: {id}
   } = match;
-  const data = films.find(({id: movieId}) => movieId.toString() === id) || {};
+  const data: FilmType = films.find(({id: movieId}) => movieId.toString() === id);
   const {
     name,
     genre,
@@ -195,20 +208,6 @@ const MovieDetails = ({
   );
 };
 
-MovieDetails.propTypes = {
-  isAuth: bool,
-  history: HistoryType,
-  match: object,
-  cardData: FilmType,
-  films: FilmsType,
-  onOpenCard: func,
-  filteredFilms: FilmsType,
-  setActivePlayer: func,
-  updateFavorite: func,
-  favorites: array,
-  loadFavorites: func,
-};
-
 const mapStateToProps = (state) => ({
   films: getFilms(state),
   isAuth: getIsAuth(state),
@@ -228,4 +227,4 @@ export {MovieDetails};
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(withRouter(memo(MovieDetails)));
+)(withRouter(React.memo(MovieDetails)));

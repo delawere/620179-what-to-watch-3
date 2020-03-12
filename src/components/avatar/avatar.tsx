@@ -1,5 +1,4 @@
-import React, {memo} from "react";
-import {bool} from "prop-types";
+import * as React from 'react';
 import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {UserType, HistoryType} from '../../types.js';
@@ -7,7 +6,14 @@ import {getUser, getIsAuth} from "../../reducer/user/selectors";
 
 const ORIGIN = `https://htmlacademy-react-3.appspot.com`;
 
-const Avatar = ({history, isAuth, userData: {avatarUrl} = {}}) => {
+interface Props {
+  history: HistoryType;
+  isAuth: boolean;
+  userData: UserType;
+}
+
+const Avatar = ({history, isAuth, userData: {avatarUrl = ``}}: Props) => {
+
   const handleClickAvatar = () => {
     history.push(`/mylist`);
   };
@@ -31,16 +37,10 @@ const Avatar = ({history, isAuth, userData: {avatarUrl} = {}}) => {
   }
 };
 
-Avatar.propTypes = {
-  userData: UserType,
-  isAuth: bool,
-  history: HistoryType
-};
-
 const mapStateToProps = (state) => ({
   userData: getUser(state),
   isAuth: getIsAuth(state)
 });
 
 export {Avatar};
-export default connect(mapStateToProps)(memo(withRouter(Avatar)));
+export default connect(mapStateToProps)(React.memo(withRouter(Avatar)));

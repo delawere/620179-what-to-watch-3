@@ -1,9 +1,17 @@
-import React, {memo} from 'react';
-import {number, string} from 'prop-types';
-import {UserType} from '../../types.js';
+import * as React from 'react';
 import {getDateWithFullMonth, getDate} from '../../utils/getDate.js';
 
-const Comment = ({user: {name} = {}, rating, comment, date}) => {
+interface Props {
+  user: {
+    id: number;
+    name: string;
+  };
+  rating: number;
+  comment: string;
+  date: string;
+}
+
+const Comment = ({user: {name = ``}, rating, comment, date}: Props) => {
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -12,7 +20,9 @@ const Comment = ({user: {name} = {}, rating, comment, date}) => {
         }}>{comment}</p>
         <footer className="review__details">
           <cite className="review__author">{name}</cite>
-          <time className="review__date" dateTime={getDate(date)}>{getDateWithFullMonth(date)}</time>
+          <time className="review__date" dateTime={getDate(date)}>
+            {getDateWithFullMonth(date)}
+          </time>
         </footer>
       </blockquote>
       <div className="review__rating">{rating}</div>
@@ -20,11 +30,4 @@ const Comment = ({user: {name} = {}, rating, comment, date}) => {
   );
 };
 
-Comment.propTypes = {
-  user: UserType,
-  rating: number,
-  comment: string,
-  date: string
-};
-
-export default memo(Comment);
+export default React.memo(Comment);

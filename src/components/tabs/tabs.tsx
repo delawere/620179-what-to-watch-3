@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import * as React from 'react';
 import {withRouter} from "react-router-dom";
 import convertTime from '../../utils/convertTime.js';
 import Comments from '../comments/comments.jsx';
@@ -30,7 +30,20 @@ const getRatingLevelByScore = (score) => {
   return `-`;
 };
 
-const Tabs = ({description, rating, scoresCount, director, starring = [], genre, runTime, released, tab, id}) => {
+interface Props {
+  description: string;
+  rating: number;
+  scoresCount: number;
+  director: string;
+  starring: string[];
+  genre: string;
+  runTime: number;
+  released: number;
+  tab: string;
+  id: number;
+}
+
+const Tabs = ({description, rating, scoresCount, director, starring = [], genre, runTime, released, tab, id}: Props) => {
   const renderOverview = () => (
       <>
     <div className="movie-rating">
@@ -114,5 +127,5 @@ const Tabs = ({description, rating, scoresCount, director, starring = [], genre,
 };
 
 export {Tabs};
-export default withRouter(memo(Tabs));
+export default withRouter(React.memo(Tabs));
 

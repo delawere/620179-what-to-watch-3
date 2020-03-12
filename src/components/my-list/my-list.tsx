@@ -1,18 +1,23 @@
 // Libs
-import React, {PureComponent} from "react";
-import {array, func} from 'prop-types';
+import * as React from 'react';
 import {connect} from "react-redux";
 // Utils
+import {FilmsType} from '../../types.js';
 import {Operation as FavoritesOpearion} from "../../reducer/favorites/favorites.js";
 import {getFavorites} from "../../reducer/favorites/selectors.js";
 // Components
-import Logo from "../logo/logo.jsx";
-import Footer from "../footer/footer.jsx";
-import Avatar from '../avatar/avatar.jsx';
-import MovieCard from "../movie-card/movie-card.jsx";
+import Logo from "../logo/logo";
+import Footer from "../footer/footer";
+import Avatar from '../avatar/avatar';
+import MovieCard from "../movie-card/movie-card";
 
-class MyList extends PureComponent {
-  constructor(props) {
+interface Props {
+  favorites: FilmsType;
+  loadFavorites: () => void;
+}
+
+class MyList extends React.PureComponent<Props> {
+  constructor(props: Props) {
     super(props);
   }
 
@@ -40,9 +45,8 @@ class MyList extends PureComponent {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__movies-list">
-            {favorites.map((film) => {
-              const {id} = film;
-              return <MovieCard key={id} {...film}/>;
+            {favorites.map(({id, name, genre, previewImage, videoLink}) => {
+              return <MovieCard key={id} id={id} name={name} genre={genre} previewImage={previewImage} videoLink={videoLink}/>;
             })}
           </div>
         </section>
@@ -52,11 +56,6 @@ class MyList extends PureComponent {
     );
   }
 }
-
-MyList.propTypes = {
-  favorites: array,
-  loadFavorites: func
-};
 
 const mapStateToProps = (state) => ({
   favorites: getFavorites(state)
