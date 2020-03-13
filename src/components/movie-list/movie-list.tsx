@@ -8,9 +8,9 @@ import {getShownCardsNumber} from "../../reducer/films/selectors.js";
 import MovieCard from "../movie-card/movie-card";
 
 interface Props {
-  activeItem: FilmType;
+  activeItem?: FilmType;
   filteredFilms: FilmsType;
-  filter: string;
+  filter?: string;
   onOpenCard: () => void;
   shownCardsNumber: number;
   setActiveItem: () => void;

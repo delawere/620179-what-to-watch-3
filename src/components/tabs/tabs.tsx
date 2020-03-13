@@ -31,16 +31,16 @@ const getRatingLevelByScore = (score) => {
 };
 
 interface Props {
-  description: string;
-  rating: number;
-  scoresCount: number;
-  director: string;
-  starring: string[];
-  genre: string;
-  runTime: number;
-  released: number;
-  tab: string;
-  id: number;
+  description?: string;
+  rating?: number;
+  scoresCount?: number;
+  director?: string;
+  starring?: string[];
+  genre?: string;
+  runTime?: number;
+  released?: number;
+  tab?: string;
+  id?: number;
 }
 
 const Tabs = ({description, rating, scoresCount, director, starring = [], genre, runTime, released, tab, id}: Props) => {

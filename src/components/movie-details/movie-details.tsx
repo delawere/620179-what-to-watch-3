@@ -21,15 +21,15 @@ const MovieListWithActiveCard = withActiveCard(MovieList);
 
 interface Props {
   isAuth: boolean;
-  history: HistoryType;
-  match: MatchType;
+  history?: HistoryType;
+  match?: MatchType;
   cardData: FilmType;
   films: FilmsType;
   onOpenCard: () => void;
   filteredFilms: FilmsType;
   setActivePlayer: () => void;
   updateFavorite: (id: number, isFavorite: 0 | 1, loadFavorites: () => void) => void;
-  favorites: FilmsType;
+  favorites?: FilmsType;
   loadFavorites: () => void;
 }
 

@@ -1,10 +1,11 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
-import MyListButton from "./my-list-button.jsx";
+import MyListButton from "./my-list-button";
 
 const props = {
   isFavorite: true,
-  isAuth: true
+  isAuth: true,
+  onClick: () => void 0
 };
 
 it(`MyListButton renders correctly`, () => {

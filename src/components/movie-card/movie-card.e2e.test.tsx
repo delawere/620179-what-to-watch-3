@@ -1,14 +1,19 @@
 import * as React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {configure, shallow} from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
 import MovieCard from './movie-card';
 
-Enzyme.configure({
+configure({
   adapter: new Adapter()
 });
 
-const movieData = {
-  name: `test`,
+const props = {
+  key: 1,
+  id: 1,
+  name: ``,
+  genre: ``,
+  previewImage: ``,
+  videoLink: ``,
 };
 
 jest.useFakeTimers();
@@ -16,9 +21,8 @@ jest.useFakeTimers();
 describe(`MovieCard`, () => {
   it(`Should mouse enter on card`, () => {
     const setTimer = jest.fn();
-    const {name, img} = movieData;
     const movieCard = shallow(
-        <MovieCard name={name} img={img} setTimer={setTimer}/>
+        <MovieCard {...props} setTimer={setTimer}/>
     );
     movieCard.props().onMouseEnter();
 
@@ -31,7 +35,7 @@ describe(`MovieCard`, () => {
     const onClick = jest.fn();
     const e = {preventDefault: jest.fn()};
     const movieCard = shallow(
-        <MovieCard onOpenCard={onClick}/>
+        <MovieCard {...props} onOpenCard={onClick}/>
     );
 
     movieCard.props().onClick(e);

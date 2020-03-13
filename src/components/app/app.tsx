@@ -31,11 +31,11 @@ interface Props {
   setActiveItem: (data: FilmType) => void;
   setActivePlayer: (activePlayer: boolean) => void;
   filteredFilms: FilmsType;
-  activeItem: FilmType;
+  activeItem?: FilmType;
   promo: FilmType;
-  history: HistoryType;
+  history?: HistoryType;
   films: FilmsType;
-  activePlayer: boolean;
+  activePlayer?: boolean;
 }
 
 class App extends React.PureComponent<Props> {

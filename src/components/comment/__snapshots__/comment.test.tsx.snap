@@ -14,23 +14,29 @@ exports[`Comment renders correctly 1`] = `
           "wordBreak": "break-word",
         }
       }
-    />
+    >
+      
+    </p>
     <footer
       className="review__details"
     >
       <cite
         className="review__author"
-      />
+      >
+        
+      </cite>
       <time
         className="review__date"
-        dateTime="12.11.2011"
+        dateTime="11.10.2011"
       >
-        December 12, 2011
+        November 11, 2011
       </time>
     </footer>
   </blockquote>
   <div
     className="review__rating"
-  />
+  >
+    1
+  </div>
 </div>
 `;

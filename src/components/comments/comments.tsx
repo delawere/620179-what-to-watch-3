@@ -7,8 +7,8 @@ import {Operation as FilmsOperation} from "../../reducer/films/films.js";
 import Comment from '../comment/comment';
 
 interface Props {
-  commentsData: CommentsType;
-  match: MatchType;
+  commentsData?: CommentsType;
+  match?: MatchType;
   loadComments: (id: number) => void;
 }
 

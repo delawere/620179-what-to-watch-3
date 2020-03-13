@@ -143,7 +143,7 @@ describe(`Operation work correctly`, () => {
 
     return commentsLoader(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalled(1);
+          expect(dispatch).toHaveBeenCalled();
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.SET_COMMENTS,
             payload: [{fake: true}],

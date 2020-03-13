@@ -1,15 +1,15 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
-import {MyList} from "./my-list.jsx";
+import {MyList} from "./my-list";
 
 const mockStore = configureStore([]);
 
 const props = {
-  loadFavorites: () => {}
+  loadFavorites: () => void 0
 };
 
 const favorites = [

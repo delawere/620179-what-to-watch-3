@@ -20,17 +20,17 @@ import Avatar from '../avatar/avatar';
 const MovieListWithActiveCard = withActiveCard(MovieList);
 
 interface Props {
-  history: HistoryType;
+  history?: HistoryType;
   promoData: FilmType;
   onOpenCard: () => void;
   filteredFilms: FilmsType;
-  user: UserType;
+  user?: UserType;
   onClickAvatar: () => void;
   loadFavorites: () => void;
   updateFavorite: (id: number, isFavorite: 0 | 1, loadFavorites: () => void) => void;
   films: FilmsType;
   isAuth: boolean;
-  favorites: FilmsType;
+  favorites?: FilmsType;
 }
 
 const Main = ({
@@ -39,12 +39,20 @@ const Main = ({
   onOpenCard,
   filteredFilms,
   isAuth,
-  user: {avatarUrl},
+  user = {
+    id: 1,
+    email: '',
+    name: '',
+    avatarUrl: ''
+  },
   onClickAvatar,
   loadFavorites,
   updateFavorite,
   favorites
 }: Props) => {
+
+  const {avatarUrl} = user
+
   const handlePlayButtonClick = () => {
     history.push(`films/${id}/player`);
   };

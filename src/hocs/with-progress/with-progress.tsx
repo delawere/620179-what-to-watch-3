@@ -14,7 +14,7 @@ const secondsToHms = (seconds) => {
 interface Props {
   history?: HistoryType;
   setActivePlayer: (active: boolean) => void;
-  films: FilmsType;
+  films?: FilmsType;
 }
 
 interface State {

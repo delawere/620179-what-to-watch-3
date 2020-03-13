@@ -1,19 +1,22 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {MemoryRouter} from 'react-router';
 import MovieCard from './movie-card';
 
-const movieData = {
-  name: `test`,
-  img: `img/test.jpg`
+const props = {
+  key: 1,
+  id: 1,
+  name: ``,
+  genre: ``,
+  previewImage: ``,
+  videoLink: ``,
 };
 
 it(`MovieCard renders correctly`, () => {
-  const {name, img} = movieData;
   const tree = renderer
     .create(
         <MemoryRouter initialEntries={[`/test`]} >
-          <MovieCard name={name} img={img}/>
+          <MovieCard {...props}/>
         </MemoryRouter>
     )
     .toJSON();

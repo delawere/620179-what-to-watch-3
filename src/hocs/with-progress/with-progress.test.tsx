@@ -1,11 +1,15 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {func, oneOfType, shape, object} from 'prop-types';
-import withProgress from './with-progress.jsx';
+import withProgress from './with-progress';
 
-const MockComponent = () => <video />;
+interface Props {
+  forwardedRef?: React.RefObject<HTMLVideoElement>;
+}
 
-const MockComponentWithRef = React.forwardRef((props, ref) => {
+const MockComponent = ({forwardedRef}: Props) => <video ref={forwardedRef}/>;
+
+const MockComponentWithRef = React.forwardRef((props, ref: React.RefObject<HTMLVideoElement>) => {
   return <MockComponent {...props} forwardedRef={ref} />;
 });
 
@@ -19,7 +23,7 @@ const MockComponentWrapped = withProgress(MockComponentWithRef);
 
 it(`withProgress renders correctly`, () => {
   const tree = renderer.create((
-    <MockComponentWrapped setActivePlayer={() => {}}/>
+    <MockComponentWrapped setActivePlayer={() => void 0}/>
   ), {
     createNodeMock() {
       return {};

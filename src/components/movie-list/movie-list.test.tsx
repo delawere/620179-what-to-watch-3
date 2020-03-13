@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {BrowserRouter as Router} from 'react-router-dom';
@@ -7,26 +7,39 @@ import {MovieList} from './movie-list';
 
 const mockStore = configureStore([]);
 
-const films = [
-  {
-    id: 1,
-    name: `name1`,
-    img: `img/name1.jpg`,
-  },
-  {
-    id: 2,
-    name: `name2`,
-    img: `img/name2.jpg`,
-  },
-  {
-    id: 3,
-    name: `name3`,
-    img: `img/name3.jpg`,
-  },
-];
+const noop = () => void 0;
 
-const activeItem = {
-  name: `test`
+const film = {
+  backgroundColor: `red`,
+  backgroundImage: `img`,
+  description: `desc`,
+  director: `dir`,
+  genre: `genre`,
+  id: 1,
+  isFavorite: false,
+  name: `film`,
+  posterImage: `img`,
+  previewImage: `img`,
+  previewVideoLink: `video`,
+  rating: 1,
+  released: 1,
+  runTime: 1,
+  scoresCount: 1,
+  starring: [`test`],
+  videoLink: `video`
+};
+
+const films = [film];
+
+const props = {
+  filteredFilms: films,
+  onOpenCard: noop,
+  shownCardsNumber: 1,
+  setActiveItem: noop,
+  removeActiveItem: noop,
+  setTimer: noop,
+  removeTimer: noop,
+  activeItem: film,
 };
 
 it(`MovieList renders correctly`, () => {
@@ -35,13 +48,11 @@ it(`MovieList renders correctly`, () => {
     filteredFilms: films
   });
 
-  const {filteredFilms} = store.getState();
-
   const tree = renderer
     .create(
         <Router>
           <Provider store={store}>
-            <MovieList filteredFilms={filteredFilms} activeItem={activeItem}/>
+            <MovieList {...props}/>
           </Provider>
         </Router>
     )

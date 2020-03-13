@@ -1,10 +1,10 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
-import {Avatar} from "./avatar.jsx";
+import {Avatar} from "./avatar";
 
 const mockStore = configureStore([]);
 

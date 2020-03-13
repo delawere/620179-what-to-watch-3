@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
@@ -8,30 +8,54 @@ import {MovieDetails} from './movie-details';
 
 const mockStore = configureStore([]);
 
+const noop = () => void 0;
+
 const cardData = {
-  name: `test`,
-  img: `img/test.jpg`
+  backgroundColor: `red`,
+  backgroundImage: `img`,
+  description: `desc`,
+  director: `dir`,
+  genre: `genre`,
+  id: 1,
+  isFavorite: false,
+  name: `film`,
+  posterImage: `img`,
+  previewImage: `img`,
+  previewVideoLink: `video`,
+  rating: 1,
+  released: 1,
+  runTime: 1,
+  scoresCount: 1,
+  starring: [`test`],
+  videoLink: `video`
 };
 
-const films = [
-  {id: 1, name: `test1`, img: `test1.img`, genre: `test1Genre`},
-  {id: 2, name: `test2`, img: `test2.img`, genre: `test2Genre`},
-  {id: 3, name: `test3`, img: `test3.img`, genre: `test3Genre`},
-];
-
-const match = {
-  path: `testPath`,
-  url: `testURL`,
-  params: {
-    id: `1`
-  }
-};
+const films = [cardData];
 
 const user = {
   id: 1,
   email: `test@email.com`,
   name: `test user`,
   avatarUrl: `avatar`
+};
+
+const props = {
+  isAuth: true,
+  cardData,
+  films,
+  onOpenCard: noop,
+  filteredFilms: films,
+  setActivePlayer: noop,
+  updateFavorite: noop,
+  loadFavorites: noop,
+  match: {
+    isExact: false,
+    params: {
+      id: 1
+    },
+    path: ``,
+    url: ``
+  }
 };
 
 it(`MovieDetails renders correctly`, () => {
@@ -52,12 +76,7 @@ it(`MovieDetails renders correctly`, () => {
     .create(
         <MemoryRouter initialEntries={[`/test`]} >
           <Provider store={store}>
-            <MovieDetails
-              cardData={cardData}
-              films={films}
-              match={match}
-              filteredFilms={films}
-              user={{avatarUrl: `test`}}/>
+            <MovieDetails {...props}/>
           </Provider>
         </MemoryRouter>)
     .toJSON();

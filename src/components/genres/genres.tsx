@@ -13,7 +13,7 @@ const SELECTED_GENRE_CLASS = `catalog__genres-item--active`;
 
 interface Props {
   genres: string[];
-  genreFilter: string;
+  genreFilter?: string;
   films: FilmsType;
   onSelectGenre: (genre: string, films: FilmsType) => void;
 }

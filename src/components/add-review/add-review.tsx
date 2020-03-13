@@ -20,8 +20,8 @@ const COMMENT_MIN_LENGTH = 50;
 const COMMENT_MAX_LENGTH = 400;
 
 interface Props {
-  history: HistoryType;
-  loading: boolean;
+  history?: HistoryType;
+  loading?: boolean;
   onSubmit: (id: number, {
     rating: number,
     comment: string
@@ -31,9 +31,9 @@ interface Props {
   rating: number;
   onChangeComment: () => void;
   onChangeRating: () => void;
-  error: string;
-  films: FilmsType;
-  match: MatchType;
+  error?: string;
+  films?: FilmsType;
+  match?: MatchType;
 }
 
 interface MovieData {
@@ -51,7 +51,7 @@ const defaultMovieData = {
 };
 
 const AddReview = ({match, films = [], history, onSubmit, loading, error: requestError, comment, rating, onChangeComment, onChangeRating}: Props) => {
-  const {params: {id}} = match;
+  const {params: {id = ``} = {}} = match;
   const data: FilmType | MovieData = films.find(({id: movieId}) => movieId.toString() === id) || defaultMovieData;
 
   const {

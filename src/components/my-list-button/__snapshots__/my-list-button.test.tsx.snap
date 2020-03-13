@@ -3,10 +3,12 @@
 exports[`MyListButton renders correctly 1`] = `
 <button
   className="btn btn--list movie-card__button"
+  onClick={[Function]}
   type="button"
 >
   <svg
     height="14"
+    onClick={[Function]}
     viewBox="0 0 18 14"
     width="18"
   >

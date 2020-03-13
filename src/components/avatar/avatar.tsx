@@ -7,12 +7,18 @@ import {getUser, getIsAuth} from "../../reducer/user/selectors";
 const ORIGIN = `https://htmlacademy-react-3.appspot.com`;
 
 interface Props {
-  history: HistoryType;
-  isAuth: boolean;
-  userData: UserType;
+  history?: HistoryType;
+  isAuth?: boolean;
+  userData?: UserType;
 }
 
-const Avatar = ({history, isAuth, userData: {avatarUrl = ``}}: Props) => {
+const Avatar = ({history, isAuth, userData = {
+  id: 1,
+  name: '',
+  email: '',
+  avatarUrl: ''
+}}: Props) => {
+  const {avatarUrl = ''} = userData
 
   const handleClickAvatar = () => {
     history.push(`/mylist`);

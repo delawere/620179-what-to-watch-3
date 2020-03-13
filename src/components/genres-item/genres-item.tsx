@@ -2,8 +2,8 @@ import * as React from 'react';
 
 interface Props {
   genre: string;
-  onClick: (event: React.MouseEvent) => void;
-  activeClass: string;
+  onClick: (event?: React.MouseEvent) => void;
+  activeClass?: string;
 }
 
 const GenresItem = ({genre, onClick, activeClass}: Props) => (

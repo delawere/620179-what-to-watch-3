@@ -12,7 +12,7 @@ import Avatar from '../avatar/avatar';
 import MovieCard from "../movie-card/movie-card";
 
 interface Props {
-  favorites: FilmsType;
+  favorites?: FilmsType;
   loadFavorites: () => void;
 }
 

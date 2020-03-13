@@ -5,7 +5,7 @@ exports[`AddReview renders correctly 1`] = `
   className="movie-card movie-card--full"
   style={
     Object {
-      "backgroundColor": undefined,
+      "backgroundColor": "",
     }
   }
 >
@@ -15,7 +15,10 @@ exports[`AddReview renders correctly 1`] = `
     <div
       className="movie-card__bg"
     >
-      <img />
+      <img
+        alt=""
+        src=""
+      />
     </div>
     <h1
       className="visually-hidden"
@@ -61,7 +64,9 @@ exports[`AddReview renders correctly 1`] = `
             <a
               className="breadcrumbs__link"
               href="movie-page.html"
-            />
+            >
+              
+            </a>
           </li>
           <li
             className="breadcrumbs__item"
@@ -90,7 +95,9 @@ exports[`AddReview renders correctly 1`] = `
       className="movie-card__poster movie-card__poster--small"
     >
       <img
+        alt=""
         height="327"
+        src=""
         width="218"
       />
     </div>
@@ -109,10 +116,11 @@ exports[`AddReview renders correctly 1`] = `
       >
         <div
           className="rating__stars"
+          onChange={[Function]}
         >
           <input
             className="rating__input"
-            defaultChecked={true}
+            defaultChecked={false}
             id="star-1"
             name="rating"
             type="radio"
@@ -140,7 +148,7 @@ exports[`AddReview renders correctly 1`] = `
           </label>
           <input
             className="rating__input"
-            defaultChecked={false}
+            defaultChecked={true}
             id="star-3"
             name="rating"
             type="radio"
@@ -191,8 +199,9 @@ exports[`AddReview renders correctly 1`] = `
           maxLength={400}
           minLength={50}
           name="review-text"
+          onChange={[Function]}
           placeholder="Review text"
-          value="test"
+          value=""
         />
         <div
           className="add-review__submit"

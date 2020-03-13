@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface Props {
-  active: boolean;
+  active?: boolean;
   src: string;
   img: string;
 }

@@ -1,10 +1,10 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
 import {Provider} from "react-redux";
 import {AUTH} from '../../consts.js';
 import {BrowserRouter} from "react-router-dom";
-import withCheckAuth from './with-check-auth.jsx';
+import withCheckAuth from './with-check-auth';
 import NameSpace from "../../reducer/name-space.js";
 import configureStore from "redux-mock-store";
 

@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
@@ -8,15 +8,22 @@ import {AddReview} from "./add-review";
 
 const mockStore = configureStore([]);
 
+const noop = () => void 0;
+
 const props = {
-  comment: `test`,
-  rating: 1,
+  onSubmit: noop,
+  id: 1,
+  comment: ``,
+  rating: 3,
+  onChangeComment: noop,
+  onChangeRating: noop,
   match: {
+    isExact: false,
     params: {
       id: 1
     },
     path: ``,
-    url: ``,
+    url: ``
   }
 };
 

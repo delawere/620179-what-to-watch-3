@@ -1,31 +1,30 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
-import {Genres} from "./genres.jsx";
+import {Genres} from "./genres";
 
 const genres = [`genre1`, `genre2`, `genre3`];
-const films = [
-  {
-    id: 1,
-    name: `name1`,
-    img: `img/name1.jpg`,
-    genre: `test1`,
-    preview: `test1`,
-  },
-  {
-    id: 2,
-    name: `name2`,
-    img: `img/name2.jpg`,
-    genre: `test2`,
-    preview: `test2`,
-  },
-  {
-    id: 3,
-    name: `name3`,
-    img: `img/name3.jpg`,
-    genre: `test3`,
-    preview: `test4`,
-  },
-];
+
+const film = {
+  backgroundColor: `red`,
+  backgroundImage: `img`,
+  description: `desc`,
+  director: `dir`,
+  genre: `genre`,
+  id: 1,
+  isFavorite: false,
+  name: `film`,
+  posterImage: `img`,
+  previewImage: `img`,
+  previewVideoLink: `video`,
+  rating: 1,
+  released: 1,
+  runTime: 1,
+  scoresCount: 1,
+  starring: [`test`],
+  videoLink: `video`
+};
+
+const films = [film];
 const genreFilter = `test1`;
 
 it(`Genres renders correctly`, () => {
@@ -34,7 +33,8 @@ it(`Genres renders correctly`, () => {
         <Genres
           genres={genres}
           genreFilter={genreFilter}
-          films={films} />
+          films={films}
+          onSelectGenre={() => void 0} />
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

@@ -1,11 +1,15 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {SignIn} from './sign-in';
+
+const noop = () => void 0;
 
 const props = {
   email: `fakeemail@mail.com`,
   password: `123456`,
-  onSubmit: () => {}
+  onSubmit: noop,
+  onChangeEmail: noop,
+  onChangePassword: noop
 };
 
 it(`SignIn renders correctly`, () => {

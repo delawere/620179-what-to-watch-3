@@ -40,8 +40,6 @@ interface Props {
   active?: boolean;
 }
 
-type Timeout = number
-
 const MovieCard = ({
   id,
   name,

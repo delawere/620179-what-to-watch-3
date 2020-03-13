@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
-import withPlayer from './with-player.jsx';
+import withPlayer from './with-player';
 
 const MockComponent = (props) => {
   const {children} = props;

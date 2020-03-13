@@ -10,6 +10,7 @@ Array [
     >
       <img
         alt="The Grand Budapest Hotel"
+        src="img"
       />
     </div>
     <h1
@@ -71,6 +72,7 @@ Array [
           <img
             alt="The Grand Budapest Hotel poster"
             height="327"
+            src="img"
             width="218"
           />
         </div>
@@ -79,16 +81,22 @@ Array [
         >
           <h2
             className="movie-card__title"
-          />
+          >
+            film
+          </h2>
           <p
             className="movie-card__meta"
           >
             <span
               className="movie-card__genre"
-            />
+            >
+              genre
+            </span>
             <span
               className="movie-card__year"
-            />
+            >
+              1
+            </span>
           </p>
           <div
             className="movie-card__buttons"
@@ -123,13 +131,13 @@ Array [
               type="button"
             >
               <svg
-                height="20"
+                height="14"
                 onClick={[Function]}
-                viewBox="0 0 19 20"
-                width="19"
+                viewBox="0 0 18 14"
+                width="18"
               >
                 <use
-                  xlinkHref="#add"
+                  xlinkHref="#in-list"
                 />
               </svg>
               <span>
@@ -196,8 +204,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="name1"
+              alt="film"
               height="175"
+              src="img"
               width="280"
             />
           </div>
@@ -223,99 +232,7 @@ Array [
                 }
               }
             >
-              name1
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          style={
-            Object {
-              "position": "relative",
-            }
-          }
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="name2"
-              height="175"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-            style={
-              Object {
-                "height": "100%",
-                "width": "100%",
-              }
-            }
-          >
-            <a
-              className="small-movie-card__link"
-              href="/films/2"
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignItems": "flex-end",
-                  "display": "flex",
-                  "height": "100%",
-                  "width": "100%",
-                }
-              }
-            >
-              name2
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          style={
-            Object {
-              "position": "relative",
-            }
-          }
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="name3"
-              height="175"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-            style={
-              Object {
-                "height": "100%",
-                "width": "100%",
-              }
-            }
-          >
-            <a
-              className="small-movie-card__link"
-              href="/films/3"
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignItems": "flex-end",
-                  "display": "flex",
-                  "height": "100%",
-                  "width": "100%",
-                }
-              }
-            >
-              name3
+              film
             </a>
           </h3>
         </article>

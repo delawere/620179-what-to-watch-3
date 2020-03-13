@@ -2,11 +2,12 @@
 
 exports[`GenresItem renders correctly 1`] = `
 <li
-  className="catalog__genres-item activeItem"
+  className="catalog__genres-item undefined"
 >
   <a
     className="catalog__genres-link"
     href="#"
+    onClick={[Function]}
   >
     test
   </a>

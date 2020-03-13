@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
-import withActiveCard from './with-active-card.jsx';
+import withActiveCard from './with-active-card';
 
 const MockComponent = (props) => {
   const {children} = props;

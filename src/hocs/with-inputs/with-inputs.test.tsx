@@ -1,7 +1,7 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
-import withInputs from './with-inputs.jsx';
+import withInputs from './with-inputs';
 
 const MockComponent = (props) => {
   const {children} = props;

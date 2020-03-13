@@ -15,15 +15,15 @@ const renderedPauseIcon = (
 );
 
 interface Props {
-  match: MatchType;
-  films: FilmsType;
+  match?: MatchType;
+  films?: FilmsType;
   onClosePlayer: () => void;
-  onClickPlayButton: () => ConstrainVideoFacingModeParameters;
+  onClickPlayButton: () => void;
   elapsedTime: string;
   onChangeMode: () => void;
   progress: number;
   paused: () => void;
-  forwardedRef: () => void | {
+  forwardedRef?: () => void | {
     current: object;
   };
 }
@@ -40,7 +40,7 @@ const defaultVideoData: VideoData = {
 
 const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}: Props) => {
   const {
-    params: {id}
+    params: {id = ``}
   } = match;
   const data: FilmType | VideoData = films.find(({id: movieId}) => movieId.toString() === id) || defaultVideoData;
   const {

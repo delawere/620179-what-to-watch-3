@@ -1,10 +1,10 @@
-import * as React from "react"
+import * as React from "react";
 import * as renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import NameSpace from "../../reducer/name-space.js";
-import {Comments} from './comments.jsx';
+import {Comments} from './comments';
 
 const mockStore = configureStore([]);
 
@@ -26,17 +26,20 @@ it(`Comments renders correctly`, () => {
     },
   });
 
+  const match = {
+    isExact: false,
+    params: {
+      id: 1
+    },
+    path: ``,
+    url: ``
+  };
+
   const tree = renderer
     .create(
         <Provider store={store}>
           <BrowserRouter>
-            <Comments match={{
-              params: {
-                id: 1
-              },
-              path: `test path`,
-              url: `test url`
-            }} loadComments={() => {}}/>
+            <Comments match={match} loadComments={() => (void 0)}/>
           </BrowserRouter>
         </Provider>
 
