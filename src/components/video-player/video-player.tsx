@@ -28,11 +28,21 @@ interface Props {
   };
 }
 
+interface VideoData {
+  videoLink: string;
+  previewImage: string;
+}
+
+const defaultVideoData: VideoData = {
+  videoLink: ``,
+  previewImage: ``
+};
+
 const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlayButton, onChangeMode, progress, paused, forwardedRef}: Props) => {
   const {
     params: {id}
   } = match;
-  const data: FilmType = films.find(({id: movieId}) => movieId.toString() === id);
+  const data: FilmType | VideoData = films.find(({id: movieId}) => movieId.toString() === id) || defaultVideoData;
   const {
     videoLink,
     previewImage
@@ -77,7 +87,7 @@ const VideoPlayer = ({match, films = [], elapsedTime, onClosePlayer, onClickPlay
 
 };
 
-const MemoizedVideoPlayer = React.memo(withRouter(VideoPlayer));
+const MemoizedVideoPlayer = withRouter(React.memo(VideoPlayer));
 
 const MemoizedVideoPlayerWithRef = React.forwardRef((props, ref) => {
   return <MemoizedVideoPlayer {...props} forwardedRef={ref} />;

@@ -1,5 +1,5 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react"
+import * as renderer from "react-test-renderer";
 import {oneOfType, arrayOf, node} from "prop-types";
 import withPlayer from './with-player.jsx';
 

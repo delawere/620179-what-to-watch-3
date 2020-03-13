@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {HistoryType} from '../../types.js';
+import {HistoryType, FilmsType} from '../../types.js';
 
 const secondsToHms = (seconds) => {
   seconds = Number(seconds);
@@ -14,6 +14,7 @@ const secondsToHms = (seconds) => {
 interface Props {
   history?: HistoryType;
   setActivePlayer: (active: boolean) => void;
+  films: FilmsType;
 }
 
 interface State {

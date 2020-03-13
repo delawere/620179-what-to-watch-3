@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Link} from "react-router-dom";
 import {HistoryType} from '../../types.js';
-import Player from "../player/player.jsx";
+import Player from "../player/player";
 
 const SHOW_PREVIEW_DELAY = 1000;
 const LINK_STYLES = {

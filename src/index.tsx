@@ -1,6 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import {createStore, applyMiddleware, compose} from "redux";
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+import {createStore, applyMiddleware} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
 import {Router} from "react-router-dom";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
@@ -10,20 +11,17 @@ import {Operation as FilmsOperation} from "./reducer/films/films.js";
 import {Operation as UserOperation} from "./reducer/user/user.js";
 import {Operation as FavoritesOperation} from "./reducer/favorites/favorites.js";
 import {Operation as PromoOperation} from "./reducer/promo/promo.js";
-import withActiveCard from "./hocs/with-active-card/with-active-card.jsx";
-import withPlayer from "./hocs/with-player/with-player.jsx";
+import withActiveCard from "./hocs/with-active-card/with-active-card";
+import withPlayer from "./hocs/with-player/with-player";
 import {createAPI} from "./api.js";
-import App from "./components/app/app.jsx";
+import App from "./components/app/app";
 
 const api = createAPI(() => void 0);
 
 const store = createStore(
     reducer,
-    compose(
-        applyMiddleware(thunk.withExtraArgument(api)),
-        window.__REDUX_DEVTOOLS_EXTENSION__
-          ? window.__REDUX_DEVTOOLS_EXTENSION__()
-          : (f) => f
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api))
     )
 );
 

@@ -3,7 +3,7 @@ import * as React from 'react';
 import {connect} from "react-redux";
 // Utils
 import {FilmType, FilmsType, HistoryType, UserType} from "../../types";
-import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
 import {getFilms} from "../../reducer/films/selectors.js";
 import {getIsAuth} from "../../reducer/user/selectors";

@@ -1,5 +1,5 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import * as React from "react"
+import * as renderer from "react-test-renderer";
 import {VideoPlayer} from './video-player.jsx';
 
 it(`VideoPlayer renders correctly`, () => {

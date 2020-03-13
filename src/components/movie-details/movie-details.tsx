@@ -7,7 +7,7 @@ import {FilmsType, FilmType, HistoryType, MatchType} from "../../types";
 import {LOGIN} from "../../router/paths.js";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
 import {getFilms} from "../../reducer/films/selectors.js";
-import withActiveCard from "../../hocs/with-active-card/with-active-card.jsx";
+import withActiveCard from "../../hocs/with-active-card/with-active-card";
 import {getIsAuth} from "../../reducer/user/selectors";
 import {getFavorites} from "../../reducer/favorites/selectors";
 // Components
@@ -33,6 +33,24 @@ interface Props {
   loadFavorites: () => void;
 }
 
+interface MovieDetailsData {
+  name: string;
+  genre: string;
+  posterImage: string;
+  released: number;
+  backgroundColor: string;
+  backgroundImage: string;
+}
+
+const defaultMovieDetailsData: MovieDetailsData = {
+  name: ``,
+  genre: ``,
+  posterImage: ``,
+  released: 0,
+  backgroundColor: ``,
+  backgroundImage: ``,
+};
+
 const MovieDetails = ({
   isAuth,
   match,
@@ -49,7 +67,7 @@ const MovieDetails = ({
     url,
     params: {id}
   } = match;
-  const data: FilmType = films.find(({id: movieId}) => movieId.toString() === id);
+  const data: FilmType | MovieDetailsData = films.find(({id: movieId}) => movieId.toString() === id) || defaultMovieDetailsData;
   const {
     name,
     genre,

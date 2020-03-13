@@ -1,11 +1,11 @@
-import React, {forwardRef} from "react";
-import renderer from "react-test-renderer";
+import * as React from "react"
+import * as renderer from "react-test-renderer";
 import {func, oneOfType, shape, object} from 'prop-types';
 import withProgress from './with-progress.jsx';
 
 const MockComponent = () => <video />;
 
-const MockComponentWithRef = forwardRef((props, ref) => {
+const MockComponentWithRef = React.forwardRef((props, ref) => {
   return <MockComponent {...props} forwardedRef={ref} />;
 });
 

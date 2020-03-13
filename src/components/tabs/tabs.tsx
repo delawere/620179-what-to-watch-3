@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {withRouter} from "react-router-dom";
 import convertTime from '../../utils/convertTime.js';
-import Comments from '../comments/comments.jsx';
+import Comments from '../comments/comments';
 
 const LEVELS = {
   bad: `Bad`,

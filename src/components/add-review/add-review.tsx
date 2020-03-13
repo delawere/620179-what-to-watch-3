@@ -36,9 +36,23 @@ interface Props {
   match: MatchType;
 }
 
+interface MovieData {
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  backgroundColor: string;
+}
+
+const defaultMovieData = {
+  name: ``,
+  posterImage: ``,
+  backgroundImage: ``,
+  backgroundColor: ``
+};
+
 const AddReview = ({match, films = [], history, onSubmit, loading, error: requestError, comment, rating, onChangeComment, onChangeRating}: Props) => {
   const {params: {id}} = match;
-  const data: FilmType = films.find(({id: movieId}) => movieId.toString() === id);
+  const data: FilmType | MovieData = films.find(({id: movieId}) => movieId.toString() === id) || defaultMovieData;
 
   const {
     name,

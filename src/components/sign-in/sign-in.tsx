@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import Footer from '../footer/footer.jsx';
-import Logo from '../logo/logo.jsx';
+import Footer from '../footer/footer';
+import Logo from '../logo/logo';
 
 interface Props {
   onSubmit: (data: {

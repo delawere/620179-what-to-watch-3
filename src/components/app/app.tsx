@@ -14,7 +14,7 @@ import withInputs from "../../hocs/with-inputs/with-inputs";
 import withCheckAuth from "../../hocs/with-check-auth/with-check-auth";
 import withReviewData from "../../hocs/with-review-data/with-review-data";
 // Components
-import Main from "../main/main.jsx";
+import Main from "../main/main";
 import MovieDetails from "../movie-details/movie-details";
 import VideoPlayer from "../video-player/video-player";
 import SignIn from "../sign-in/sign-in";
@@ -53,12 +53,12 @@ class App extends React.PureComponent<Props> {
   }
 
   _renderVideoPlayer() {
-    const {setActivePlayer} = this.props;
-    return <VideoPlayerWithProgress setActivePlayer={setActivePlayer} />;
+    const {setActivePlayer, films} = this.props;
+    return <VideoPlayerWithProgress setActivePlayer={setActivePlayer} films={films}/>;
   }
 
   _renderApp() {
-    const {filteredFilms, activeItem, promo, setActivePlayer, history} = this.props;
+    const {filteredFilms, activeItem, promo, setActivePlayer, history, films} = this.props;
     return (
       <Switch>
         <Route exact path={INDEX}>
@@ -71,7 +71,7 @@ class App extends React.PureComponent<Props> {
           />
         </Route>
         <Route path={FILMS_$ID_PLAYER}>
-          <VideoPlayerWithProgress setActivePlayer={setActivePlayer} history={history}/>
+          <VideoPlayerWithProgress setActivePlayer={setActivePlayer} history={history} films={films}/>
         </Route>
         <PrivateRoute exact path={FILMS_$ID_REVIEW} render={() => (
           <RewiewWithReviewData />

@@ -7,7 +7,7 @@ import {ActionCreator} from "../../reducer/genres/genres.js";
 import {getGenreFilter, getGenres} from "../../reducer/genres/selectors";
 import {getFilms} from "../../reducer/films/selectors";
 // Components
-import GenresItem from '../genres-item/genres-item.jsx';
+import GenresItem from '../genres-item/genres-item';
 
 const SELECTED_GENRE_CLASS = `catalog__genres-item--active`;
 
