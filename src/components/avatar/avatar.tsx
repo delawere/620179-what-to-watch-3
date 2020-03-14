@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import Paths from '../../router/paths'
+import Paths from '../../router/paths';
 import {UserType, HistoryType} from '../../types.js';
 import {getUser, getIsAuth} from "../../reducer/user/selectors";
 
@@ -18,7 +18,7 @@ const defautUsetData = {
   name: ``,
   email: ``,
   avatarUrl: ``
-}
+};
 
 const Avatar = ({history, isAuth, userData = defautUsetData}: Props) => {
   const {avatarUrl = ``} = userData;

@@ -11,8 +11,8 @@ enum Levels {
   AWESOME = `Awesome`
 }
 
-const DETAILS = 'details'
-const REVIEWS = 'review'
+const DETAILS = `details`;
+const REVIEWS = `review`;
 
 const getRatingLevelByScore = (score) => {
   const {BAD, NORMAL, GOOD, VERY_GOOD, AWESOME} = Levels;
