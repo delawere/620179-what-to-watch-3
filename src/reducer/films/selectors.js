@@ -7,6 +7,7 @@ const NAME_SPACE = NameSpace.FILMS;
 
 export const getFilms = (state) => state[NAME_SPACE].films;
 export const getShownCardsNumber = (state) => state[NAME_SPACE].shownCardsNumber;
+export const getComments = (state) => state[NAME_SPACE].comments;
 export const getLoading = (state) => state[NAME_SPACE].loading;
 export const getError = (state) => state[NAME_SPACE].error;
 
