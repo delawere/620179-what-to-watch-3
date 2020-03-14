@@ -53,7 +53,7 @@ Genres.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  genres: getGenres(state),
+  genres: getGenres(state).slice(0, 8),
   genreFilter: getGenreFilter(state),
   films: getFilms(state)
 });

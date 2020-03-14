@@ -4,6 +4,8 @@ import {FilmsType} from '../../types';
 interface Props {
   onOpenCard?: () => void;
   filteredFilms?: FilmsType;
+  maxCardsNumber?: number;
+  openedFilmId?: number;
 }
 
 interface State {

@@ -219,6 +219,8 @@ const MovieDetails = ({
         <MovieListWithActiveCard
           onOpenCard={onOpenCard}
           filteredFilms={filteredFilms}
+          maxCardsNumber={4}
+          openedFilmId={id}
         />
       </section>
     </div>
