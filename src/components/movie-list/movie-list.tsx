@@ -17,23 +17,18 @@ interface Props {
   removeActiveItem: () => void;
   setTimer: () => void;
   removeTimer: () => void;
-  maxCardsNumber?: number; 
-  openedFilmId?: number;
 }
 
 const MovieList = (props: Props) => {
-  const {shownCardsNumber, activeItem, filteredFilms, maxCardsNumber, openedFilmId} = props;
-  const shownFilms = filteredFilms.slice(0, 
-    maxCardsNumber === undefined 
-      ? shownCardsNumber 
-      : maxCardsNumber
-  );
+  const {shownCardsNumber, activeItem, filteredFilms} = props;
 
   const getFilmsWithoutOpened = (films, openedId) => films.filter(({id}) => id !== parseInt(openedId, 10));
 
+  const shownFilms = filteredFilms.slice(0, shownCardsNumber)
+
   return (
     <div className="catalog__movies-list">
-      {getFilmsWithoutOpened(shownFilms, openedFilmId)
+      {shownFilms
         .map((film) => {
         const {name, id} = film;
         return (

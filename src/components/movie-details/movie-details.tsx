@@ -103,6 +103,17 @@ const MovieDetails = ({
     updateFavorite(id, isFavorite ? 0 : 1, loadFavorites);
   };
 
+  const filterFilmsByOpenedFilmGenre = (films, openedFilmGenre) => films.filter(({genre}) =>  genre === openedFilmGenre)
+  const deleteCurrentFilm = (films, id) => (
+    films.filter(({id: filmId}) => id !== filmId.toString())
+  ) 
+
+  const getPreparedFilms = (films, id, genre) => {
+    const result = filterFilmsByOpenedFilmGenre(deleteCurrentFilm(films, id), genre);
+
+    return result.slice(0, 4);
+  }
+
   return (
     <>
     <section
@@ -218,9 +229,7 @@ const MovieDetails = ({
         <h2 className="catalog__title">More like this</h2>
         <MovieListWithActiveCard
           onOpenCard={onOpenCard}
-          filteredFilms={filteredFilms}
-          maxCardsNumber={4}
-          openedFilmId={id}
+          filteredFilms={getPreparedFilms(filteredFilms, id, genre)}
         />
       </section>
     </div>
