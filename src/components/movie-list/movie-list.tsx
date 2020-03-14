@@ -21,25 +21,22 @@ interface Props {
 
 const MovieList = (props: Props) => {
   const {shownCardsNumber, activeItem, filteredFilms} = props;
-
-  const getFilmsWithoutOpened = (films, openedId) => films.filter(({id}) => id !== parseInt(openedId, 10));
-
-  const shownFilms = filteredFilms.slice(0, shownCardsNumber)
+  const shownFilms = filteredFilms.slice(0, shownCardsNumber);
 
   return (
     <div className="catalog__movies-list">
       {shownFilms
         .map((film) => {
-        const {name, id} = film;
-        return (
-          <MovieCard
-            key={id}
-            active={name === activeItem.name}
-            {...film}
-            {...props}
-          />
-        );
-      })}
+          const {name, id} = film;
+          return (
+            <MovieCard
+              key={id}
+              active={name === activeItem.name}
+              {...film}
+              {...props}
+            />
+          );
+        })}
     </div>
   );
 };

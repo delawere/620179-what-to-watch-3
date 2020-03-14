@@ -103,16 +103,16 @@ const MovieDetails = ({
     updateFavorite(id, isFavorite ? 0 : 1, loadFavorites);
   };
 
-  const filterFilmsByOpenedFilmGenre = (films, openedFilmGenre) => films.filter(({genre}) =>  genre === openedFilmGenre)
-  const deleteCurrentFilm = (films, id) => (
-    films.filter(({id: filmId}) => id !== filmId.toString())
-  ) 
+  const filterFilmsByOpenedFilmGenre = (filmsList, openedFilmGenre) => filmsList.filter(({genre: filmGenre}) => filmGenre === openedFilmGenre);
+  const deleteCurrentFilm = (filmsList, currentFilmId) => (
+    filmsList.filter(({id: filmId}) => currentFilmId !== filmId.toString())
+  );
 
-  const getPreparedFilms = (films, id, genre) => {
-    const result = filterFilmsByOpenedFilmGenre(deleteCurrentFilm(films, id), genre);
+  const getPreparedFilms = (filmsList, filmId, filmGenre) => {
+    const result = filterFilmsByOpenedFilmGenre(deleteCurrentFilm(filmsList, filmId), filmGenre);
 
     return result.slice(0, 4);
-  }
+  };
 
   return (
     <>
