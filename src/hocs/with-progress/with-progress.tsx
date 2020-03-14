@@ -84,7 +84,7 @@ const withProgress = (Component) => {
     componentDidMount() {
       const video = this.videoRef.current;
 
-      if (video) {
+      if (video && typeof video.play === `function`) {
         video.addEventListener(`playing`, this._handleOnPlayingVideo);
       }
     }

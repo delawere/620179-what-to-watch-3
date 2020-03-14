@@ -14,11 +14,11 @@ interface Props {
 
 const Avatar = ({history, isAuth, userData = {
   id: 1,
-  name: '',
-  email: '',
-  avatarUrl: ''
+  name: ``,
+  email: ``,
+  avatarUrl: ``
 }}: Props) => {
-  const {avatarUrl = ''} = userData
+  const {avatarUrl = ``} = userData;
 
   const handleClickAvatar = () => {
     history.push(`/mylist`);

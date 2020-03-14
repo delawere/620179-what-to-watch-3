@@ -135,16 +135,16 @@ describe(`Operation work correctly`, () => {
   });
 
   it(`Should make a correct API call to /comments`, () => {
-    const commentsLoader = Operation.loadComments(2);
+    const commentsLoader = Operation.loadComments(1);
 
     apiMock
-        .onGet(`/comments/2`)
+        .onGet(`/comments/1`)
         .reply(200, [{fake: true}]);
 
     return commentsLoader(dispatch, () => {}, api)
         .then(() => {
           expect(dispatch).toHaveBeenCalled();
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
+          expect(dispatch).toHaveBeenCalledWith({
             type: ActionType.SET_COMMENTS,
             payload: [{fake: true}],
           });

@@ -41,9 +41,9 @@ const Main = ({
   isAuth,
   user = {
     id: 1,
-    email: '',
-    name: '',
-    avatarUrl: ''
+    email: ``,
+    name: ``,
+    avatarUrl: ``
   },
   onClickAvatar,
   loadFavorites,
@@ -51,7 +51,7 @@ const Main = ({
   favorites
 }: Props) => {
 
-  const {avatarUrl} = user
+  const {avatarUrl} = user;
 
   const handlePlayButtonClick = () => {
     history.push(`films/${id}/player`);

@@ -46,33 +46,31 @@ export const ActionCreator = {
 export const Operation = {
   loadMovies: () => (dispatch, _, api) => {
     return api.get(`/films`)
-          .then(({data: films}) => {
-            dispatch(ActionCreator.setFilms(films.map((film) => keysToCamel(film))));
-            dispatch(GenresActionCreater.setGenres(getFilmGenres(films)));
-          });
+      .then(({data: films}) => {
+        dispatch(ActionCreator.setFilms(films.map((film) => keysToCamel(film))));
+        dispatch(GenresActionCreater.setGenres(getFilmGenres(films)));
+      });
   },
   addComment: (filmId, data, cb) => (dispatch, _1, api) => {
     dispatch(ActionCreator.setLoading(true));
     dispatch(ActionCreator.setError(``));
     return api.post(`/comments/${filmId}`, data)
-          .then(() => {
-            dispatch(ActionCreator.setLoading(false));
-            if (typeof cb === `function`) {
-              cb();
-            }
-          },
-          (error) => {
-            dispatch(ActionCreator.setLoading(false));
-            dispatch(ActionCreator.setError(error.toString()));
-          });
-  },
-  loadComments: (id, cb) => (dispatch, _, api) => {
-    return api.get(`/comments/${id}`)
-      .then(({data}) => {
-        dispatch(ActionCreator.setComments(data.map((comment) => keysToCamel(comment))));
+      .then(() => {
+        dispatch(ActionCreator.setLoading(false));
         if (typeof cb === `function`) {
           cb();
         }
+      },
+      (error) => {
+        dispatch(ActionCreator.setLoading(false));
+        dispatch(ActionCreator.setError(error.toString()));
+      });
+  },
+  loadComments: (id) => (dispatch, _, api) => {
+    return api.get(`/comments/${id}`)
+      .then(({data}) => {
+        const comments = data.map((comment) => keysToCamel(comment));
+        dispatch(ActionCreator.setComments(comments));
       });
   }
 };

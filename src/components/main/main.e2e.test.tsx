@@ -82,7 +82,7 @@ it(`Should title be clicked`, () => {
   const titles = main.find(`.small-movie-card__title`);
   const titlesLength = titles.length;
 
-  titles.forEach((title) => title.simulate('click'));
+  titles.forEach((title) => title.simulate(`click`));
 
   expect(onTitleClick).toHaveBeenCalledTimes(titlesLength);
 });
