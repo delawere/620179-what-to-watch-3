@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {HistoryType} from '../../types.js';
 import {getIsAuth} from '../../reducer/user/selectors';
-import {INDEX, LOGIN} from '../../router/paths.js';
+import Paths from '../../router/paths';
 
 interface Props {
   history: HistoryType;
@@ -34,7 +34,7 @@ const withCheckAuth = (Component) => {
 
     _pushHistory() {
       const {isAuth, history} = this.props;
-      const path = isAuth ? INDEX : LOGIN;
+      const path = isAuth ? Paths.INDEX : Paths.LOGIN;
 
       history.push(path);
     }

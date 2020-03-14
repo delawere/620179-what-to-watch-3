@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {LOGIN} from '../../router/paths.js';
+import Paths from '../../router/paths';
 import {getIsAuth} from "../../reducer/user/selectors.js";
 
 interface Props {
@@ -19,7 +19,7 @@ const PrivateRoute = ({render, path, exact, isAuth}: Props) => (
       return (
         isAuth
           ? render()
-          : <Redirect to={LOGIN} />
+          : <Redirect to={Paths.LOGIN} />
       );
     }}
   />

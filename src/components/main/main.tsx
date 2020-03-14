@@ -8,7 +8,7 @@ import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites
 import {getFilms} from "../../reducer/films/selectors.js";
 import {getIsAuth} from "../../reducer/user/selectors";
 import {getFavorites} from "../../reducer/favorites/selectors";
-import {LOGIN} from "../../router/paths.js";
+import Paths from "../../router/paths";
 // Components
 import MovieList from "../movie-list/movie-list";
 import Genres from "../genres/genres";
@@ -61,7 +61,7 @@ const Main = ({
 
   const handleOnClickMyList = () => {
     if (!isAuth) {
-      history.push(LOGIN);
+      history.push(Paths.LOGIN);
       return;
     }
 

@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
-import {func, oneOfType, shape, object} from 'prop-types';
 import withProgress from './with-progress';
 
 interface Props {
@@ -14,10 +13,6 @@ const MockComponentWithRef = React.forwardRef((props, ref: React.RefObject<HTMLV
 });
 
 MockComponentWithRef.displayName = `test`;
-
-MockComponent.propTypes = {
-  forwardedRef: oneOfType([func, shape({current: object})]),
-};
 
 const MockComponentWrapped = withProgress(MockComponentWithRef);
 

@@ -3,28 +3,31 @@ import {withRouter} from "react-router-dom";
 import convertTime from '../../utils/convertTime.js';
 import Comments from '../comments/comments';
 
-const LEVELS = {
-  bad: `Bad`,
-  normal: `Normal`,
-  good: `Good`,
-  veryGood: `Very Good`,
-  awesome: `Awesome`
-};
+enum Levels {
+  BAD = `Bad`,
+  NORMAL = `Normal`,
+  GOOD = `Good`,
+  VERY_GOOD = `Very Good`,
+  AWESOME = `Awesome`
+}
+
+const DETAILS = 'details'
+const REVIEWS = 'review'
 
 const getRatingLevelByScore = (score) => {
-  const {bad, normal, good, veryGood, awesome} = LEVELS;
+  const {BAD, NORMAL, GOOD, VERY_GOOD, AWESOME} = Levels;
   if (score >= 0 && score < 3) {
-    return bad;
+    return BAD;
   } else if (score >= 3 && score < 5) {
-    return normal;
+    return NORMAL;
 
   } else if (score >= 5 && score < 8) {
-    return good;
+    return GOOD;
 
   } else if (score >= 8 && score < 10) {
-    return veryGood;
+    return VERY_GOOD;
   } else if (score === 10) {
-    return awesome;
+    return AWESOME;
   }
 
   return `-`;
@@ -111,9 +114,9 @@ const Tabs = ({description, rating, scoresCount, director, starring = [], genre,
   );
 
   const renderActiveTab = () => {
-    if (tab === `details`) {
+    if (tab === DETAILS) {
       return renderDetails();
-    } else if (tab === `reviews`) {
+    } else if (tab === REVIEWS) {
       return renderReviews();
     } else {
       return renderOverview();

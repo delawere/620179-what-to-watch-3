@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Route, Switch, Link, withRouter} from "react-router-dom";
 // Utils
 import {FilmsType, FilmType, HistoryType, MatchType} from "../../types";
-import {LOGIN} from "../../router/paths.js";
+import Paths from "../../router/paths";
 import {Operation as FavoritesOperation} from "../../reducer/favorites/favorites.js";
 import {getFilms} from "../../reducer/films/selectors.js";
 import withActiveCard from "../../hocs/with-active-card/with-active-card";
@@ -96,7 +96,7 @@ const MovieDetails = ({
 
   const handleOnClickMyList = () => {
     if (!isAuth) {
-      history.push(LOGIN);
+      history.push(Paths.LOGIN);
       return;
     }
 
