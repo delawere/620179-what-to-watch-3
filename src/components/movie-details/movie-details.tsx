@@ -77,7 +77,7 @@ const MovieDetails = ({
     backgroundImage,
   } = data;
   const handlePlayButtonClick = () => {
-    history.push(`${url}/player`);
+    history.push(`/player/${id}`);
   };
 
   const renderAddReview = () => {

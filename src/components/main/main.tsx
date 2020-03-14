@@ -54,7 +54,7 @@ const Main = ({
   const {avatarUrl} = user;
 
   const handlePlayButtonClick = () => {
-    history.push(`films/${id}/player`);
+    history.push(`player/${id}`);
   };
 
   const isFavorite = !!favorites.find((film) => film.id === id, 10);
