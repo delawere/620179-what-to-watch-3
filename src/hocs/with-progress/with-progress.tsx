@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {HistoryType, FilmsType} from '../../types.js';
 
-const secondsToHms = (seconds) => {
+const convertSecondsToHms = (seconds) => {
   seconds = Number(seconds);
 
   const h = Math.floor(seconds / 3600);
@@ -73,7 +73,7 @@ const withProgress = (Component) => {
           return;
         }
 
-        this._setElapsedTime(secondsToHms(elapsedTime));
+        this._setElapsedTime(convertSecondsToHms(elapsedTime));
       }, 60);
 
       this.setState({

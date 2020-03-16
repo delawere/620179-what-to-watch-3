@@ -7,18 +7,18 @@ import {getUser, getIsAuth} from "../../reducer/user/selectors";
 
 const ORIGIN = `https://htmlacademy-react-3.appspot.com`;
 
-interface Props {
-  history?: HistoryType;
-  isAuth?: boolean;
-  userData?: UserType;
-}
-
 const defautUsetData = {
   id: 1,
   name: ``,
   email: ``,
   avatarUrl: ``
 };
+
+interface Props {
+  history?: HistoryType;
+  isAuth?: boolean;
+  userData?: UserType;
+}
 
 const Avatar = ({history, isAuth, userData = defautUsetData}: Props) => {
   const {avatarUrl = ``} = userData;

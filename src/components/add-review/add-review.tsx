@@ -7,6 +7,7 @@ import {HistoryType, FilmsType, FilmType, MatchType} from '../../types.js';
 import {Operation as FilmsOperation} from '../../reducer/films/films.js';
 import {getLoading, getFilms} from '../../reducer/films/selectors.js';
 import {getError} from '../../reducer/films/selectors.js';
+import Paths from '../../router/paths';
 // Components
 import Logo from '../logo/logo';
 import Avatar from '../avatar/avatar';
@@ -16,8 +17,24 @@ const DISABLE = {
   cursor: `initial`
 };
 
-const COMMENT_MIN_LENGTH = 50;
-const COMMENT_MAX_LENGTH = 400;
+enum CommentsRange {
+  min = 50,
+  max = 400
+}
+
+interface MovieData {
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  backgroundColor: string;
+}
+
+const defaultMovieData = {
+  name: ``,
+  posterImage: ``,
+  backgroundImage: ``,
+  backgroundColor: ``
+};
 
 interface Props {
   history?: HistoryType;
@@ -36,20 +53,6 @@ interface Props {
   match?: MatchType;
 }
 
-interface MovieData {
-  name: string;
-  posterImage: string;
-  backgroundImage: string;
-  backgroundColor: string;
-}
-
-const defaultMovieData = {
-  name: ``,
-  posterImage: ``,
-  backgroundImage: ``,
-  backgroundColor: ``
-};
-
 const AddReview = ({match, films = [], history, onSubmit, loading, error: requestError, comment, rating, onChangeComment, onChangeRating}: Props) => {
   const {params: {id = ``} = {}} = match;
   const data: FilmType | MovieData = films.find(({id: movieId}) => movieId.toString() === id) || defaultMovieData;
@@ -64,12 +67,12 @@ const AddReview = ({match, films = [], history, onSubmit, loading, error: reques
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
-    if (comment.length >= COMMENT_MIN_LENGTH) {
+    if (comment.length >= CommentsRange.min) {
       onSubmit(id, {
         rating,
         comment,
       }, () => {
-        history.push(`/`);
+        history.push(Paths.INDEX);
       });
     }
   };
@@ -137,8 +140,8 @@ const AddReview = ({match, films = [], history, onSubmit, loading, error: reques
               name="review-text"
               id="review-text"
               placeholder="Review text"
-              minLength={COMMENT_MIN_LENGTH}
-              maxLength={COMMENT_MAX_LENGTH}
+              minLength={CommentsRange.min}
+              maxLength={CommentsRange.max}
               value={comment}
               onChange={onChangeComment}
             ></textarea>
@@ -146,7 +149,7 @@ const AddReview = ({match, films = [], history, onSubmit, loading, error: reques
               <button
                 className="add-review__btn"
                 type="submit"
-                style={comment.length < COMMENT_MIN_LENGTH ? DISABLE : {}}
+                style={comment.length < CommentsRange.min ? DISABLE : {}}
               >
                 Post
               </button>
