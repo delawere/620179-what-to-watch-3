@@ -11,26 +11,32 @@ enum Levels {
   AWESOME = `Awesome`
 }
 
-const DETAILS = `details`;
-const REVIEWS = `reviews`;
+enum TabNames {
+  details = `details`,
+  reviews = `reviews`
+}
+
+const getNumberInRange = (number, min, max) => number >= min && number < max;
 
 const getRatingLevelByScore = (score) => {
   const {BAD, NORMAL, GOOD, VERY_GOOD, AWESOME} = Levels;
-  if (score >= 0 && score < 3) {
+  const DEFAULT = `-`;
+
+  if (getNumberInRange(score, 0, 3)) {
     return BAD;
-  } else if (score >= 3 && score < 5) {
+  } else if (getNumberInRange(score, 3, 5)) {
     return NORMAL;
 
-  } else if (score >= 5 && score < 8) {
+  } else if (getNumberInRange(score, 5, 8)) {
     return GOOD;
 
-  } else if (score >= 8 && score < 10) {
+  } else if (getNumberInRange(score, 8, 10)) {
     return VERY_GOOD;
   } else if (score === 10) {
     return AWESOME;
   }
 
-  return `-`;
+  return DEFAULT;
 };
 
 interface Props {
@@ -114,9 +120,9 @@ const Tabs = ({description, rating, scoresCount, director, starring = [], genre,
   );
 
   const renderActiveTab = () => {
-    if (tab === DETAILS) {
+    if (tab === TabNames.details) {
       return renderDetails();
-    } else if (tab === REVIEWS) {
+    } else if (tab === TabNames.reviews) {
       return renderReviews();
     } else {
       return renderOverview();
