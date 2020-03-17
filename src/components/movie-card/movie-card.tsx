@@ -113,7 +113,8 @@ MovieCard.defaultProps = {
   getTimer: () => void 0,
   setActiveItem: () => void 0,
   removeActiveItem: () => void 0,
-  removeTimer: () => void 0
+  removeTimer: () => void 0,
+  onOpenCard: () => void 0
 };
 
 export default React.memo(MovieCard);

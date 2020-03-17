@@ -6,11 +6,11 @@ import {getShownCardsNumber} from '../../reducer/films/selectors';
 
 interface Props {
   shownCardsNumber: number;
-  showMoreCards: () => void;
+  onShowMoreCards: () => void;
   filteredFilms: FilmsType;
 }
 
-const ShowMoreButton = ({shownCardsNumber, showMoreCards, filteredFilms}: Props) => {
+const ShowMoreButton = ({shownCardsNumber, onShowMoreCards, filteredFilms}: Props) => {
   const visible = shownCardsNumber <= filteredFilms.length;
 
   if (!visible) {
@@ -18,7 +18,7 @@ const ShowMoreButton = ({shownCardsNumber, showMoreCards, filteredFilms}: Props)
   }
 
   return (
-    <button className="catalog__button" type="button" onClick={showMoreCards}>
+    <button className="catalog__button" type="button" onClick={onShowMoreCards}>
       Show more
     </button>
   );
@@ -29,7 +29,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showMoreCards: () => {
+  onShowMoreCards: () => {
     dispatch(ActionCreator.showMoreCards());
   }
 });

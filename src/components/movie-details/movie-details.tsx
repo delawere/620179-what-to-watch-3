@@ -27,7 +27,6 @@ interface Props {
   films: FilmsType;
   onOpenCard: () => void;
   filteredFilms: FilmsType;
-  setActivePlayer: () => void;
   updateFavorite: (id: number, isFavorite: 0 | 1, loadFavorites: () => void) => void;
   favorites?: FilmsType;
   loadFavorites: () => void;
